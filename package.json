@@ -1,0 +1,104 @@
+{
+  "name": "zond-wallet-provider",
+  "version": "0.1.0",
+  "description": "The Ethereum provider object announced by the Zond Wallet, based on EIP-6963.",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "module": "./dist/main.js",
+  "main": "./dist/main.umd.cjs",
+  "exports": {
+    ".": {
+      "import": "./dist/main.js",
+      "require": "./dist/main.umd.js"
+    },
+    "./json-rpc-engine": {
+      "import": "./dist/jsonRpcEngine.js",
+      "require": "./dist/jsonRpcEngine.umd.js"
+    },
+    "./json-rpc-middleware-stream": {
+      "import": "./dist/jsonRpcMiddlewareStream.js",
+      "require": "./dist/jsonRpcMiddlewareStream.umd.js"
+    },
+    "./object-multiplex": {
+      "import": "./dist/objectMultiplex.js",
+      "require": "./dist/objectMultiplex.umd.js"
+    },
+    "./post-message-stream": {
+      "import": "./dist/postMessageStream.js",
+      "require": "./dist/postMessageStream.umd.js"
+    },
+    "./providers": {
+      "import": "./dist/providers.js",
+      "require": "./dist/providers.umd.js"
+    },
+    "./rpc-errors": {
+      "import": "./dist/rpcErrors.js",
+      "require": "./dist/rpcErrors.umd.js"
+    },
+    "./safe-event-emitter": {
+      "import": "./dist/safeEventEmitter.js",
+      "require": "./dist/safeEventEmitter.umd.js"
+    },
+    "./superstruct": {
+      "import": "./dist/superstruct.js",
+      "require": "./dist/superstruct.umd.js"
+    },
+    "./utils": {
+      "import": "./dist/utils.js",
+      "require": "./dist/utils.umd.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc && vite build",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "@ethereumjs/tx": "^5.4.0",
+    "@types/chrome": "^0.0.279",
+    "@types/readable-stream": "^4.0.16",
+    "@types/semver": "^7.5.8",
+    "@types/webextension-polyfill": "^0.12.1",
+    "debug": "^4.3.7",
+    "detect-browser": "^5.3.0",
+    "extension-port-stream": "^4.2.0",
+    "fast-deep-equal": "^3.1.3",
+    "fast-safe-stringify": "^2.1.1",
+    "is-stream": "^2.0.1",
+    "once": "^1.4.0",
+    "path": "^0.12.7",
+    "pony-cause": "^2.1.11",
+    "readable-stream": "^4.5.2",
+    "semver": "^7.6.3",
+    "tsd": "^0.31.2",
+    "typescript": "~5.6.2",
+    "vite": "^5.4.9",
+    "webextension-polyfill": "^0.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theQRL/zond-wallet-provider.git"
+  },
+  "author": "The Quantum Resistant Ledger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/theQRL/zond-wallet-provider/issues"
+  },
+  "homepage": "https://github.com/theQRL/zond-wallet-provider#readme",
+  "keywords": [
+    "zond",
+    "blockchain",
+    "wallet",
+    "provider",
+    "browser",
+    "dapp",
+    "extension",
+    "qrl",
+    "quantum",
+    "resistant",
+    "ledger",
+    "web3",
+    "crypto"
+  ]
+}
