@@ -1,12 +1,13 @@
 import path from "path";
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
   build: {
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, "src/index.ts"),
+        index: path.resolve(__dirname, "src/index.ts"),
         jsonRpcEngine: path.resolve(__dirname, "src/json-rpc-engine/index.ts"),
         jsonRpcMiddlewareStream: path.resolve(
           __dirname,
@@ -48,4 +49,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+  plugins: [
+    dts({
+      insertTypesEntry: true,
+    }),
+  ],
 });

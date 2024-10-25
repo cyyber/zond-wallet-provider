@@ -6,12 +6,12 @@
     "dist"
   ],
   "type": "module",
-  "module": "./dist/main.js",
-  "main": "./dist/main.umd.cjs",
+  "module": "./dist/index.js",
+  "main": "./dist/index.umd.cjs",
   "exports": {
     ".": {
-      "import": "./dist/main.js",
-      "require": "./dist/main.umd.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.js"
     },
     "./json-rpc-engine": {
       "import": "./dist/jsonRpcEngine.js",
@@ -74,6 +74,7 @@
     "tsd": "^0.31.2",
     "typescript": "~5.6.2",
     "vite": "^5.4.9",
+    "vite-plugin-dts": "^4.3.0",
     "webextension-polyfill": "^0.12.0"
   },
   "repository": {
