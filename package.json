@@ -1,5 +1,5 @@
 {
-  "name": "zond-wallet-provider",
+  "name": "@theqrl/zond-wallet-provider",
   "version": "0.1.0",
   "description": "The Ethereum provider object announced by the Zond Wallet, based on EIP-6963.",
   "files": [
