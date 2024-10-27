@@ -52,6 +52,7 @@ export default defineConfig({
   plugins: [
     dts({
       insertTypesEntry: true,
+      exclude: ["**/*.test.ts", "**/*.spec.ts", "**/__tests__/**"],
     }),
   ],
 });
