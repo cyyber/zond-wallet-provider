@@ -5,8 +5,8 @@ import dts from "vite-plugin-dts";
 export default defineConfig({
   build: {
     emptyOutDir: true,
-    rollupOptions: {
-      input: {
+    lib: {
+      entry: {
         index: path.resolve(__dirname, "src/index.ts"),
         jsonRpcEngine: path.resolve(__dirname, "src/json-rpc-engine/index.ts"),
         jsonRpcMiddlewareStream: path.resolve(
@@ -30,18 +30,6 @@ export default defineConfig({
         superstruct: path.resolve(__dirname, "src/superstruct/index.ts"),
         utils: path.resolve(__dirname, "src/utils/index.ts"),
       },
-      output: [
-        {
-          format: "es",
-          dir: "dist",
-          entryFileNames: "[name].js",
-        },
-        {
-          format: "cjs",
-          dir: "dist",
-          entryFileNames: "[name].umd.cjs",
-        },
-      ],
     },
   },
   resolve: {
