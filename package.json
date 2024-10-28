@@ -11,43 +11,43 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require": "./dist/index.umd.js"
+      "require": "./dist/index.cjs"
     },
     "./json-rpc-engine": {
       "import": "./dist/jsonRpcEngine.js",
-      "require": "./dist/jsonRpcEngine.umd.js"
+      "require": "./dist/jsonRpcEngine.cjs"
     },
     "./json-rpc-middleware-stream": {
       "import": "./dist/jsonRpcMiddlewareStream.js",
-      "require": "./dist/jsonRpcMiddlewareStream.umd.js"
+      "require": "./dist/jsonRpcMiddlewareStream.cjs"
     },
     "./object-multiplex": {
       "import": "./dist/objectMultiplex.js",
-      "require": "./dist/objectMultiplex.umd.js"
+      "require": "./dist/objectMultiplex.cjs"
     },
     "./post-message-stream": {
       "import": "./dist/postMessageStream.js",
-      "require": "./dist/postMessageStream.umd.js"
+      "require": "./dist/postMessageStream.cjs"
     },
     "./providers": {
       "import": "./dist/providers.js",
-      "require": "./dist/providers.umd.js"
+      "require": "./dist/providers.cjs"
     },
     "./rpc-errors": {
       "import": "./dist/rpcErrors.js",
-      "require": "./dist/rpcErrors.umd.js"
+      "require": "./dist/rpcErrors.cjs"
     },
     "./safe-event-emitter": {
       "import": "./dist/safeEventEmitter.js",
-      "require": "./dist/safeEventEmitter.umd.js"
+      "require": "./dist/safeEventEmitter.cjs"
     },
     "./superstruct": {
       "import": "./dist/superstruct.js",
-      "require": "./dist/superstruct.umd.js"
+      "require": "./dist/superstruct.cjs"
     },
     "./utils": {
       "import": "./dist/utils.js",
-      "require": "./dist/utils.umd.js"
+      "require": "./dist/utils.cjs"
     }
   },
   "scripts": {
