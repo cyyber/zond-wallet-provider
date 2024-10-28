@@ -1,1 +1,0 @@
-"use strict";require("./rpcErrors.umd.cjs");require("./superstruct.umd.cjs");require("./utils.umd.cjs");require("./safeEventEmitter.umd.cjs");require("./jsonRpcMiddlewareStream.umd.cjs");require("./objectMultiplex.umd.cjs");require("./postMessageStream.umd.cjs");require("./providers.umd.cjs");

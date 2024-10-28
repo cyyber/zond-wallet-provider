@@ -1,1 +1,189 @@
-import{h as I}from"./utils.js";import"./superstruct.js";l.default=l;l.stable=R;l.stableStringify=R;var m="[...]",S="[Circular]",f=[],o=[];function P(){return{depthLimit:Number.MAX_SAFE_INTEGER,edgesLimit:Number.MAX_SAFE_INTEGER}}function l(e,i,n,r){typeof r>"u"&&(r=P()),y(e,"",0,[],void 0,0,r);var s;try{o.length===0?s=JSON.stringify(e,i,n):s=JSON.stringify(e,b(i),n)}catch{return JSON.stringify("[unable to serialize, circular reference is too complex to analyze]")}finally{for(;f.length!==0;){var u=f.pop();u.length===4?Object.defineProperty(u[0],u[1],u[3]):u[0][u[1]]=u[2]}}return s}function c(e,i,n,r){var s=Object.getOwnPropertyDescriptor(r,n);s.get!==void 0?s.configurable?(Object.defineProperty(r,n,{value:e}),f.push([r,n,i,s])):o.push([i,n,e]):(r[n]=e,f.push([r,n,i]))}function y(e,i,n,r,s,u,d){u+=1;var t;if(typeof e=="object"&&e!==null){for(t=0;t<r.length;t++)if(r[t]===e){c(S,e,i,s);return}if(typeof d.depthLimit<"u"&&u>d.depthLimit){c(m,e,i,s);return}if(typeof d.edgesLimit<"u"&&n+1>d.edgesLimit){c(m,e,i,s);return}if(r.push(e),Array.isArray(e))for(t=0;t<e.length;t++)y(e[t],t,t,r,e,u,d);else{var a=Object.keys(e);for(t=0;t<a.length;t++){var g=a[t];y(e[g],g,t,r,e,u,d)}}r.pop()}}function L(e,i){return e<i?-1:e>i?1:0}function R(e,i,n,r){typeof r>"u"&&(r=P());var s=E(e,"",0,[],void 0,0,r)||e,u;try{o.length===0?u=JSON.stringify(s,i,n):u=JSON.stringify(s,b(i),n)}catch{return JSON.stringify("[unable to serialize, circular reference is too complex to analyze]")}finally{for(;f.length!==0;){var d=f.pop();d.length===4?Object.defineProperty(d[0],d[1],d[3]):d[0][d[1]]=d[2]}}return u}function E(e,i,n,r,s,u,d){u+=1;var t;if(typeof e=="object"&&e!==null){for(t=0;t<r.length;t++)if(r[t]===e){c(S,e,i,s);return}try{if(typeof e.toJSON=="function")return}catch{return}if(typeof d.depthLimit<"u"&&u>d.depthLimit){c(m,e,i,s);return}if(typeof d.edgesLimit<"u"&&n+1>d.edgesLimit){c(m,e,i,s);return}if(r.push(e),Array.isArray(e))for(t=0;t<e.length;t++)E(e[t],t,t,r,e,u,d);else{var a={},g=Object.keys(e).sort(L);for(t=0;t<g.length;t++){var h=g[t];E(e[h],h,t,r,e,u,d),a[h]=e[h]}if(typeof s<"u")f.push([s,i,e]),s[i]=a;else return a}r.pop()}}function b(e){return e=typeof e<"u"?e:function(i,n){return n},function(i,n){if(o.length>0)for(var r=0;r<o.length;r++){var s=o[r];if(s[1]===i&&s[0]===n){n=s[2],o.splice(r,1);break}}return e.call(this,i,n)}}const p={rpc:{invalidInput:-32e3,resourceNotFound:-32001,resourceUnavailable:-32002,transactionRejected:-32003,methodNotSupported:-32004,limitExceeded:-32005,parse:-32700,invalidRequest:-32600,methodNotFound:-32601,invalidParams:-32602,internal:-32603},provider:{userRejectedRequest:4001,unauthorized:4100,unsupportedMethod:4200,disconnected:4900,chainDisconnected:4901}},O={"-32700":{standard:"JSON RPC 2.0",message:"Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text."},"-32600":{standard:"JSON RPC 2.0",message:"The JSON sent is not a valid Request object."},"-32601":{standard:"JSON RPC 2.0",message:"The method does not exist / is not available."},"-32602":{standard:"JSON RPC 2.0",message:"Invalid method parameter(s)."},"-32603":{standard:"JSON RPC 2.0",message:"Internal JSON-RPC error."},"-32000":{standard:"EIP-1474",message:"Invalid input."},"-32001":{standard:"EIP-1474",message:"Resource not found."},"-32002":{standard:"EIP-1474",message:"Resource unavailable."},"-32003":{standard:"EIP-1474",message:"Transaction rejected."},"-32004":{standard:"EIP-1474",message:"Method not supported."},"-32005":{standard:"EIP-1474",message:"Request limit exceeded."},4001:{standard:"EIP-1193",message:"User rejected the request."},4100:{standard:"EIP-1193",message:"The requested account and/or method has not been authorized by the user."},4200:{standard:"EIP-1193",message:"The requested method is not supported by this Ethereum provider."},4900:{standard:"EIP-1193",message:"The provider is disconnected from all chains."},4901:{standard:"EIP-1193",message:"The provider is disconnected from the specified chain."}},N=p.rpc.internal,A="Unspecified error message. This is a bug, please report it.";C(N);function C(e,i=A){if(J(e)){const n=e.toString();if(I(O,n))return O[n].message}return i}function J(e){return Number.isInteger(e)}
+import { e as r, E as a, J as u, g as d } from "./classes-DcssvZ8Z.js";
+import { d as l, s as E, a as g } from "./classes-DcssvZ8Z.js";
+const m = {
+  /**
+   * Get a JSON RPC 2.0 Parse (-32700) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  parse: (e) => o(r.rpc.parse, e),
+  /**
+   * Get a JSON RPC 2.0 Invalid Request (-32600) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  invalidRequest: (e) => o(r.rpc.invalidRequest, e),
+  /**
+   * Get a JSON RPC 2.0 Invalid Params (-32602) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  invalidParams: (e) => o(r.rpc.invalidParams, e),
+  /**
+   * Get a JSON RPC 2.0 Method Not Found (-32601) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  methodNotFound: (e) => o(r.rpc.methodNotFound, e),
+  /**
+   * Get a JSON RPC 2.0 Internal (-32603) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  internal: (e) => o(r.rpc.internal, e),
+  /**
+   * Get a JSON RPC 2.0 Server error.
+   * Permits integer error codes in the [ -32099 <= -32005 ] range.
+   * Codes -32000 through -32004 are reserved by EIP-1474.
+   *
+   * @param opts - The error options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  server: (e) => {
+    if (!e || typeof e != "object" || Array.isArray(e))
+      throw new Error(
+        "Ethereum RPC Server errors must provide single object argument."
+      );
+    const { code: t } = e;
+    if (!Number.isInteger(t) || t > -32005 || t < -32099)
+      throw new Error(
+        '"code" must be an integer such that: -32099 <= code <= -32005'
+      );
+    return o(t, e);
+  },
+  /**
+   * Get an Ethereum JSON RPC Invalid Input (-32000) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  invalidInput: (e) => o(r.rpc.invalidInput, e),
+  /**
+   * Get an Ethereum JSON RPC Resource Not Found (-32001) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  resourceNotFound: (e) => o(r.rpc.resourceNotFound, e),
+  /**
+   * Get an Ethereum JSON RPC Resource Unavailable (-32002) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  resourceUnavailable: (e) => o(r.rpc.resourceUnavailable, e),
+  /**
+   * Get an Ethereum JSON RPC Transaction Rejected (-32003) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  transactionRejected: (e) => o(r.rpc.transactionRejected, e),
+  /**
+   * Get an Ethereum JSON RPC Method Not Supported (-32004) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  methodNotSupported: (e) => o(r.rpc.methodNotSupported, e),
+  /**
+   * Get an Ethereum JSON RPC Limit Exceeded (-32005) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link JsonRpcError} class.
+   */
+  limitExceeded: (e) => o(r.rpc.limitExceeded, e)
+}, v = {
+  /**
+   * Get an Ethereum Provider User Rejected Request (4001) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link EthereumProviderError} class.
+   */
+  userRejectedRequest: (e) => i(r.provider.userRejectedRequest, e),
+  /**
+   * Get an Ethereum Provider Unauthorized (4100) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link EthereumProviderError} class.
+   */
+  unauthorized: (e) => i(r.provider.unauthorized, e),
+  /**
+   * Get an Ethereum Provider Unsupported Method (4200) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link EthereumProviderError} class.
+   */
+  unsupportedMethod: (e) => i(r.provider.unsupportedMethod, e),
+  /**
+   * Get an Ethereum Provider Not Connected (4900) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link EthereumProviderError} class.
+   */
+  disconnected: (e) => i(r.provider.disconnected, e),
+  /**
+   * Get an Ethereum Provider Chain Not Connected (4901) error.
+   *
+   * @param arg - The error message or options bag.
+   * @returns An instance of the {@link EthereumProviderError} class.
+   */
+  chainDisconnected: (e) => i(r.provider.chainDisconnected, e),
+  /**
+   * Get a custom Ethereum Provider error.
+   *
+   * @param opts - The error options bag.
+   * @returns An instance of the {@link EthereumProviderError} class.
+   */
+  custom: (e) => {
+    if (!e || typeof e != "object" || Array.isArray(e))
+      throw new Error(
+        "Ethereum Provider custom errors must provide single object argument."
+      );
+    const { code: t, message: n, data: s } = e;
+    if (!n || typeof n != "string")
+      throw new Error('"message" must be a nonempty string');
+    return new a(t, n, s);
+  }
+};
+function o(e, t) {
+  const [n, s] = c(t);
+  return new u(e, n ?? d(e), s);
+}
+function i(e, t) {
+  const [n, s] = c(t);
+  return new a(
+    e,
+    n ?? d(e),
+    s
+  );
+}
+function c(e) {
+  if (e) {
+    if (typeof e == "string")
+      return [e];
+    if (typeof e == "object" && !Array.isArray(e)) {
+      const { message: t, data: n } = e;
+      if (t && typeof t != "string")
+        throw new Error("Must specify string message.");
+      return [t ?? void 0, n];
+    }
+  }
+  return [];
+}
+export {
+  a as EthereumProviderError,
+  u as JsonRpcError,
+  l as dataHasCause,
+  r as errorCodes,
+  d as getMessageFromCode,
+  v as providerErrors,
+  m as rpcErrors,
+  E as serializeCause,
+  g as serializeError
+};

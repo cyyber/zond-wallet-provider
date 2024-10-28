@@ -1,13 +1,13 @@
-export { JsonRpcError, EthereumProviderError } from './classes';
+export { JsonRpcError, EthereumProviderError } from "./classes";
 export {
   dataHasCause,
   serializeCause,
   serializeError,
   getMessageFromCode,
-} from './utils';
+} from "./utils";
 export type {
   DataWithOptionalCause,
   OptionalDataWithOptionalCause,
-} from './utils';
-export { rpcErrors, providerErrors } from './errors';
-export { errorCodes } from './error-constants';
+} from "./utils";
+export { rpcErrors, providerErrors } from "./errors";
+export { errorCodes } from "./error-constants";
