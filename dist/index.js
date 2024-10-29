@@ -1,13 +1,13 @@
 import { createAsyncMiddleware as t, createScaffoldMiddleware as o, mergeMiddleware as s } from "./jsonRpcEngine.js";
-import { J as n, c as m, g as d } from "./JsonRpcEngine-DYUs88HE.js";
+import { J as n, c as m, g as d } from "./JsonRpcEngine-CXkhre9K.js";
 import { createEngineStream as c } from "./jsonRpcMiddlewareStream.js";
-import { c as g } from "./createStreamMiddleware-DTqoEUh-.js";
+import { c as g } from "./createStreamMiddleware-DZ-jQoSB.js";
 import { ObjectMultiplex as P, Substream as f } from "./objectMultiplex.js";
 import { BasePostMessageStream as M, BrowserRuntimePostMessageStream as S, ProcessMessageStream as E, ProcessParentMessageStream as v, WebWorkerParentPostMessageStream as b, WebWorkerPostMessageStream as w, WindowPostMessageStream as y } from "./postMessageStream.js";
 import { BaseProvider as k, StreamProvider as z, ZondWalletInpageProvider as R, createExternalExtensionProvider as C, eip6963AnnounceProvider as J, eip6963RequestProvider as B, initializeProvider as I } from "./providers.js";
-import { E as q, J as A, d as h, e as F, g as H, s as O, a as U } from "./classes-DcssvZ8Z.js";
+import { E as q, J as A, d as h, e as F, g as H, s as O, a as U } from "./classes-Cj8AOate.js";
 import { providerErrors as D, rpcErrors as G } from "./rpcErrors.js";
-import "./events-BBOErkdo.js";
+import "./events-D2cUsYK1.js";
 import { Struct as L, StructError as N, any as Q, array as T, assert as V, assign as X, bigint as Y, boolean as _, coerce as $, create as ee, date as re, defaulted as ae, define as te, deprecated as oe, dynamic as se, empty as ie, enums as ne, func as me, instance as de, integer as pe, intersection as ce, is as le, lazy as ge, literal as ue, map as Pe, mask as fe, max as xe, min as Me, never as Se, nonempty as Ee, nullable as ve, number as be, object as we, omit as ye, optional as We, partial as ke, pattern as ze, pick as Re, record as Ce, refine as Je, regexp as Be, set as Ie, size as je, string as qe, trimmed as Ae, tuple as he, type as Fe, union as He, unknown as Oe, validate as Ue } from "./superstruct.js";
 export {
   M as BasePostMessageStream,

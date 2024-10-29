@@ -1,12 +1,11 @@
 var b = Object.defineProperty;
 var w = (t, r, e) => r in t ? b(t, r, { enumerable: !0, configurable: !0, writable: !0, value: e }) : t[r] = e;
-var i = (t, r, e) => (w(t, typeof r != "symbol" ? r + "" : r, e), e);
-import { b as l } from "./browser-BLlG2JZa.js";
+var i = (t, r, e) => w(t, typeof r != "symbol" ? r + "" : r, e);
+import { b as l } from "./browser-BfYtJpNX.js";
 import { g as y } from "./_commonjsHelpers-C6fGbg64.js";
 var p = { exports: {} }, _ = d;
 function d(t, r) {
-  if (t && r)
-    return d(t)(r);
+  if (t && r) return d(t)(r);
   if (typeof t != "function")
     throw new TypeError("need wrapper function");
   return Object.keys(t).forEach(function(o) {

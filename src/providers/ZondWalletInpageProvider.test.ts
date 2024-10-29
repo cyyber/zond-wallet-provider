@@ -1,4 +1,4 @@
-import { ZOND_WALLET_PROVIDER_NAME } from "@/scripts/constants/streamConstants";
+import { ZOND_WALLET_PROVIDER_NAME } from "@/constants/providerConstants";
 import type { JsonRpcRequest } from "../utils";
 
 import messages from "./messages";
@@ -80,7 +80,7 @@ async function getInitializedProvider({
             isUnlocked,
             networkVersion,
           },
-        }),
+        })
       );
     }
     for (const { substream, method, callback } of onMethodCalled) {
@@ -130,7 +130,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
 
     const setNextRpcEngineResponse = (
       error: Error | null = null,
-      response = {},
+      response = {}
     ) => {
       mockRpcEngineResponse.mockReturnValueOnce([error, response]);
     };
@@ -142,7 +142,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
         .spyOn(provider._rpcEngine, "handle")
         .mockImplementation((_payload, callback: any) =>
           // eslint-disable-next-line n/no-callback-literal
-          callback(...mockRpcEngineResponse()),
+          callback(...mockRpcEngineResponse())
         );
     });
 
@@ -154,7 +154,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
           method: "foo",
           params: ["bar"],
         }),
-        expect.any(Function),
+        expect.any(Function)
       );
 
       expect(result).toBe(42);
@@ -164,7 +164,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
       setNextRpcEngineResponse(new Error("foo"));
 
       await expect(
-        provider.request({ method: "foo", params: ["bar"] }),
+        provider.request({ method: "foo", params: ["bar"] })
       ).rejects.toThrow("foo");
 
       expect(provider._rpcEngine.handle).toHaveBeenCalledWith(
@@ -172,7 +172,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
           method: "foo",
           params: ["bar"],
         }),
-        expect.any(Function),
+        expect.any(Function)
       );
     });
 
@@ -187,13 +187,13 @@ describe("ZondWalletInpageProvider: RPC", () => {
                 method: "foo",
                 params: ["bar"],
               }),
-              expect.any(Function),
+              expect.any(Function)
             );
 
             expect(error).toBeNull();
             expect(response).toStrictEqual({ result: 42 });
             done(undefined);
-          },
+          }
         );
       });
     });
@@ -218,7 +218,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
                 { method: "bar", params: ["baz"] },
                 { method: "baz", params: ["buzz"] },
               ]),
-              expect.any(Function),
+              expect.any(Function)
             );
 
             expect(error).toBeNull();
@@ -228,7 +228,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
               { result: 40 },
             ]);
             done(undefined);
-          },
+          }
         );
       });
     });
@@ -244,13 +244,13 @@ describe("ZondWalletInpageProvider: RPC", () => {
                 method: "foo",
                 params: ["bar"],
               }),
-              expect.any(Function),
+              expect.any(Function)
             );
 
             expect(error).toStrictEqual(new Error("foo"));
             expect(response).toStrictEqual({ error: "foo" });
             done(undefined);
-          },
+          }
         );
       });
     });
@@ -263,7 +263,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
           method: "foo",
           params: ["bar"],
         }),
-        expect.any(Function),
+        expect.any(Function)
       );
 
       expect(result).toStrictEqual({ result: 42 });
@@ -279,7 +279,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
           method: "foo",
           params: ["bar"],
         }),
-        expect.any(Function),
+        expect.any(Function)
       );
     });
 
@@ -294,13 +294,13 @@ describe("ZondWalletInpageProvider: RPC", () => {
                 method: "foo",
                 params: ["bar"],
               }),
-              expect.any(Function),
+              expect.any(Function)
             );
 
             expect(error).toBeNull();
             expect(response).toStrictEqual({ result: 42 });
             done(undefined);
-          },
+          }
         );
       });
     });
@@ -316,13 +316,13 @@ describe("ZondWalletInpageProvider: RPC", () => {
                 method: "foo",
                 params: ["bar"],
               }),
-              expect.any(Function),
+              expect.any(Function)
             );
 
             expect(error).toStrictEqual(new Error("foo"));
             expect(response).toStrictEqual({ error: "foo" });
             done(undefined);
-          },
+          }
         );
       });
     });
@@ -336,7 +336,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
 
     const setNextRpcRequestResponse = (
       error: Error | null = null,
-      response = {},
+      response = {}
     ) => {
       mockRpcRequestResponse.mockReturnValueOnce([error, response]);
     };
@@ -347,7 +347,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
         .spyOn(provider, "_rpcRequest")
         .mockImplementation((_payload, callback: any, _isInternal) =>
           // eslint-disable-next-line n/no-callback-literal
-          callback(...mockRpcRequestResponse()),
+          callback(...mockRpcRequestResponse())
         );
     });
 
@@ -362,7 +362,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
           method: "foo",
           params: ["bar"],
         }),
-        expect.any(Function),
+        expect.any(Function)
       );
     });
 
@@ -370,7 +370,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
       setNextRpcRequestResponse(new Error("foo"));
 
       await expect(
-        provider.request({ method: "foo", params: ["bar"] }),
+        provider.request({ method: "foo", params: ["bar"] })
       ).rejects.toThrow("foo");
 
       expect(provider._rpcRequest).toHaveBeenCalledWith(
@@ -378,61 +378,61 @@ describe("ZondWalletInpageProvider: RPC", () => {
           method: "foo",
           params: ["bar"],
         }),
-        expect.any(Function),
+        expect.any(Function)
       );
     });
 
     it("throws on non-object args", async () => {
       await expect(() => provider.request()).rejects.toThrow(
-        messages.errors.invalidRequestArgs(),
+        messages.errors.invalidRequestArgs()
       );
 
       await expect(() => provider.request(null)).rejects.toThrow(
-        messages.errors.invalidRequestArgs(),
+        messages.errors.invalidRequestArgs()
       );
 
       await expect(() => provider.request([])).rejects.toThrow(
-        messages.errors.invalidRequestArgs(),
+        messages.errors.invalidRequestArgs()
       );
 
       await expect(() => provider.request("foo")).rejects.toThrow(
-        messages.errors.invalidRequestArgs(),
+        messages.errors.invalidRequestArgs()
       );
     });
 
     it("throws on invalid args.method", async () => {
       await expect(() => provider.request({})).rejects.toThrow(
-        messages.errors.invalidRequestMethod(),
+        messages.errors.invalidRequestMethod()
       );
 
       await expect(() => provider.request({ method: null })).rejects.toThrow(
-        messages.errors.invalidRequestMethod(),
+        messages.errors.invalidRequestMethod()
       );
 
       await expect(() => provider.request({ method: 2 })).rejects.toThrow(
-        messages.errors.invalidRequestMethod(),
+        messages.errors.invalidRequestMethod()
       );
 
       await expect(() => provider.request({ method: "" })).rejects.toThrow(
-        messages.errors.invalidRequestMethod(),
+        messages.errors.invalidRequestMethod()
       );
     });
 
     it("throws on invalid args.params", async () => {
       await expect(() =>
-        provider.request({ method: "foo", params: null }),
+        provider.request({ method: "foo", params: null })
       ).rejects.toThrow(messages.errors.invalidRequestParams());
 
       await expect(() =>
-        provider.request({ method: "foo", params: 2 }),
+        provider.request({ method: "foo", params: 2 })
       ).rejects.toThrow(messages.errors.invalidRequestParams());
 
       await expect(() =>
-        provider.request({ method: "foo", params: true }),
+        provider.request({ method: "foo", params: true })
       ).rejects.toThrow(messages.errors.invalidRequestParams());
 
       await expect(() =>
-        provider.request({ method: "foo", params: "a" }),
+        provider.request({ method: "foo", params: "a" })
       ).rejects.toThrow(messages.errors.invalidRequestParams());
     });
   });
@@ -446,7 +446,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
 
     const setNextRpcEngineResponse = (
       error: Error | null = null,
-      response = {},
+      response = {}
     ) => {
       mockRpcEngineResponse.mockReturnValueOnce([error, response]);
     };
@@ -458,7 +458,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
         .spyOn(provider._rpcEngine, "handle")
         .mockImplementation((_payload, callback: any) =>
           // eslint-disable-next-line n/no-callback-literal
-          callback(...mockRpcEngineResponse()),
+          callback(...mockRpcEngineResponse())
         );
     });
 
@@ -473,13 +473,13 @@ describe("ZondWalletInpageProvider: RPC", () => {
                 method: "foo",
                 params: ["bar"],
               }),
-              expect.any(Function),
+              expect.any(Function)
             );
 
             expect(error).toBeNull();
             expect(response).toStrictEqual({ result: 42 });
             done(undefined);
-          },
+          }
         );
       });
     });
@@ -495,13 +495,13 @@ describe("ZondWalletInpageProvider: RPC", () => {
                 method: "foo",
                 params: ["bar"],
               }),
-              expect.any(Function),
+              expect.any(Function)
             );
 
             expect(error).toStrictEqual(new Error("foo"));
             expect(response).toStrictEqual({ error: "foo" });
             done(undefined);
-          },
+          }
         );
       });
     });
@@ -514,18 +514,18 @@ describe("ZondWalletInpageProvider: RPC", () => {
           (error: any, response: any) => {
             expect(provider._rpcEngine.handle).toHaveBeenCalledWith(
               expect.objectContaining({ method: "eth_accounts" }),
-              expect.any(Function),
+              expect.any(Function)
             );
 
             expect(provider._handleAccountsChanged).toHaveBeenCalledWith(
               ["0x1"],
-              true,
+              true
             );
 
             expect(error).toBeNull();
             expect(response).toStrictEqual({ result: ["0x1"] });
             done(undefined);
-          },
+          }
         );
       });
     });
@@ -538,18 +538,18 @@ describe("ZondWalletInpageProvider: RPC", () => {
           (error: any, response: any) => {
             expect(provider._rpcEngine.handle).toHaveBeenCalledWith(
               expect.objectContaining({ method: "eth_accounts" }),
-              expect.any(Function),
+              expect.any(Function)
             );
 
             expect(provider._handleAccountsChanged).toHaveBeenCalledWith(
               [],
-              true,
+              true
             );
 
             expect(error).toStrictEqual(new Error("foo"));
             expect(response).toStrictEqual({ error: "foo" });
             done(undefined);
-          },
+          }
         );
       });
     });
@@ -563,7 +563,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
 
     const setNextRpcRequestResponse = (
       error: Error | null = null,
-      response = {},
+      response = {}
     ) => {
       mockRpcRequestResponse.mockReturnValueOnce([error, response]);
     };
@@ -574,7 +574,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
         .spyOn(provider, "_rpcRequest")
         .mockImplementation((_payload, callback: any, _isInternal) =>
           // eslint-disable-next-line n/no-callback-literal
-          callback(...mockRpcRequestResponse()),
+          callback(...mockRpcRequestResponse())
         );
     });
 
@@ -586,7 +586,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
           method: "foo",
           params: ["bar"],
         }),
-        expect.any(Function),
+        expect.any(Function)
       );
 
       expect(result).toStrictEqual({ result: 42 });
@@ -599,7 +599,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
         expect.objectContaining({
           method: "foo",
         }),
-        expect.any(Function),
+        expect.any(Function)
       );
 
       expect(result).toStrictEqual({ result: 42 });
@@ -615,7 +615,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
           method: "foo",
           params: ["bar"],
         }),
-        expect.any(Function),
+        expect.any(Function)
       );
     });
 
@@ -631,7 +631,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
           method: "foo",
           params: ["bar"],
         }),
-        expect.any(Function),
+        expect.any(Function)
       );
     });
 
@@ -646,13 +646,13 @@ describe("ZondWalletInpageProvider: RPC", () => {
                 method: "foo",
                 params: ["bar"],
               }),
-              expect.any(Function),
+              expect.any(Function)
             );
 
             expect(error).toBeNull();
             expect(response).toStrictEqual({ result: 42 });
             done(undefined);
-          },
+          }
         );
       });
     });
@@ -668,13 +668,13 @@ describe("ZondWalletInpageProvider: RPC", () => {
                 method: "foo",
                 params: ["bar"],
               }),
-              expect.any(Function),
+              expect.any(Function)
             );
 
             expect(error).toStrictEqual(new Error("foo"));
             expect(response).toStrictEqual({ error: "foo" });
             done(undefined);
-          },
+          }
         );
       });
     });
@@ -709,7 +709,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
             method: "eth_uninstallFilter",
             params: ["bar"],
           }),
-          expect.any(Function),
+          expect.any(Function)
         );
       });
 
@@ -724,12 +724,12 @@ describe("ZondWalletInpageProvider: RPC", () => {
     it("throws on unsupported sync method", () => {
       expect(() => provider.send({ method: "foo", params: ["bar"] })).toThrow(
         // eslint-disable-next-line n/no-sync
-        messages.errors.unsupportedSync("foo"),
+        messages.errors.unsupportedSync("foo")
       );
 
       expect(() => provider.send({ method: "foo" })).toThrow(
         // eslint-disable-next-line n/no-sync
-        messages.errors.unsupportedSync("foo"),
+        messages.errors.unsupportedSync("foo")
       );
     });
   });
@@ -860,7 +860,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
                     },
                   },
                 ],
-              },
+              }
             );
 
             await provider.request({ method });
@@ -885,7 +885,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
                     },
                   },
                 ],
-              },
+              }
             );
             const consoleWarnSpy = jest.spyOn(globalThis.console, "warn");
 
@@ -912,7 +912,7 @@ describe("ZondWalletInpageProvider: RPC", () => {
                     },
                   },
                 ],
-              },
+              }
             );
 
             const response = await provider.request({ method });
@@ -935,11 +935,11 @@ describe("ZondWalletInpageProvider: RPC", () => {
                     },
                   },
                 ],
-              },
+              }
             );
 
             await expect(async () =>
-              provider.request({ method }),
+              provider.request({ method })
             ).rejects.toMatchObject({
               code: 0,
               message: "failure!",
@@ -955,7 +955,7 @@ describe("ZondWalletInpageProvider: Miscellanea", () => {
   describe("constructor", () => {
     it("succeeds if stream is provided", () => {
       expect(
-        () => new ZondWalletInpageProvider(new MockConnectionStream()),
+        () => new ZondWalletInpageProvider(new MockConnectionStream())
       ).not.toThrow();
     });
 
@@ -966,14 +966,14 @@ describe("ZondWalletInpageProvider: Miscellanea", () => {
         () =>
           new ZondWalletInpageProvider(stream, {
             maxEventListeners: 10,
-          }),
+          })
       ).not.toThrow();
 
       expect(
         () =>
           new ZondWalletInpageProvider(stream, {
             shouldSendMetadata: false,
-          }),
+          })
       ).not.toThrow();
 
       expect(
@@ -981,21 +981,21 @@ describe("ZondWalletInpageProvider: Miscellanea", () => {
           new ZondWalletInpageProvider(stream, {
             maxEventListeners: 10,
             shouldSendMetadata: false,
-          }),
+          })
       ).not.toThrow();
     });
 
     it("throws if no or invalid stream is provided", () => {
       expect(() => new ZondWalletInpageProvider(undefined as any)).toThrow(
-        messages.errors.invalidDuplexStream(),
+        messages.errors.invalidDuplexStream()
       );
 
       expect(() => new ZondWalletInpageProvider("foo" as any)).toThrow(
-        messages.errors.invalidDuplexStream(),
+        messages.errors.invalidDuplexStream()
       );
 
       expect(() => new ZondWalletInpageProvider({} as any)).toThrow(
-        messages.errors.invalidDuplexStream(),
+        messages.errors.invalidDuplexStream()
       );
     });
 
@@ -1014,7 +1014,7 @@ describe("ZondWalletInpageProvider: Miscellanea", () => {
         () =>
           new ZondWalletInpageProvider(stream, {
             logger: customLogger,
-          }),
+          })
       ).not.toThrow();
     });
 
@@ -1046,7 +1046,7 @@ describe("ZondWalletInpageProvider: Miscellanea", () => {
   describe("isConnected", () => {
     it("returns isConnected state", () => {
       const provider: any = new ZondWalletInpageProvider(
-        new MockConnectionStream(),
+        new MockConnectionStream()
       );
       provider.autoRefreshOnNetworkChange = false;
 
@@ -1085,7 +1085,7 @@ describe("ZondWalletInpageProvider: Miscellanea", () => {
 
     it("should not allow chainId to be modified", () => {
       expect(() => (provider.chainId = "0x539")).toThrow(
-        "Cannot set property chainId",
+        "Cannot set property chainId"
       );
       expect(provider.chainId).toBe("0x5");
     });
@@ -1106,7 +1106,7 @@ describe("ZondWalletInpageProvider: Miscellanea", () => {
 
     it("should not allow networkVersion to be modified", () => {
       expect(() => (provider.networkVersion = "1337")).toThrow(
-        "Cannot set property networkVersion",
+        "Cannot set property networkVersion"
       );
       expect(provider.networkVersion).toBe("5");
     });
@@ -1127,7 +1127,7 @@ describe("ZondWalletInpageProvider: Miscellanea", () => {
 
     it("should not allow selectedAddress to be modified", () => {
       expect(() => (provider.selectedAddress = "0x12345678")).toThrow(
-        "Cannot set property selectedAddress",
+        "Cannot set property selectedAddress"
       );
       expect(provider.selectedAddress).toBe("0xdeadbeef");
     });
