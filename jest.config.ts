@@ -7,6 +7,7 @@ const config: Config = {
   coverageProvider: "v8",
   testEnvironment: "jsdom",
   moduleFileExtensions: ["ts", "js"],
+  setupFiles: ["<rootDir>/jest.setup.ts"],
 };
 
 export default config;
