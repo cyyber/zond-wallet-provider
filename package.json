@@ -64,6 +64,7 @@
     "@scure/base": "^1.1.9",
     "@types/chrome": "^0.0.279",
     "@types/jest-when": "^3.5.5",
+    "@types/once": "^1.4.5",
     "@types/readable-stream": "^4.0.16",
     "@types/semver": "^7.5.8",
     "@types/webextension-polyfill": "^0.12.1",
