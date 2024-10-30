@@ -1,22 +1,20 @@
-import * as PostMessageStream from '.';
+import * as PostMessageStream from ".";
 
-describe('post-message-stream', () => {
-  describe('exports', () => {
+describe("post-message-stream", () => {
+  describe("exports", () => {
     const expectedExports = [
-      'BasePostMessageStream',
-      'WindowPostMessageStream',
-      'WebWorkerPostMessageStream',
-      'WebWorkerParentPostMessageStream',
-      'ProcessParentMessageStream',
-      'ProcessMessageStream',
-      'ThreadParentMessageStream',
-      'ThreadMessageStream',
-      'BrowserRuntimePostMessageStream',
+      "BasePostMessageStream",
+      "WindowPostMessageStream",
+      "WebWorkerPostMessageStream",
+      "WebWorkerParentPostMessageStream",
+      "ProcessParentMessageStream",
+      "ProcessMessageStream",
+      "BrowserRuntimePostMessageStream",
     ];
 
-    it('package has expected exports', () => {
+    it("package has expected exports", () => {
       expect(Object.keys(PostMessageStream)).toHaveLength(
-        expectedExports.length,
+        expectedExports.length
       );
 
       for (const exportName of expectedExports) {

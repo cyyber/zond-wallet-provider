@@ -1,6 +1,7 @@
 const config = {
   clearMocks: true,
   collectCoverage: true,
+  testTimeout: 5000,
   coverageDirectory: "coverage",
   coverageProvider: "v8",
   transform: {
