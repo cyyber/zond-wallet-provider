@@ -8,6 +8,9 @@ const config: Config = {
   testEnvironment: "jsdom",
   moduleFileExtensions: ["ts", "js"],
   setupFiles: ["<rootDir>/jest.setup.ts"],
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1",
+  },
 };
 
 export default config;
