@@ -28,7 +28,7 @@ import {
 
 describe("isBytes", () => {
   it("returns true for a Node.js Buffer", () => {
-    expect(isBytes(Buffer.from("foo"))).toBe(true);
+    expect(isBytes(Uint8Array.from(Buffer.from("foo")))).toBe(true);
   });
 
   it("returns true for a Uint8Array", () => {
@@ -42,7 +42,9 @@ describe("isBytes", () => {
 
 describe("assertIsBytes", () => {
   it("does not throw for a Node.js Buffer", () => {
-    expect(() => assertIsBytes(Buffer.from("foo"))).not.toThrow();
+    expect(() =>
+      assertIsBytes(Uint8Array.from(Buffer.from("foo")))
+    ).not.toThrow();
   });
 
   it("does not throw for a Uint8Array", () => {
@@ -377,7 +379,9 @@ describe("stringToBytes", () => {
   it.each(UTF_8_BYTES_FIXTURES)(
     "returns a byte array from a string",
     ({ bytes, string }) => {
-      expect(stringToBytes(string)).toStrictEqual(bytes);
+      expect(Array.from(stringToBytes(string))).toStrictEqual(
+        Array.from(bytes)
+      );
     }
   );
 
@@ -429,7 +433,7 @@ describe("valueToBytes", () => {
   it.each(UTF_8_BYTES_FIXTURES)(
     "returns a byte array from a string",
     ({ bytes, string }) => {
-      expect(valueToBytes(string)).toStrictEqual(bytes);
+      expect(Array.from(valueToBytes(string))).toStrictEqual(Array.from(bytes));
     }
   );
 

@@ -46,8 +46,8 @@ import {
   JSON_VALIDATION_FIXTURES,
 } from "./__fixtures__";
 
-jest.mock("@metamask/superstruct", () => ({
-  ...jest.requireActual("@metamask/superstruct"),
+jest.mock("../superstruct", () => ({
+  ...jest.requireActual("../superstruct"),
   assert: jest.fn(),
 }));
 
@@ -60,8 +60,8 @@ describe("object", () => {
         },
         object({
           foo: string(),
-        }),
-      ),
+        })
+      )
     ).toBe(true);
 
     expect(
@@ -71,8 +71,8 @@ describe("object", () => {
         },
         object({
           foo: string(),
-        }),
-      ),
+        })
+      )
     ).toBe(false);
   });
 
@@ -84,8 +84,8 @@ describe("object", () => {
         },
         object({
           foo: exactOptional(string()),
-        }),
-      ),
+        })
+      )
     ).toBe(true);
 
     expect(
@@ -93,8 +93,8 @@ describe("object", () => {
         {},
         object({
           foo: exactOptional(string()),
-        }),
-      ),
+        })
+      )
     ).toBe(true);
 
     expect(
@@ -104,8 +104,8 @@ describe("object", () => {
         },
         object({
           foo: exactOptional(string()),
-        }),
-      ),
+        })
+      )
     ).toBe(false);
   });
 
@@ -117,8 +117,8 @@ describe("object", () => {
         },
         object({
           foo: number(),
-        }),
-      ),
+        })
+      )
     ).toBe(true);
 
     expect(
@@ -128,8 +128,8 @@ describe("object", () => {
         },
         object({
           foo: string(),
-        }),
-      ),
+        })
+      )
     ).toBe(false);
 
     expect(
@@ -139,8 +139,8 @@ describe("object", () => {
         },
         object({
           foo: optional(string()),
-        }),
-      ),
+        })
+      )
     ).toBe(true);
 
     expect(
@@ -150,8 +150,8 @@ describe("object", () => {
         },
         object({
           foo: optional(string()),
-        }),
-      ),
+        })
+      )
     ).toBe(true);
   });
 });
@@ -171,7 +171,7 @@ describe("exactOptional", () => {
     "returns $expected for is($obj, <struct>)",
     ({ struct, obj, expected }) => {
       expect(is(obj, struct)).toBe(expected);
-    },
+    }
   );
 
   const nestedStruct = object({
@@ -192,7 +192,7 @@ describe("exactOptional", () => {
     "returns $expected for is($obj, <struct>)",
     ({ struct, obj, expected }) => {
       expect(is(obj, struct)).toBe(expected);
-    },
+    }
   );
 
   const structWithUndefined = object({
@@ -209,7 +209,7 @@ describe("exactOptional", () => {
     "returns $expected for is($obj, <struct>)",
     ({ struct, obj, expected }) => {
       expect(is(obj, struct)).toBe(expected);
-    },
+    }
   );
 
   it("supports refinements", () => {
@@ -225,7 +225,7 @@ describe("exactOptional", () => {
 
 describe("json", () => {
   beforeEach(() => {
-    const actual = jest.requireActual("@metamask/superstruct");
+    const actual = jest.requireActual("../superstruct");
     (
       superstructAssert as jest.MockedFunction<typeof superstructAssert>
     ).mockImplementation(actual.assert);
@@ -236,7 +236,7 @@ describe("json", () => {
       const [error] = validate(undefined, JsonStruct);
       assert(error !== undefined);
       expect(error.message).toBe(
-        "Expected the value to satisfy a union of `literal | boolean | finite number | string | array | record`, but received: undefined",
+        "Expected the value to satisfy a union of `literal | boolean | finite number | string | array | record`, but received: undefined"
       );
     });
   });
@@ -290,14 +290,14 @@ describe("json", () => {
       "works on complex object %o",
       ({ value, valid }) => {
         expect(isValidJson(value)).toBe(valid);
-      },
+      }
     );
 
     it.each(JSON_FIXTURES.invalid)(
       "identifies invalid JSON values",
       (value) => {
         expect(isValidJson(value)).toBe(false);
-      },
+      }
     );
   });
 
@@ -306,7 +306,7 @@ describe("json", () => {
       "returns the size of %o",
       ({ value, size }) => {
         expect(getJsonSize(value)).toBe(size);
-      },
+      }
     );
   });
 
@@ -315,14 +315,14 @@ describe("json", () => {
       "returns true for a valid JSON-RPC notification",
       (notification) => {
         expect(isJsonRpcNotification(notification)).toBe(true);
-      },
+      }
     );
 
     it.each(JSON_RPC_NOTIFICATION_FIXTURES.invalid)(
       "returns false for an invalid JSON-RPC notification",
       (notification) => {
         expect(isJsonRpcNotification(notification)).toBe(false);
-      },
+      }
     );
   });
 
@@ -331,23 +331,23 @@ describe("json", () => {
       "does not throw an error for valid JSON-RPC notifications",
       (notification) => {
         expect(() => assertIsJsonRpcNotification(notification)).not.toThrow();
-      },
+      }
     );
 
     it.each(JSON_RPC_NOTIFICATION_FIXTURES.invalid)(
       "throws an error for invalid JSON-RPC notifications",
       (notification) => {
         expect(() => assertIsJsonRpcNotification(notification)).toThrow(
-          "Invalid JSON-RPC notification",
+          "Invalid JSON-RPC notification"
         );
-      },
+      }
     );
 
     it("includes the reason in the error message", () => {
       expect(() =>
-        assertIsJsonRpcNotification(JSON_RPC_NOTIFICATION_FIXTURES.invalid[0]),
+        assertIsJsonRpcNotification(JSON_RPC_NOTIFICATION_FIXTURES.invalid[0])
       ).toThrow(
-        'Invalid JSON-RPC notification: At path: jsonrpc -- Expected the literal `"2.0"`, but received: undefined.',
+        'Invalid JSON-RPC notification: At path: jsonrpc -- Expected the literal `"2.0"`, but received: undefined.'
       );
     });
 
@@ -360,7 +360,7 @@ describe("json", () => {
       });
 
       expect(() =>
-        assertIsJsonRpcNotification(JSON_RPC_NOTIFICATION_FIXTURES.invalid[0]),
+        assertIsJsonRpcNotification(JSON_RPC_NOTIFICATION_FIXTURES.invalid[0])
       ).toThrow("Invalid JSON-RPC notification: oops");
     });
   });
@@ -370,14 +370,14 @@ describe("json", () => {
       "returns true for a valid JSON-RPC request",
       (request) => {
         expect(isJsonRpcRequest(request)).toBe(true);
-      },
+      }
     );
 
     it.each(JSON_RPC_REQUEST_FIXTURES.invalid)(
       "returns false for an invalid JSON-RPC request",
       (request) => {
         expect(isJsonRpcRequest(request)).toBe(false);
-      },
+      }
     );
   });
 
@@ -386,23 +386,23 @@ describe("json", () => {
       "does not throw an error for valid JSON-RPC requests",
       (request) => {
         expect(() => assertIsJsonRpcRequest(request)).not.toThrow();
-      },
+      }
     );
 
     it.each(JSON_RPC_REQUEST_FIXTURES.invalid)(
       "throws an error for invalid JSON-RPC requests",
       (request) => {
         expect(() => assertIsJsonRpcRequest(request)).toThrow(
-          "Invalid JSON-RPC request",
+          "Invalid JSON-RPC request"
         );
-      },
+      }
     );
 
     it("includes the reason in the error message", () => {
       expect(() =>
-        assertIsJsonRpcRequest(JSON_RPC_REQUEST_FIXTURES.invalid[0]),
+        assertIsJsonRpcRequest(JSON_RPC_REQUEST_FIXTURES.invalid[0])
       ).toThrow(
-        "Invalid JSON-RPC request: At path: id -- Expected the value to satisfy a union of `number | string`, but received: undefined.",
+        "Invalid JSON-RPC request: At path: id -- Expected the value to satisfy a union of `number | string`, but received: undefined."
       );
     });
 
@@ -415,7 +415,7 @@ describe("json", () => {
       });
 
       expect(() =>
-        assertIsJsonRpcRequest(JSON_RPC_REQUEST_FIXTURES.invalid[0]),
+        assertIsJsonRpcRequest(JSON_RPC_REQUEST_FIXTURES.invalid[0])
       ).toThrow("Invalid JSON-RPC request: oops");
     });
   });
@@ -425,14 +425,14 @@ describe("json", () => {
       "returns true for a valid JSON-RPC success",
       (success) => {
         expect(isJsonRpcSuccess(success)).toBe(true);
-      },
+      }
     );
 
     it.each(JSON_RPC_SUCCESS_FIXTURES.invalid)(
       "returns false for an invalid JSON-RPC success",
       (success) => {
         expect(isJsonRpcSuccess(success)).toBe(false);
-      },
+      }
     );
   });
 
@@ -441,23 +441,23 @@ describe("json", () => {
       "does not throw an error for valid JSON-RPC success",
       (success) => {
         expect(() => assertIsJsonRpcSuccess(success)).not.toThrow();
-      },
+      }
     );
 
     it.each(JSON_RPC_SUCCESS_FIXTURES.invalid)(
       "throws an error for invalid JSON-RPC success",
       (success) => {
         expect(() => assertIsJsonRpcSuccess(success)).toThrow(
-          "Invalid JSON-RPC success response",
+          "Invalid JSON-RPC success response"
         );
-      },
+      }
     );
 
     it("includes the reason in the error message", () => {
       expect(() =>
-        assertIsJsonRpcSuccess(JSON_RPC_SUCCESS_FIXTURES.invalid[0]),
+        assertIsJsonRpcSuccess(JSON_RPC_SUCCESS_FIXTURES.invalid[0])
       ).toThrow(
-        "Invalid JSON-RPC success response: At path: id -- Expected the value to satisfy a union of `number | string`, but received: undefined.",
+        "Invalid JSON-RPC success response: At path: id -- Expected the value to satisfy a union of `number | string`, but received: undefined."
       );
     });
 
@@ -470,7 +470,7 @@ describe("json", () => {
       });
 
       expect(() =>
-        assertIsJsonRpcSuccess(JSON_RPC_SUCCESS_FIXTURES.invalid[0]),
+        assertIsJsonRpcSuccess(JSON_RPC_SUCCESS_FIXTURES.invalid[0])
       ).toThrow("Invalid JSON-RPC success response: oops.");
     });
   });
@@ -480,14 +480,14 @@ describe("json", () => {
       "returns true for a valid JSON-RPC failure",
       (failure) => {
         expect(isJsonRpcFailure(failure)).toBe(true);
-      },
+      }
     );
 
     it.each(JSON_RPC_FAILURE_FIXTURES.invalid)(
       "returns false for an invalid JSON-RPC failure",
       (failure) => {
         expect(isJsonRpcFailure(failure)).toBe(false);
-      },
+      }
     );
   });
 
@@ -496,23 +496,23 @@ describe("json", () => {
       "does not throw an error for valid JSON-RPC failure",
       (failure) => {
         expect(() => assertIsJsonRpcFailure(failure)).not.toThrow();
-      },
+      }
     );
 
     it.each(JSON_RPC_FAILURE_FIXTURES.invalid)(
       "throws an error for invalid JSON-RPC failure",
       (failure) => {
         expect(() => assertIsJsonRpcFailure(failure)).toThrow(
-          "Invalid JSON-RPC failure response",
+          "Invalid JSON-RPC failure response"
         );
-      },
+      }
     );
 
     it("includes the reason in the error message", () => {
       expect(() =>
-        assertIsJsonRpcFailure(JSON_RPC_FAILURE_FIXTURES.invalid[0]),
+        assertIsJsonRpcFailure(JSON_RPC_FAILURE_FIXTURES.invalid[0])
       ).toThrow(
-        "Invalid JSON-RPC failure response: At path: id -- Expected the value to satisfy a union of `number | string`, but received: undefined.",
+        "Invalid JSON-RPC failure response: At path: id -- Expected the value to satisfy a union of `number | string`, but received: undefined."
       );
     });
 
@@ -525,7 +525,7 @@ describe("json", () => {
       });
 
       expect(() =>
-        assertIsJsonRpcFailure(JSON_RPC_FAILURE_FIXTURES.invalid[0]),
+        assertIsJsonRpcFailure(JSON_RPC_FAILURE_FIXTURES.invalid[0])
       ).toThrow("Invalid JSON-RPC failure response: oops.");
     });
   });
@@ -535,14 +535,14 @@ describe("json", () => {
       "returns true for a valid JSON-RPC error",
       (error) => {
         expect(isJsonRpcError(error)).toBe(true);
-      },
+      }
     );
 
     it.each(JSON_RPC_ERROR_FIXTURES.invalid)(
       "returns false for an invalid JSON-RPC error",
       (error) => {
         expect(isJsonRpcError(error)).toBe(false);
-      },
+      }
     );
   });
 
@@ -551,23 +551,23 @@ describe("json", () => {
       "does not throw an error for valid JSON-RPC error",
       (error) => {
         expect(() => assertIsJsonRpcError(error)).not.toThrow();
-      },
+      }
     );
 
     it.each(JSON_RPC_ERROR_FIXTURES.invalid)(
       "throws an error for invalid JSON-RPC error",
       (error) => {
         expect(() => assertIsJsonRpcError(error)).toThrow(
-          "Invalid JSON-RPC error",
+          "Invalid JSON-RPC error"
         );
-      },
+      }
     );
 
     it("includes the reason in the error message", () => {
       expect(() =>
-        assertIsJsonRpcError(JSON_RPC_ERROR_FIXTURES.invalid[0]),
+        assertIsJsonRpcError(JSON_RPC_ERROR_FIXTURES.invalid[0])
       ).toThrow(
-        "Invalid JSON-RPC error: At path: code -- Expected an integer, but received: undefined.",
+        "Invalid JSON-RPC error: At path: code -- Expected an integer, but received: undefined."
       );
     });
 
@@ -580,7 +580,7 @@ describe("json", () => {
       });
 
       expect(() =>
-        assertIsJsonRpcError(JSON_RPC_ERROR_FIXTURES.invalid[0]),
+        assertIsJsonRpcError(JSON_RPC_ERROR_FIXTURES.invalid[0])
       ).toThrow("Invalid JSON-RPC error: oops");
     });
   });
@@ -590,14 +590,14 @@ describe("json", () => {
       "returns true for a valid pending JSON-RPC response",
       (response) => {
         expect(isPendingJsonRpcResponse(response)).toBe(true);
-      },
+      }
     );
 
     it.each(JSON_RPC_PENDING_RESPONSE_FIXTURES.invalid)(
       "returns false for an invalid pending JSON-RPC response",
       (response) => {
         expect(isPendingJsonRpcResponse(response)).toBe(false);
-      },
+      }
     );
   });
 
@@ -606,16 +606,16 @@ describe("json", () => {
       "does not throw for a valid pending JSON-RPC response",
       (response) => {
         expect(() => assertIsPendingJsonRpcResponse(response)).not.toThrow();
-      },
+      }
     );
 
     it.each(JSON_RPC_PENDING_RESPONSE_FIXTURES.invalid)(
       "throws for an invalid pending JSON-RPC response",
       (response) => {
         expect(() => assertIsPendingJsonRpcResponse(response)).toThrow(
-          "Invalid pending JSON-RPC response",
+          "Invalid pending JSON-RPC response"
         );
-      },
+      }
     );
 
     it("includes the value thrown in the message if it is not an error", () => {
@@ -627,7 +627,7 @@ describe("json", () => {
       });
 
       expect(() =>
-        assertIsPendingJsonRpcResponse(JSON_RPC_FAILURE_FIXTURES.invalid[0]),
+        assertIsPendingJsonRpcResponse(JSON_RPC_FAILURE_FIXTURES.invalid[0])
       ).toThrow("Invalid pending JSON-RPC response: oops");
     });
   });
@@ -637,14 +637,14 @@ describe("json", () => {
       "returns true for a valid JSON-RPC response",
       (response) => {
         expect(isJsonRpcResponse(response)).toBe(true);
-      },
+      }
     );
 
     it.each(JSON_RPC_RESPONSE_FIXTURES.invalid)(
       "returns false for an invalid JSON-RPC response",
       (response) => {
         expect(isJsonRpcResponse(response)).toBe(false);
-      },
+      }
     );
   });
 
@@ -653,23 +653,23 @@ describe("json", () => {
       "does not throw an error for valid JSON-RPC response",
       (response) => {
         expect(() => assertIsJsonRpcResponse(response)).not.toThrow();
-      },
+      }
     );
 
     it.each(JSON_RPC_RESPONSE_FIXTURES.invalid)(
       "throws an error for invalid JSON-RPC response",
       (response) => {
         expect(() => assertIsJsonRpcResponse(response)).toThrow(
-          "Invalid JSON-RPC response",
+          "Invalid JSON-RPC response"
         );
-      },
+      }
     );
 
     it("includes the reason in the error message", () => {
       expect(() =>
-        assertIsJsonRpcResponse(JSON_RPC_RESPONSE_FIXTURES.invalid[0]),
+        assertIsJsonRpcResponse(JSON_RPC_RESPONSE_FIXTURES.invalid[0])
       ).toThrow(
-        "Invalid JSON-RPC response: Expected the value to satisfy a union of `object | object`, but received: [object Object].",
+        "Invalid JSON-RPC response: Expected the value to satisfy a union of `object | object`, but received: [object Object]."
       );
     });
 
@@ -682,7 +682,7 @@ describe("json", () => {
       });
 
       expect(() =>
-        assertIsJsonRpcResponse(JSON_RPC_RESPONSE_FIXTURES.invalid[0]),
+        assertIsJsonRpcResponse(JSON_RPC_RESPONSE_FIXTURES.invalid[0])
       ).toThrow("Invalid JSON-RPC response: oops");
     });
   });
@@ -707,7 +707,7 @@ describe("json", () => {
 
     const validateAll = (
       validator: ReturnType<typeof getJsonRpcIdValidator>,
-      inputs: ReturnType<typeof getInputs>,
+      inputs: ReturnType<typeof getInputs>
     ) => {
       for (const input of Object.values(inputs)) {
         expect(validator(input.value)).toStrictEqual(input.expected);
@@ -733,8 +733,8 @@ describe("json", () => {
           getJsonRpcIdValidator({
             permitEmptyString: false,
           }),
-          inputs,
-        ),
+          inputs
+        )
       ).not.toThrow();
     });
 
@@ -747,8 +747,8 @@ describe("json", () => {
           getJsonRpcIdValidator({
             permitFractions: true,
           }),
-          inputs,
-        ),
+          inputs
+        )
       ).not.toThrow();
     });
 
@@ -761,8 +761,8 @@ describe("json", () => {
           getJsonRpcIdValidator({
             permitNull: false,
           }),
-          inputs,
-        ),
+          inputs
+        )
       ).not.toThrow();
     });
   });
