@@ -1,5 +1,8 @@
 const config = {
   clearMocks: true,
+  resetMocks: true,
+  restoreMocks: true,
+  testEnvironment: "jsdom",
   collectCoverage: true,
   testTimeout: 5000,
   coverageDirectory: "coverage",
@@ -7,7 +10,6 @@ const config = {
   transform: {
     "^.+\\.tsx?$": "babel-jest",
   },
-  testEnvironment: "jsdom",
   moduleFileExtensions: ["ts", "js"],
   setupFiles: ["<rootDir>/jest.setup.ts"],
   moduleNameMapper: {
