@@ -1,10 +1,11 @@
-import type { Config } from "jest";
-
-const config: Config = {
+const config = {
   clearMocks: true,
   collectCoverage: true,
   coverageDirectory: "coverage",
   coverageProvider: "v8",
+  transform: {
+    "^.+\\.tsx?$": "babel-jest",
+  },
   testEnvironment: "jsdom",
   moduleFileExtensions: ["ts", "js"],
   setupFiles: ["<rootDir>/jest.setup.ts"],
