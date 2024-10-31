@@ -1,15 +1,15 @@
-var W = Object.defineProperty;
-var M = (s) => {
-  throw TypeError(s);
+var v = Object.defineProperty;
+var f = (t) => {
+  throw TypeError(t);
 };
-var D = (s, t, e) => t in s ? W(s, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : s[t] = e;
-var n = (s, t, e) => D(s, typeof t != "symbol" ? t + "" : t, e), f = (s, t, e) => t.has(s) || M("Cannot " + e);
-var d = (s, t, e) => (f(s, t, "read from private field"), e ? e.call(s) : t.get(s)), c = (s, t, e) => t.has(s) ? M("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(s) : t.set(s, e), l = (s, t, e, o) => (f(s, t, "write to private field"), o ? o.call(s, e) : t.set(s, e), e);
-import { b as O } from "./browser-BfYtJpNX.js";
-import { aO as P, a as b } from "./versions-DCTBsmoI.js";
-const u = () => {
-}, p = "SYN", _ = "ACK";
-class i extends O.Duplex {
+var O = (t, s, e) => s in t ? v(t, s, { enumerable: !0, configurable: !0, writable: !0, value: e }) : t[s] = e;
+var n = (t, s, e) => O(t, typeof s != "symbol" ? s + "" : s, e), w = (t, s, e) => s.has(t) || f("Cannot " + e);
+var d = (t, s, e) => (w(t, s, "read from private field"), e ? e.call(t) : s.get(t)), u = (t, s, e) => s.has(t) ? f("Cannot add the same private member more than once") : s instanceof WeakSet ? s.add(t) : s.set(t, e), c = (t, s, e, i) => (w(t, s, "write to private field"), i ? i.call(t, e) : s.set(t, e), e);
+import { b as D } from "./browser-BfYtJpNX.js";
+import { aO as x, a as b } from "./versions-DCTBsmoI.js";
+const l = () => {
+}, p = "SYN", h = "ACK";
+class g extends D.Duplex {
   constructor(e) {
     super({
       objectMode: !0,
@@ -25,72 +25,32 @@ class i extends O.Duplex {
    * communication with other end.
    */
   _handshake() {
-    this._write(p, null, u), this.cork();
+    this._write(p, null, l), this.cork();
   }
   _onData(e) {
     if (this._init)
       try {
         this.push(e), this._log(e, !1);
-      } catch (o) {
-        this.emit("error", o);
+      } catch (i) {
+        this.emit("error", i);
       }
-    else e === p ? (this._haveSyn = !0, this._write(_, null, u)) : e === _ && (this._init = !0, this._haveSyn || this._write(_, null, u), this.uncork());
+    else e === p ? (this._haveSyn = !0, this._write(h, null, l)) : e === h && (this._init = !0, this._haveSyn || this._write(h, null, l), this.uncork());
   }
   _read() {
   }
-  _write(e, o, a) {
-    e !== _ && e !== p && this._log(e, !0), this._postMessage(e), a();
+  _write(e, i, o) {
+    e !== h && e !== p && this._log(e, !0), this._postMessage(e), o();
   }
   _setLogger(e) {
     this._log = e;
   }
 }
 const y = "dedicatedWorker";
-function r(s) {
-  return P(s) && !!s.data && (typeof s.data == "number" || typeof s.data == "object" || typeof s.data == "string");
+function _(t) {
+  return x(t) && !!t.data && (typeof t.data == "number" || typeof t.data == "object" || typeof t.data == "string");
 }
-class R extends i {
-  constructor(t = {}) {
-    if (super(t), typeof globalThis.process.send != "function")
-      throw new Error(
-        "Parent IPC channel not found. This class should only be instantiated in a Node.js child process."
-      );
-    this._onMessage = this._onMessage.bind(this), globalThis.process.on("message", this._onMessage), this._handshake();
-  }
-  _postMessage(t) {
-    globalThis.process.send({ data: t });
-  }
-  _onMessage(t) {
-    r(t) && this._onData(t.data);
-  }
-  _destroy() {
-    globalThis.process.removeListener("message", this._onMessage);
-  }
-}
-class j extends i {
-  /**
-   * Creates a stream for communicating with a Node.js `child_process` process.
-   *
-   * @param args - Options bag.
-   * @param args.process - The process to communicate with.
-   */
-  constructor({ process: e, ...o }) {
-    super(o);
-    n(this, "_process");
-    this._process = e, this._onMessage = this._onMessage.bind(this), this._process.on("message", this._onMessage), this._handshake();
-  }
-  _postMessage(e) {
-    this._process.send({ data: e });
-  }
-  _onMessage(e) {
-    r(e) && this._onData(e.data);
-  }
-  _destroy() {
-    this._process.removeListener("message", this._onMessage);
-  }
-}
-var h, g;
-class A extends i {
+var r, a;
+class T extends g {
   /**
    * Creates a stream for communicating with other streams across the extension
    * runtime.
@@ -102,28 +62,28 @@ class A extends i {
    */
   constructor({
     name: e,
-    target: o,
-    ...a
+    target: i,
+    ...o
   }) {
-    super(a);
-    c(this, h);
-    c(this, g);
-    l(this, h, e), l(this, g, o), this._onMessage = this._onMessage.bind(this), this._getRuntime().onMessage.addListener(this._onMessage), this._handshake();
+    super(o);
+    u(this, r);
+    u(this, a);
+    c(this, r, e), c(this, a, i), this._onMessage = this._onMessage.bind(this), this._getRuntime().onMessage.addListener(this._onMessage), this._handshake();
   }
   _postMessage(e) {
     this._getRuntime().sendMessage({
-      target: d(this, g),
+      target: d(this, a),
       data: e
     });
   }
   _onMessage(e) {
-    !r(e) || e.target !== d(this, h) || this._onData(e.data);
+    !_(e) || e.target !== d(this, r) || this._onData(e.data);
   }
   _getRuntime() {
-    var e, o;
+    var e, i;
     if ("chrome" in globalThis && typeof ((e = chrome == null ? void 0 : chrome.runtime) == null ? void 0 : e.sendMessage) == "function")
       return chrome.runtime;
-    if ("browser" in globalThis && typeof ((o = browser == null ? void 0 : browser.runtime) == null ? void 0 : o.sendMessage) == "function")
+    if ("browser" in globalThis && typeof ((i = browser == null ? void 0 : browser.runtime) == null ? void 0 : i.sendMessage) == "function")
       return browser.runtime;
     throw new Error(
       "browser.runtime.sendMessage is not a function. This class should only be instantiated in a web extension."
@@ -133,8 +93,8 @@ class A extends i {
     this._getRuntime().onMessage.removeListener(this._onMessage);
   }
 }
-h = new WeakMap(), g = new WeakMap();
-class C extends i {
+r = new WeakMap(), a = new WeakMap();
+class j extends g {
   /**
    * Creates a stream for communicating with a dedicated `WebWorker`.
    *
@@ -142,8 +102,8 @@ class C extends i {
    * @param args.worker - The Web Worker to exchange messages with. The worker
    * must instantiate a `WebWorkerPostMessageStream`.
    */
-  constructor({ worker: e, ...o }) {
-    super(o);
+  constructor({ worker: e, ...i }) {
+    super(i);
     n(this, "_target");
     n(this, "_worker");
     this._target = y, this._worker = e, this._worker.onmessage = this._onMessage.bind(this), this._handshake();
@@ -155,14 +115,14 @@ class C extends i {
     });
   }
   _onMessage(e) {
-    const o = e.data;
-    r(o) && this._onData(o.data);
+    const i = e.data;
+    _(i) && this._onData(i.data);
   }
   _destroy() {
     this._worker.onmessage = null, this._worker = null;
   }
 }
-class N extends i {
+class A extends g {
   constructor(e = {}) {
     if (typeof self > "u" || // @ts-expect-error: No types for WorkerGlobalScope
     typeof WorkerGlobalScope > "u")
@@ -177,26 +137,26 @@ class N extends i {
     self.postMessage({ data: e });
   }
   _onMessage(e) {
-    const o = e.data;
-    !r(o) || o.target !== this._name || this._onData(o.data);
+    const i = e.data;
+    !_(i) || i.target !== this._name || this._onData(i.data);
   }
   // worker stream lifecycle assumed to be coterminous with global scope
   _destroy() {
   }
 }
-var w;
-const k = (w = Object.getOwnPropertyDescriptor(
+var M;
+const k = (M = Object.getOwnPropertyDescriptor(
   MessageEvent.prototype,
   "source"
-)) == null ? void 0 : w.get;
+)) == null ? void 0 : M.get;
 b(k, "MessageEvent.prototype.source getter is not defined.");
 var m;
-const S = (m = Object.getOwnPropertyDescriptor(
+const W = (m = Object.getOwnPropertyDescriptor(
   MessageEvent.prototype,
   "origin"
 )) == null ? void 0 : m.get;
-b(S, "MessageEvent.prototype.origin getter is not defined.");
-class B extends i {
+b(W, "MessageEvent.prototype.origin getter is not defined.");
+class B extends g {
   /**
    * Creates a stream for communicating with other streams across the same or
    * different `window` objects.
@@ -212,12 +172,12 @@ class B extends i {
    */
   constructor({
     name: e,
-    target: o,
-    targetOrigin: a = location.origin,
-    targetWindow: v = window,
-    ...E
+    target: i,
+    targetOrigin: o = location.origin,
+    targetWindow: E = window,
+    ...S
   }) {
-    super(E);
+    super(S);
     n(this, "_name");
     n(this, "_target");
     n(this, "_targetOrigin");
@@ -226,7 +186,7 @@ class B extends i {
       throw new Error(
         "window.postMessage is not a function. This class should only be instantiated in a Window."
       );
-    this._name = e, this._target = o, this._targetOrigin = a, this._targetWindow = v, this._onMessage = this._onMessage.bind(this), window.addEventListener("message", this._onMessage, !1), this._handshake();
+    this._name = e, this._target = i, this._targetOrigin = o, this._targetWindow = E, this._onMessage = this._onMessage.bind(this), window.addEventListener("message", this._onMessage, !1), this._handshake();
   }
   _postMessage(e) {
     this._targetWindow.postMessage(
@@ -238,19 +198,17 @@ class B extends i {
     );
   }
   _onMessage(e) {
-    const o = e.data;
-    this._targetOrigin !== "*" && S.call(e) !== this._targetOrigin || k.call(e) !== this._targetWindow || !r(o) || o.target !== this._name || this._onData(o.data);
+    const i = e.data;
+    this._targetOrigin !== "*" && W.call(e) !== this._targetOrigin || k.call(e) !== this._targetWindow || !_(i) || i.target !== this._name || this._onData(i.data);
   }
   _destroy() {
     window.removeEventListener("message", this._onMessage, !1);
   }
 }
 export {
-  i as BasePostMessageStream,
-  A as BrowserRuntimePostMessageStream,
-  R as ProcessMessageStream,
-  j as ProcessParentMessageStream,
-  C as WebWorkerParentPostMessageStream,
-  N as WebWorkerPostMessageStream,
+  g as BasePostMessageStream,
+  T as BrowserRuntimePostMessageStream,
+  j as WebWorkerParentPostMessageStream,
+  A as WebWorkerPostMessageStream,
   B as WindowPostMessageStream
 };

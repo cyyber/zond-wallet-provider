@@ -7,8 +7,6 @@ describe("post-message-stream", () => {
       "WindowPostMessageStream",
       "WebWorkerPostMessageStream",
       "WebWorkerParentPostMessageStream",
-      "ProcessParentMessageStream",
-      "ProcessMessageStream",
       "BrowserRuntimePostMessageStream",
     ];
 
