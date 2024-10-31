@@ -5,8 +5,6 @@ describe("post-message-stream", () => {
     const expectedExports = [
       "BasePostMessageStream",
       "WindowPostMessageStream",
-      "WebWorkerPostMessageStream",
-      "WebWorkerParentPostMessageStream",
       "BrowserRuntimePostMessageStream",
     ];
 
