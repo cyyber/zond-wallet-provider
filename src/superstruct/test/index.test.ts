@@ -3,8 +3,6 @@ import assert, { CallTracker } from "assert";
 import fs from "fs";
 import { pick } from "lodash";
 import { basename, extname, resolve } from "path";
-// import { describe, it } from 'vitest';
-
 import {
   any,
   assert as assertValue,
@@ -16,27 +14,25 @@ import {
 describe("superstruct", () => {
   describe("validation", () => {
     const kindsDir = resolve(__dirname, "validation");
-    // eslint-disable-next-line n/no-sync
     const kinds = fs
       .readdirSync(kindsDir)
       .filter((name) => !name.startsWith("."))
       .map((name) => basename(name, extname(name)));
 
     for (const kind of kinds) {
-      describe(kind, async () => {
+      describe(kind, () => {
         const testsDir = resolve(kindsDir, kind);
-        // eslint-disable-next-line n/no-sync
         const tests = fs
           .readdirSync(testsDir)
           .filter((name) => !name.startsWith("."))
           .map((name) => basename(name, extname(name)));
 
-        for (const name of tests) {
-          const testModule = await import(resolve(testsDir, name));
+        for (let i = 0; i < tests.length; i++) {
+          const name = tests[i];
+          // @ts-ignore
+          const testModule = global.validationTestModules[i];
           const { Struct, data, create, only, skip, output, failures } =
             testModule;
-
-          // eslint-disable-next-line no-nested-ternary
           const run = only ? it.only : skip ? it.skip : it;
           run(name, () => {
             let actual;
@@ -61,7 +57,7 @@ describe("superstruct", () => {
               if (error) {
                 throw new Error(
                   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                  `Expected "${name}" fixture not to throw an error but it did:\n\n${error}`,
+                  `Expected "${name}" fixture not to throw an error but it did:\n\n${error}`
                 );
               }
 
@@ -69,7 +65,7 @@ describe("superstruct", () => {
             } else if ("failures" in testModule) {
               if (!error) {
                 throw new Error(
-                  `Expected "${name}" fixture to throw an error but it did not.`,
+                  `Expected "${name}" fixture to throw an error but it did not.`
                 );
               }
 
@@ -82,7 +78,7 @@ describe("superstruct", () => {
               assert.deepStrictEqual(pick(error, ...props), failures[0]);
             } else {
               throw new Error(
-                `The "${name}" fixture did not define an \`output\` or \`failures\` export.`,
+                `The "${name}" fixture did not define an \`output\` or \`failures\` export.`
               );
             }
           });
