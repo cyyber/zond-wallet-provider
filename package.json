@@ -51,7 +51,7 @@
     }
   },
   "scripts": {
-    "test": "jest --runInBand",
+    "test": "jest",
     "build": "tsc && vite build",
     "prepublish": "npm run build"
   },

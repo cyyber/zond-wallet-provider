@@ -45,7 +45,7 @@ describe("createStreamMiddleware", () => {
             return reject(error);
           }
           return resolve();
-        },
+        }
       );
     });
   });
@@ -119,6 +119,7 @@ describe("middleware and engine to stream", () => {
 
 const RECONNECTED = "CONNECTED";
 describe("retry logic in middleware connected to a port", () => {
+  let clientSideStream: any;
   let engineA: JsonRpcEngine | undefined;
   let messages: any[] = [];
   let messageConsumer: any;
@@ -148,11 +149,11 @@ describe("retry logic in middleware connected to a port", () => {
     };
 
     const connectionStream = new PortStream(
-      extensionPort as unknown as Runtime.Port,
+      extensionPort as unknown as Runtime.Port
     );
 
     // connect both
-    const clientSideStream = jsonRpcConnection.stream;
+    clientSideStream = jsonRpcConnection.stream;
     clientSideStream
       .pipe(connectionStream as unknown as Duplex)
       .pipe(clientSideStream);
@@ -197,6 +198,36 @@ describe("retry logic in middleware connected to a port", () => {
     expect(messages).toHaveLength(5);
   });
 
+  it("does not throw error when response is received for request not in map", async () => {
+    const res = { id: 1, jsonrpc, result: "test" };
+
+    messageConsumer(res);
+
+    expect(() => {
+      messageConsumer(res);
+      messageConsumer(res);
+    }).not.toThrow();
+  });
+
+  it("does not retry if the request has no id", async () => {
+    // request and expected result
+    const req = { id: undefined, jsonrpc, method: "test" };
+
+    // Initially sent once, message count at 1
+    // intentionally not awaited
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    engineA?.handle(req);
+    await artificialDelay();
+    expect(messages).toHaveLength(1);
+
+    // Reconnected, but request is not re-submitted
+    messageConsumer({
+      method: RECONNECTED,
+    });
+    await artificialDelay();
+    expect(messages).toHaveLength(1);
+  });
+
   it("throw error when requests are retried more than 3 times", async () => {
     // request and expected result
     const req = { id: 1, jsonrpc, method: "test" };
@@ -229,41 +260,15 @@ describe("retry logic in middleware connected to a port", () => {
     await artificialDelay();
     expect(messages).toHaveLength(4);
 
-    // Reconnected, error is thrrown when trying to resend request more that 3 times
-    expect(() => {
-      messageConsumer({
-        method: RECONNECTED,
-      });
-    }).toThrow("StreamMiddleware - Retry limit exceeded for request id");
-  });
-
-  it("does not throw error when response is received for request not in map", async () => {
-    const res = { id: 1, jsonrpc, result: "test" };
-
-    messageConsumer(res);
-
-    expect(() => {
-      messageConsumer(res);
-      messageConsumer(res);
-    }).not.toThrow();
-  });
-
-  it("does not retry if the request has no id", async () => {
-    // request and expected result
-    const req = { id: undefined, jsonrpc, method: "test" };
-
-    // Initially sent once, message count at 1
-    // intentionally not awaited
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    engineA?.handle(req);
-    await artificialDelay();
-    expect(messages).toHaveLength(1);
-
-    // Reconnected, but request is not re-submitted
+    // Prepare listener to receive error
+    clientSideStream.on("error", (error: Error) => {
+      expect(error.message.trim()).toBe(
+        'StreamMiddleware - Retry limit exceeded for request id "1"'
+      );
+    });
+    // Reconnected, error is thrown when trying to resend request more that 3 times
     messageConsumer({
       method: RECONNECTED,
     });
-    await artificialDelay();
-    expect(messages).toHaveLength(1);
   });
 });

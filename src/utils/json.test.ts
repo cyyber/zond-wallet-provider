@@ -46,6 +46,7 @@ import {
   JSON_VALIDATION_FIXTURES,
 } from "./__fixtures__";
 
+jest.setTimeout(5000);
 jest.mock("../superstruct", () => ({
   ...jest.requireActual("../superstruct"),
   assert: jest.fn(),
