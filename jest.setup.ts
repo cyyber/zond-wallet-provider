@@ -3,6 +3,10 @@ import fs from "fs";
 import { TextEncoder, TextDecoder } from "util";
 Object.assign(global, { TextDecoder, TextEncoder });
 
+Object.defineProperty(MessageEvent.prototype, "source", {
+  get: () => window,
+});
+
 global.validationTestModules = [];
 (() => {
   const kindsDir = resolve(__dirname, "src/superstruct/test/validation");

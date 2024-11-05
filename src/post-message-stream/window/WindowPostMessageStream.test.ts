@@ -35,13 +35,14 @@ describe("WindowPostMessageStream", () => {
     const streamA = new WindowPostMessageStream({
       name: "a",
       target: "b",
+      targetOrigin: "*",
     });
 
     // Prevent stream A from receiving stream B's synchronization message, to
     // force execution down a particular path for coverage purposes.
     const originalStreamAListener = (streamA as any)._onMessage;
     const streamAListener = (event: MessageEvent) => {
-      if (event.data.data === "SYN") {
+      if (event?.data?.data === "SYN") {
         return undefined;
       }
       return originalStreamAListener(event);
@@ -56,6 +57,7 @@ describe("WindowPostMessageStream", () => {
       target: "a",
       // This shouldn't make a difference, it's just for coverage purposes
       targetWindow: window,
+      targetOrigin: "*",
     });
     streamB.on("data", (value) => streamB.write(value * 5));
 
@@ -78,7 +80,7 @@ describe("WindowPostMessageStream", () => {
     };
     streamA.once("data", throwingListener);
     streamB.once("data", throwingListener);
-    window.dispatchEvent(new Event("message"));
+    window.dispatchEvent(new MessageEvent("message"));
 
     // Destroy streams and confirm that they were destroyed
     streamA.destroy();
