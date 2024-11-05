@@ -9,7 +9,6 @@ export * from './encryption-types';
 export * from './errors';
 export * from './hex';
 export * from './json';
-export * from './keyring';
 export * from './logging';
 export * from './misc';
 export * from './number';

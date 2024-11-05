@@ -4,20 +4,20 @@ describe('FrozenMap', () => {
   describe('immutability', () => {
     it('has the expected class properties', () => {
       // i.e., does not have 'delete', 'set', or 'clear'
-      expect(Object.getOwnPropertyNames(FrozenMap.prototype))
-        .toMatchInlineSnapshot(`
-        [
-          "constructor",
-          "size",
-          "entries",
-          "forEach",
-          "get",
-          "has",
-          "keys",
-          "values",
-          "toString",
-        ]
-      `);
+      expect(Object.getOwnPropertyNames(FrozenMap.prototype)).
+toMatchInlineSnapshot(`
+Array [
+  "constructor",
+  "size",
+  "entries",
+  "forEach",
+  "get",
+  "has",
+  "keys",
+  "values",
+  "toString",
+]
+`);
     });
 
     it('is frozen and cannot be mutated', () => {
@@ -231,19 +231,19 @@ describe('FrozenSet', () => {
   describe('immutability', () => {
     it('has the expected class properties', () => {
       // i.e., does not have 'delete', 'add', or 'clear'
-      expect(Object.getOwnPropertyNames(FrozenSet.prototype))
-        .toMatchInlineSnapshot(`
-        [
-          "constructor",
-          "size",
-          "entries",
-          "forEach",
-          "has",
-          "keys",
-          "values",
-          "toString",
-        ]
-      `);
+      expect(Object.getOwnPropertyNames(FrozenSet.prototype)).
+toMatchInlineSnapshot(`
+Array [
+  "constructor",
+  "size",
+  "entries",
+  "forEach",
+  "has",
+  "keys",
+  "values",
+  "toString",
+]
+`);
     });
 
     it('is frozen and cannot be mutated', () => {

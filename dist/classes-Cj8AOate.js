@@ -1,8 +1,8 @@
 var j = Object.defineProperty;
 var z = (e, r, t) => r in e ? j(e, r, { enumerable: !0, configurable: !0, writable: !0, value: t }) : e[r] = t;
-var m = (e, r, t) => (z(e, typeof r != "symbol" ? r + "" : r, t), t);
+var m = (e, r, t) => z(e, typeof r != "symbol" ? r + "" : r, t);
 import { g as w } from "./_commonjsHelpers-C6fGbg64.js";
-import { h as S, aH as C, ai as O, aO as E, aS as v } from "./versions-BzFJWa4R.js";
+import { h as S, aH as C, ai as O, aO as E, aS as v } from "./versions-DCTBsmoI.js";
 var T = g;
 g.default = g;
 g.stable = J;

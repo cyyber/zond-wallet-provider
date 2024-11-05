@@ -1,12 +1,12 @@
-import type { Context, Validator } from '../struct.js';
-import { Struct } from '../struct.js';
+import type { Context, Validator } from "../struct";
+import { Struct } from "../struct";
 import type {
   Assign,
   ObjectSchema,
   ObjectType,
   PartialObjectSchema,
-} from '../utils.js';
-import { object, optional, type } from './types.js';
+} from "../utils";
+import { object, optional, type } from "./types";
 
 /**
  * Create a new struct that combines the properties from multiple object or type
@@ -20,7 +20,7 @@ import { object, optional, type } from './types.js';
  */
 export function assign<First extends ObjectSchema, Second extends ObjectSchema>(
   First: Struct<ObjectType<First>, First>,
-  Second: Struct<ObjectType<Second>, Second>,
+  Second: Struct<ObjectType<Second>, Second>
 ): Struct<ObjectType<Assign<First, Second>>, Assign<First, Second>>;
 
 /**
@@ -35,11 +35,11 @@ export function assign<First extends ObjectSchema, Second extends ObjectSchema>(
 export function assign<
   First extends ObjectSchema,
   Second extends ObjectSchema,
-  Third extends ObjectSchema,
+  Third extends ObjectSchema
 >(
   First: Struct<ObjectType<First>, First>,
   Second: Struct<ObjectType<Second>, Second>,
-  Third: Struct<ObjectType<Third>, Third>,
+  Third: Struct<ObjectType<Third>, Third>
 ): Struct<
   ObjectType<Assign<Assign<First, Second>, Third>>,
   Assign<Assign<First, Second>, Third>
@@ -59,12 +59,12 @@ export function assign<
   First extends ObjectSchema,
   Second extends ObjectSchema,
   Third extends ObjectSchema,
-  Fourth extends ObjectSchema,
+  Fourth extends ObjectSchema
 >(
   First: Struct<ObjectType<First>, First>,
   Second: Struct<ObjectType<Second>, Second>,
   Third: Struct<ObjectType<Third>, Third>,
-  Fourth: Struct<ObjectType<Fourth>, Fourth>,
+  Fourth: Struct<ObjectType<Fourth>, Fourth>
 ): Struct<
   ObjectType<Assign<Assign<Assign<First, Second>, Third>, Fourth>>,
   Assign<Assign<Assign<First, Second>, Third>, Fourth>
@@ -86,13 +86,13 @@ export function assign<
   Second extends ObjectSchema,
   Third extends ObjectSchema,
   Fourth extends ObjectSchema,
-  Fifth extends ObjectSchema,
+  Fifth extends ObjectSchema
 >(
   First: Struct<ObjectType<First>, First>,
   Second: Struct<ObjectType<Second>, Second>,
   Third: Struct<ObjectType<Third>, Third>,
   Fourth: Struct<ObjectType<Fourth>, Fourth>,
-  Fifth: Struct<ObjectType<Fifth>, Fifth>,
+  Fifth: Struct<ObjectType<Fifth>, Fifth>
 ): Struct<
   ObjectType<
     Assign<Assign<Assign<Assign<First, Second>, Third>, Fourth>, Fifth>
@@ -108,7 +108,7 @@ export function assign<
  * @returns A new struct that combines the properties of the input structs.
  */
 export function assign(...Structs: Struct<any>[]): any {
-  const isType = Structs[0]?.type === 'type';
+  const isType = Structs[0]?.type === "type";
   const schemas = Structs.map(({ schema }) => schema);
   const schema = Object.assign({}, ...schemas);
   return isType ? type(schema) : object(schema);
@@ -123,7 +123,7 @@ export function assign(...Structs: Struct<any>[]): any {
  */
 export function define<Type>(
   name: string,
-  validator: Validator,
+  validator: Validator
 ): Struct<Type, null> {
   return new Struct({ type: name, schema: null, validator });
 }
@@ -139,7 +139,7 @@ export function define<Type>(
  */
 export function deprecated<Type>(
   struct: Struct<Type>,
-  log: (value: unknown, ctx: Context) => void,
+  log: (value: unknown, ctx: Context) => void
 ): Struct<Type> {
   return new Struct({
     ...struct,
@@ -165,10 +165,10 @@ export function deprecated<Type>(
  * @returns A new struct with dynamic validation logic.
  */
 export function dynamic<Type>(
-  fn: (value: unknown, ctx: Context) => Struct<Type, any>,
+  fn: (value: unknown, ctx: Context) => Struct<Type, any>
 ): Struct<Type, null> {
   return new Struct({
-    type: 'dynamic',
+    type: "dynamic",
     schema: null,
     *entries(value, ctx) {
       const struct = fn(value, ctx);
@@ -203,7 +203,7 @@ export function dynamic<Type>(
 export function lazy<Type>(fn: () => Struct<Type, any>): Struct<Type, null> {
   let struct: Struct<Type, any> | undefined;
   return new Struct({
-    type: 'lazy',
+    type: "lazy",
     schema: null,
     *entries(value, ctx) {
       struct ??= fn();
@@ -236,7 +236,7 @@ export function lazy<Type>(fn: () => Struct<Type, any>): Struct<Type, null> {
  */
 export function omit<Schema extends ObjectSchema, Key extends keyof Schema>(
   struct: Struct<ObjectType<Schema>, Schema>,
-  keys: Key[],
+  keys: Key[]
 ): Struct<ObjectType<Omit<Schema, Key>>, Omit<Schema, Key>> {
   const { schema } = struct;
   const subschema: any = { ...schema };
@@ -246,7 +246,7 @@ export function omit<Schema extends ObjectSchema, Key extends keyof Schema>(
   }
 
   switch (struct.type) {
-    case 'type':
+    case "type":
       return type(subschema as Omit<Schema, Key>);
     default:
       return object(subschema as Omit<Schema, Key>);
@@ -263,7 +263,7 @@ export function omit<Schema extends ObjectSchema, Key extends keyof Schema>(
  * @returns A new struct that will accept the input keys as `undefined`.
  */
 export function partial<Schema extends ObjectSchema>(
-  struct: Struct<ObjectType<Schema>, Schema> | Schema,
+  struct: Struct<ObjectType<Schema>, Schema> | Schema
 ): Struct<
   ObjectType<PartialObjectSchema<Schema>>,
   PartialObjectSchema<Schema>
@@ -276,7 +276,7 @@ export function partial<Schema extends ObjectSchema>(
     schema[key] = optional(schema[key]);
   }
 
-  if (isStruct && struct.type === 'type') {
+  if (isStruct && struct.type === "type") {
     return type(schema) as any;
   }
 
@@ -295,7 +295,7 @@ export function partial<Schema extends ObjectSchema>(
  */
 export function pick<Schema extends ObjectSchema, Key extends keyof Schema>(
   struct: Struct<ObjectType<Schema>, Schema>,
-  keys: Key[],
+  keys: Key[]
 ): Struct<ObjectType<Pick<Schema, Key>>, Pick<Schema, Key>> {
   const { schema } = struct;
   const subschema: any = {};
@@ -305,7 +305,7 @@ export function pick<Schema extends ObjectSchema, Key extends keyof Schema>(
   }
 
   switch (struct.type) {
-    case 'type':
+    case "type":
       return type(subschema) as any;
 
     default:

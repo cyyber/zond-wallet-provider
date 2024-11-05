@@ -1,5 +1,5 @@
-import { Context, Validator, Struct } from '../struct.js';
-import { Assign, ObjectSchema, ObjectType, PartialObjectSchema } from '../utils.js';
+import { Context, Validator, Struct } from '../struct';
+import { Assign, ObjectSchema, ObjectType, PartialObjectSchema } from '../utils';
 /**
  * Create a new struct that combines the properties from multiple object or type
  * structs. Its return type will match the first parameter's type.

@@ -71,7 +71,7 @@ async function getInitializedProvider({
             isUnlocked,
             networkVersion,
           },
-        }),
+        })
       );
     }
     for (const { substream, method, callback } of onMethodCalled) {
@@ -98,6 +98,15 @@ async function getInitializedProvider({
 }
 
 describe("createExternalExtensionProvider", () => {
+  beforeEach(() => {
+    global.chrome = {
+      // @ts-ignore
+      runtime: {
+        connect: jest.fn(),
+      },
+    };
+  });
+
   it("can be called and not throw", () => {
     // `global.chrome.runtime` mock setup by `jest-chrome` in `jest.setup.browser.js`
     (global.chrome.runtime.connect as any).mockImplementation(() => {
@@ -132,7 +141,7 @@ describe("createExternalExtensionProvider", () => {
     const results = createExternalExtensionProvider("flask");
     expect(results).toBeInstanceOf(StreamProvider);
     expect(global.chrome.runtime.connect).toHaveBeenCalledWith(
-      config.chromeIds.flask,
+      config.chromeIds.flask
     );
   });
 
@@ -144,7 +153,7 @@ describe("createExternalExtensionProvider", () => {
     const results = createExternalExtensionProvider("beta");
     expect(results).toBeInstanceOf(StreamProvider);
     expect(global.chrome.runtime.connect).toHaveBeenCalledWith(
-      config.chromeIds.beta,
+      config.chromeIds.beta
     );
   });
 
@@ -261,7 +270,7 @@ describe("createExternalExtensionProvider", () => {
           });
 
           await expect(async () =>
-            provider.request({ method }),
+            provider.request({ method })
           ).rejects.toMatchObject({
             code: 0,
             message: "failure!",

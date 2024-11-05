@@ -1,18 +1,16 @@
-import * as PostMessageStream from './browser';
+import * as PostMessageStream from "./browser";
 
-describe('post-message-stream', () => {
-  describe('browser exports', () => {
+describe("post-message-stream", () => {
+  describe("browser exports", () => {
     const expectedExports = [
-      'BasePostMessageStream',
-      'WindowPostMessageStream',
-      'WebWorkerPostMessageStream',
-      'WebWorkerParentPostMessageStream',
-      'BrowserRuntimePostMessageStream',
+      "BasePostMessageStream",
+      "WindowPostMessageStream",
+      "BrowserRuntimePostMessageStream",
     ];
 
-    it('package has expected exports', () => {
+    it("package has expected exports", () => {
       expect(Object.keys(PostMessageStream)).toHaveLength(
-        expectedExports.length,
+        expectedExports.length
       );
 
       for (const exportName of expectedExports) {

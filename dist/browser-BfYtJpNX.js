@@ -1,4 +1,4 @@
-import { e as Ft } from "./events-BBOErkdo.js";
+import { e as Ft } from "./events-D2cUsYK1.js";
 var Wn = { exports: {} }, Xt = { exports: {} }, je = {}, Dt = {};
 Dt.byteLength = Gi;
 Dt.toByteArray = Hi;
@@ -144,8 +144,7 @@ $r.write = function(e, t, i, l, c, d) {
     if (f != null && f !== o)
       return u.from(f, r, n);
     const h = D(o);
-    if (h)
-      return h;
+    if (h) return h;
     if (typeof Symbol < "u" && Symbol.toPrimitive != null && typeof o[Symbol.toPrimitive] == "function")
       return u.from(o[Symbol.toPrimitive]("string"), r, n);
     throw new TypeError(
@@ -229,8 +228,7 @@ $r.write = function(e, t, i, l, c, d) {
       throw new TypeError(
         'The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array'
       );
-    if (r === n)
-      return 0;
+    if (r === n) return 0;
     let f = r.length, h = n.length;
     for (let w = 0, S = Math.min(f, h); w < S; ++w)
       if (r[w] !== n[w]) {
@@ -292,8 +290,7 @@ $r.write = function(e, t, i, l, c, d) {
         'The "string" argument must be one of type string, Buffer, or ArrayBuffer. Received type ' + typeof o
       );
     const n = o.length, f = arguments.length > 2 && arguments[2] === !0;
-    if (!f && n === 0)
-      return 0;
+    if (!f && n === 0) return 0;
     let h = !1;
     for (; ; )
       switch (r) {
@@ -344,8 +341,7 @@ $r.write = function(e, t, i, l, c, d) {
         case "utf-16le":
           return fe(this, r, n);
         default:
-          if (f)
-            throw new TypeError("Unknown encoding: " + o);
+          if (f) throw new TypeError("Unknown encoding: " + o);
           o = (o + "").toLowerCase(), f = !0;
       }
   }
@@ -379,8 +375,7 @@ $r.write = function(e, t, i, l, c, d) {
     const r = this.length;
     return r === 0 ? "" : arguments.length === 0 ? Y(this, 0, r) : K.apply(this, arguments);
   }, u.prototype.toLocaleString = u.prototype.toString, u.prototype.equals = function(r) {
-    if (!u.isBuffer(r))
-      throw new TypeError("Argument must be a Buffer");
+    if (!u.isBuffer(r)) throw new TypeError("Argument must be a Buffer");
     return this === r ? !0 : u.compare(this, r) === 0;
   }, u.prototype.inspect = function() {
     let r = "";
@@ -399,8 +394,7 @@ $r.write = function(e, t, i, l, c, d) {
       return -1;
     if (n >= f)
       return 1;
-    if (n >>>= 0, f >>>= 0, h >>>= 0, w >>>= 0, this === r)
-      return 0;
+    if (n >>>= 0, f >>>= 0, h >>>= 0, w >>>= 0, this === r) return 0;
     let S = w - h, j = f - n;
     const re = Math.min(S, j), J = this.slice(h, w), ne = r.slice(n, f);
     for (let q = 0; q < re; ++q)
@@ -411,17 +405,13 @@ $r.write = function(e, t, i, l, c, d) {
     return S < j ? -1 : j < S ? 1 : 0;
   };
   function ie(o, r, n, f, h) {
-    if (o.length === 0)
-      return -1;
+    if (o.length === 0) return -1;
     if (typeof n == "string" ? (f = n, n = 0) : n > 2147483647 ? n = 2147483647 : n < -2147483648 && (n = -2147483648), n = +n, Re(n) && (n = h ? 0 : o.length - 1), n < 0 && (n = o.length + n), n >= o.length) {
-      if (h)
-        return -1;
+      if (h) return -1;
       n = o.length - 1;
     } else if (n < 0)
-      if (h)
-        n = 0;
-      else
-        return -1;
+      if (h) n = 0;
+      else return -1;
     if (typeof r == "string" && (r = u.from(r, f)), u.isBuffer(r))
       return r.length === 0 ? -1 : we(o, r, n, f, h);
     if (typeof r == "number")
@@ -443,8 +433,7 @@ $r.write = function(e, t, i, l, c, d) {
       let ne = -1;
       for (J = n; J < S; J++)
         if (re(o, J) === re(r, ne === -1 ? 0 : J - ne)) {
-          if (ne === -1 && (ne = J), J - ne + 1 === j)
-            return ne * w;
+          if (ne === -1 && (ne = J), J - ne + 1 === j) return ne * w;
         } else
           ne !== -1 && (J -= J - ne), ne = -1;
     } else
@@ -455,8 +444,7 @@ $r.write = function(e, t, i, l, c, d) {
             ne = !1;
             break;
           }
-        if (ne)
-          return J;
+        if (ne) return J;
       }
     return -1;
   }
@@ -476,8 +464,7 @@ $r.write = function(e, t, i, l, c, d) {
     let S;
     for (S = 0; S < f; ++S) {
       const j = parseInt(r.substr(S * 2, 2), 16);
-      if (Re(j))
-        return S;
+      if (Re(j)) return S;
       o[n + S] = j;
     }
     return S;
@@ -529,8 +516,7 @@ $r.write = function(e, t, i, l, c, d) {
         case "utf-16le":
           return H(this, r, n, f);
         default:
-          if (S)
-            throw new TypeError("Unknown encoding: " + h);
+          if (S) throw new TypeError("Unknown encoding: " + h);
           h = ("" + h).toLowerCase(), S = !0;
       }
   }, u.prototype.toJSON = function() {
@@ -618,10 +604,8 @@ $r.write = function(e, t, i, l, c, d) {
     return Object.setPrototypeOf(h, u.prototype), h;
   };
   function W(o, r, n) {
-    if (o % 1 !== 0 || o < 0)
-      throw new RangeError("offset is not uint");
-    if (o + r > n)
-      throw new RangeError("Trying to access beyond buffer length");
+    if (o % 1 !== 0 || o < 0) throw new RangeError("offset is not uint");
+    if (o + r > n) throw new RangeError("Trying to access beyond buffer length");
   }
   u.prototype.readUintLE = u.prototype.readUIntLE = function(r, n, f) {
     r = r >>> 0, n = n >>> 0, f || W(r, n, this.length);
@@ -706,12 +690,9 @@ $r.write = function(e, t, i, l, c, d) {
     return r = r >>> 0, n || W(r, 8, this.length), i.read(this, r, !1, 52, 8);
   };
   function te(o, r, n, f, h, w) {
-    if (!u.isBuffer(o))
-      throw new TypeError('"buffer" argument must be a Buffer instance');
-    if (r > h || r < w)
-      throw new RangeError('"value" argument is out of bounds');
-    if (n + f > o.length)
-      throw new RangeError("Index out of range");
+    if (!u.isBuffer(o)) throw new TypeError('"buffer" argument must be a Buffer instance');
+    if (r > h || r < w) throw new RangeError('"value" argument is out of bounds');
+    if (n + f > o.length) throw new RangeError("Index out of range");
   }
   u.prototype.writeUintLE = u.prototype.writeUIntLE = function(r, n, f, h) {
     if (r = +r, n = n >>> 0, f = f >>> 0, !h) {
@@ -794,10 +775,8 @@ $r.write = function(e, t, i, l, c, d) {
     return se(this, r, n, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
   });
   function Se(o, r, n, f, h, w) {
-    if (n + f > o.length)
-      throw new RangeError("Index out of range");
-    if (n < 0)
-      throw new RangeError("Index out of range");
+    if (n + f > o.length) throw new RangeError("Index out of range");
+    if (n < 0) throw new RangeError("Index out of range");
   }
   function Me(o, r, n, f, h) {
     return r = +r, n = n >>> 0, h || Se(o, r, n, 4), i.write(o, r, n, f, 23, 4), n + 4;
@@ -815,16 +794,12 @@ $r.write = function(e, t, i, l, c, d) {
   }, u.prototype.writeDoubleBE = function(r, n, f) {
     return ke(this, r, n, !1, f);
   }, u.prototype.copy = function(r, n, f, h) {
-    if (!u.isBuffer(r))
-      throw new TypeError("argument should be a Buffer");
-    if (f || (f = 0), !h && h !== 0 && (h = this.length), n >= r.length && (n = r.length), n || (n = 0), h > 0 && h < f && (h = f), h === f || r.length === 0 || this.length === 0)
-      return 0;
+    if (!u.isBuffer(r)) throw new TypeError("argument should be a Buffer");
+    if (f || (f = 0), !h && h !== 0 && (h = this.length), n >= r.length && (n = r.length), n || (n = 0), h > 0 && h < f && (h = f), h === f || r.length === 0 || this.length === 0) return 0;
     if (n < 0)
       throw new RangeError("targetStart out of bounds");
-    if (f < 0 || f >= this.length)
-      throw new RangeError("Index out of range");
-    if (h < 0)
-      throw new RangeError("sourceEnd out of bounds");
+    if (f < 0 || f >= this.length) throw new RangeError("Index out of range");
+    if (h < 0) throw new RangeError("sourceEnd out of bounds");
     h > this.length && (h = this.length), r.length - n < h - f && (h = r.length - n + f);
     const w = h - f;
     return this === r && typeof Uint8Array.prototype.copyWithin == "function" ? this.copyWithin(n, f, h) : Uint8Array.prototype.set.call(
@@ -842,8 +817,7 @@ $r.write = function(e, t, i, l, c, d) {
         const S = r.charCodeAt(0);
         (h === "utf8" && S < 128 || h === "latin1") && (r = S);
       }
-    } else
-      typeof r == "number" ? r = r & 255 : typeof r == "boolean" && (r = Number(r));
+    } else typeof r == "number" ? r = r & 255 : typeof r == "boolean" && (r = Number(r));
     if (n < 0 || this.length < n || this.length < f)
       throw new RangeError("Out of range index");
     if (f <= n)
@@ -939,8 +913,7 @@ $r.write = function(e, t, i, l, c, d) {
   }
   const x = /[^+/0-9A-Za-z-_]/g;
   function k(o) {
-    if (o = o.split("=")[0], o = o.trim().replace(x, ""), o.length < 2)
-      return "";
+    if (o = o.split("=")[0], o = o.trim().replace(x, ""), o.length < 2) return "";
     for (; o.length % 4 !== 0; )
       o = o + "=";
     return o;
@@ -969,30 +942,25 @@ $r.write = function(e, t, i, l, c, d) {
           continue;
         }
         n = (h - 55296 << 10 | n - 56320) + 65536;
-      } else
-        h && (r -= 3) > -1 && w.push(239, 191, 189);
+      } else h && (r -= 3) > -1 && w.push(239, 191, 189);
       if (h = null, n < 128) {
-        if ((r -= 1) < 0)
-          break;
+        if ((r -= 1) < 0) break;
         w.push(n);
       } else if (n < 2048) {
-        if ((r -= 2) < 0)
-          break;
+        if ((r -= 2) < 0) break;
         w.push(
           n >> 6 | 192,
           n & 63 | 128
         );
       } else if (n < 65536) {
-        if ((r -= 3) < 0)
-          break;
+        if ((r -= 3) < 0) break;
         w.push(
           n >> 12 | 224,
           n >> 6 & 63 | 128,
           n & 63 | 128
         );
       } else if (n < 1114112) {
-        if ((r -= 4) < 0)
-          break;
+        if ((r -= 4) < 0) break;
         w.push(
           n >> 18 | 240,
           n >> 12 & 63 | 128,
@@ -1147,8 +1115,7 @@ var ue = {
   Uint8Array
 }, jn = { exports: {} }, bt = { exports: {} }, Xr;
 function gt() {
-  if (Xr)
-    return bt.exports;
+  if (Xr) return bt.exports;
   Xr = 1;
   const { AbortController: e, AbortSignal: t } = typeof self < "u" ? self : typeof window < "u" ? window : (
     /* otherwise */
@@ -1166,8 +1133,7 @@ function gt() {
     if (E !== void 0 && (E === null || typeof E != "object" || !("aborted" in E)))
       throw new ERR_INVALID_ARG_TYPE(g, "AbortSignal", E);
   }, m = (E, g) => {
-    if (typeof E != "function")
-      throw new ERR_INVALID_ARG_TYPE(g, "Function", E);
+    if (typeof E != "function") throw new ERR_INVALID_ARG_TYPE(g, "Function", E);
   };
   class B extends Error {
     constructor(g) {
@@ -1221,8 +1187,7 @@ function gt() {
             if (E.includes('"')) {
               if (!E.includes("`") && !E.includes("${"))
                 return `\`${E}\``;
-            } else
-              return `"${E}"`;
+            } else return `"${E}"`;
           return `'${E}'`;
         case "number":
           return isNaN(E) ? "NaN" : Object.is(E, -0) ? String(E) : E;
@@ -1556,12 +1521,9 @@ function Ro(e, t, i) {
   return qn(e, t), e;
 }
 const Ao = Ie((e, t, i = fo, l = ao) => {
-  if (typeof e != "number")
-    throw new ye(t, "number", e);
-  if (!Lr(e))
-    throw new et(t, "an integer", e);
-  if (e < i || e > l)
-    throw new et(t, `>= ${i} && <= ${l}`, e);
+  if (typeof e != "number") throw new ye(t, "number", e);
+  if (!Lr(e)) throw new et(t, "an integer", e);
+  if (e < i || e > l) throw new et(t, `>= ${i} && <= ${l}`, e);
 }), xo = Ie((e, t, i = -2147483648, l = 2147483647) => {
   if (typeof e != "number")
     throw new ye(t, "number", e);
@@ -1579,12 +1541,10 @@ const Ao = Ie((e, t, i = fo, l = ao) => {
     throw new et(t, `>= ${l} && <= ${c}`, e);
 });
 function Mr(e, t) {
-  if (typeof e != "string")
-    throw new ye(t, "string", e);
+  if (typeof e != "string") throw new ye(t, "string", e);
 }
 function Io(e, t, i = void 0, l) {
-  if (typeof e != "number")
-    throw new ye(t, "number", e);
+  if (typeof e != "number") throw new ye(t, "number", e);
   if (i != null && e < i || l != null && e > l || (i != null || l != null) && lo(e))
     throw new et(
       t,
@@ -1602,8 +1562,7 @@ const To = Ie((e, t, i) => {
   }
 });
 function Yn(e, t) {
-  if (typeof e != "boolean")
-    throw new ye(t, "boolean", e);
+  if (typeof e != "boolean") throw new ye(t, "boolean", e);
 }
 function Qt(e, t, i) {
   return e == null || !uo(e, t) ? i : e[t];
@@ -1664,14 +1623,11 @@ const zn = Ie((e, t) => {
   if (e !== void 0 && (e === null || typeof e != "object" || !("aborted" in e)))
     throw new ye(t, "AbortSignal", e);
 }), Po = Ie((e, t) => {
-  if (typeof e != "function")
-    throw new ye(t, "Function", e);
+  if (typeof e != "function") throw new ye(t, "Function", e);
 }), Oo = Ie((e, t) => {
-  if (typeof e != "function" || wo(e))
-    throw new ye(t, "Function", e);
+  if (typeof e != "function" || wo(e)) throw new ye(t, "Function", e);
 }), Uo = Ie((e, t) => {
-  if (e !== void 0)
-    throw new ye(t, "undefined", e);
+  if (e !== void 0) throw new ye(t, "undefined", e);
 });
 function Wo(e, t, i) {
   if (!Gn(i, e))
@@ -1876,38 +1832,30 @@ function Ko(e, t) {
   return e == null ? !1 : t === !0 ? typeof e[rn] == "function" : t === !1 ? typeof e[nn] == "function" : typeof e[rn] == "function" || typeof e[nn] == "function";
 }
 function Pt(e) {
-  if (!Le(e))
-    return null;
+  if (!Le(e)) return null;
   const t = e._writableState, i = e._readableState, l = t || i;
   return !!(e.destroyed || e[Zn] || l != null && l.destroyed);
 }
 function oi(e) {
-  if (!Ct(e))
-    return null;
-  if (e.writableEnded === !0)
-    return !0;
+  if (!Ct(e)) return null;
+  if (e.writableEnded === !0) return !0;
   const t = e._writableState;
   return t != null && t.errored ? !1 : typeof (t == null ? void 0 : t.ended) != "boolean" ? null : t.ended;
 }
 function Xo(e, t) {
-  if (!Ct(e))
-    return null;
-  if (e.writableFinished === !0)
-    return !0;
+  if (!Ct(e)) return null;
+  if (e.writableFinished === !0) return !0;
   const i = e._writableState;
   return i != null && i.errored ? !1 : typeof (i == null ? void 0 : i.finished) != "boolean" ? null : !!(i.finished || t === !1 && i.ended === !0 && i.length === 0);
 }
 function Jo(e) {
-  if (!kt(e))
-    return null;
-  if (e.readableEnded === !0)
-    return !0;
+  if (!kt(e)) return null;
+  if (e.readableEnded === !0) return !0;
   const t = e._readableState;
   return !t || t.errored ? !1 : typeof (t == null ? void 0 : t.ended) != "boolean" ? null : t.ended;
 }
 function li(e, t) {
-  if (!kt(e))
-    return null;
+  if (!kt(e)) return null;
   const i = e._readableState;
   return i != null && i.errored ? !1 : typeof (i == null ? void 0 : i.endEmitted) != "boolean" ? null : !!(i.endEmitted || t === !1 && i.ended === !0 && i.length === 0);
 }
@@ -1947,8 +1895,7 @@ function rl(e) {
   return typeof e._consuming == "boolean" && typeof e._dumped == "boolean" && ((t = e.req) === null || t === void 0 ? void 0 : t.upgradeOrConnect) === void 0;
 }
 function nl(e) {
-  if (!Le(e))
-    return null;
+  if (!Le(e)) return null;
   const t = e._writableState, i = e._readableState, l = t || i;
   return !l && ui(e) || !!(l && l.autoDestroy && l.emitClose && l.closed === !1);
 }
@@ -2247,8 +2194,7 @@ Ut.prototype.pipe = function(e, t) {
   return i.on("end", _), i.on("close", _), e.on("close", _), e.emit("pipe", i), e;
 };
 function Ir(e, t, i) {
-  if (typeof e.prependListener == "function")
-    return e.prependListener(t, i);
+  if (typeof e.prependListener == "function") return e.prependListener(t, i);
   !e._events || !e._events[t] ? e.on(t, i) : Ol(e._events[t]) ? e._events[t].unshift(i) : e._events[t] = [i, e._events[t]];
 }
 var Cr = {
@@ -2313,8 +2259,7 @@ var jl = class {
     this.length === 0 && (this.tail = i), this.head = i, ++this.length;
   }
   shift() {
-    if (this.length === 0)
-      return;
+    if (this.length === 0) return;
     const t = this.head.data;
     return this.length === 1 ? this.head = this.tail = null : this.head = this.head.next, --this.length, t;
   }
@@ -2322,16 +2267,13 @@ var jl = class {
     this.head = this.tail = null, this.length = 0;
   }
   join(t) {
-    if (this.length === 0)
-      return "";
+    if (this.length === 0) return "";
     let i = this.head, l = "" + i.data;
-    for (; (i = i.next) !== null; )
-      l += t + i.data;
+    for (; (i = i.next) !== null; ) l += t + i.data;
     return l;
   }
   concat(t) {
-    if (this.length === 0)
-      return er.alloc(0);
+    if (this.length === 0) return er.alloc(0);
     const i = er.allocUnsafe(t >>> 0);
     let l = this.head, c = 0;
     for (; l; )
@@ -2472,8 +2414,7 @@ var Xl = Tr.exports, Pr = Xl.Buffer, yn = Pr.isEncoding || function(e) {
   }
 };
 function Jl(e) {
-  if (!e)
-    return "utf8";
+  if (!e) return "utf8";
   for (var t; ; )
     switch (e) {
       case "utf8":
@@ -2492,15 +2433,13 @@ function Jl(e) {
       case "hex":
         return e;
       default:
-        if (t)
-          return;
+        if (t) return;
         e = ("" + e).toLowerCase(), t = !0;
     }
 }
 function Ql(e) {
   var t = Jl(e);
-  if (typeof t != "string" && (Pr.isEncoding === yn || !yn(e)))
-    throw new Error("Unknown encoding: " + e);
+  if (typeof t != "string" && (Pr.isEncoding === yn || !yn(e))) throw new Error("Unknown encoding: " + e);
   return t || e;
 }
 Ai.StringDecoder = Et;
@@ -2524,12 +2463,10 @@ function Et(e) {
   this.lastNeed = 0, this.lastTotal = 0, this.lastChar = Pr.allocUnsafe(t);
 }
 Et.prototype.write = function(e) {
-  if (e.length === 0)
-    return "";
+  if (e.length === 0) return "";
   var t, i;
   if (this.lastNeed) {
-    if (t = this.fillLast(e), t === void 0)
-      return "";
+    if (t = this.fillLast(e), t === void 0) return "";
     i = this.lastNeed, this.lastNeed = 0;
   } else
     i = 0;
@@ -2547,8 +2484,7 @@ function tr(e) {
 }
 function Zl(e, t, i) {
   var l = t.length - 1;
-  if (l < i)
-    return 0;
+  if (l < i) return 0;
   var c = tr(t[l]);
   return c >= 0 ? (c > 0 && (e.lastNeed = c - 1), c) : --l < i || c === -2 ? 0 : (c = tr(t[l]), c >= 0 ? (c > 0 && (e.lastNeed = c - 2), c) : --l < i || c === -2 ? 0 : (c = tr(t[l]), c >= 0 ? (c > 0 && (c === 2 ? c = 0 : e.lastNeed = c - 3), c) : 0));
 }
@@ -2564,16 +2500,14 @@ function ea(e, t, i) {
 }
 function ta(e) {
   var t = this.lastTotal - this.lastNeed, i = ea(this, e);
-  if (i !== void 0)
-    return i;
+  if (i !== void 0) return i;
   if (this.lastNeed <= e.length)
     return e.copy(this.lastChar, t, 0, this.lastNeed), this.lastChar.toString(this.encoding, 0, this.lastTotal);
   e.copy(this.lastChar, t, 0, e.length), this.lastNeed -= e.length;
 }
 function ra(e, t) {
   var i = Zl(this, e, t);
-  if (!this.lastNeed)
-    return e.toString("utf8", t);
+  if (!this.lastNeed) return e.toString("utf8", t);
   this.lastTotal = i;
   var l = e.length - (i - this.lastNeed);
   return e.copy(this.lastChar, 0, l), e.toString("utf8", t, l);
@@ -2687,8 +2621,7 @@ function pa(e, t, i) {
 }
 var xi = pa, rr, En;
 function jt() {
-  if (En)
-    return rr;
+  if (En) return rr;
   En = 1;
   const e = tt, {
     ArrayPrototypeIndexOf: t,
@@ -2775,8 +2708,7 @@ function jt() {
     typeof N != "boolean" && (N = s instanceof We()), this.state = Pe | b | Se | Me, a && a.objectMode && (this.state |= W), N && a && a.readableObjectMode && (this.state |= W), this.highWaterMark = a ? ie(this, a, "readableHighWaterMark", N) : we(!1), this.buffer = new K(), this.length = 0, this.pipes = [], this.flowing = null, this[V] = null, a && a.emitClose === !1 && (this.state &= ~Pe), a && a.autoDestroy === !1 && (this.state &= ~b), this.errored = null, this.defaultEncoding = a && a.defaultEncoding || "utf8", this.awaitDrainWriters = null, this.decoder = null, this.encoding = null, a && a.encoding && (this.decoder = new le(a.encoding), this.encoding = a.encoding);
   }
   function C(a) {
-    if (!(this instanceof C))
-      return new C(a);
+    if (!(this instanceof C)) return new C(a);
     const s = this instanceof We();
     this._readableState = new _e(a, this, s), a && (typeof a.read == "function" && (this._read = a.read), typeof a.destroy == "function" && (this._destroy = a.destroy), typeof a.construct == "function" && (this._construct = a.construct), a.signal && !s && O(a.signal, this)), F.call(this, a), v.construct(this, () => {
       this._readableState.needReadable && h(this, this._readableState);
@@ -2804,11 +2736,9 @@ function jt() {
       M.state &= ~se, r(a, M);
     else if (M.state & W || s && s.length > 0)
       if ($)
-        if (M.state & P)
-          fe(a, new T());
+        if (M.state & P) fe(a, new T());
         else {
-          if (M.destroyed || M.errored)
-            return !1;
+          if (M.destroyed || M.errored) return !1;
           ht(a, M, s, !0);
         }
       else if (M.ended)
@@ -2818,8 +2748,7 @@ function jt() {
           return !1;
         M.state &= ~se, M.decoder && !N ? (s = M.decoder.write(s), M.objectMode || s.length !== 0 ? ht(a, M, s, !1) : h(a, M)) : ht(a, M, s, !1);
       }
-    else
-      $ || (M.state &= ~se, h(a, M));
+    else $ || (M.state &= ~se, h(a, M));
     return !M.ended && (M.length < M.highWaterMark || M.length === 0);
   }
   function ht(a, s, N, $) {
@@ -2952,8 +2881,7 @@ function jt() {
     const s = this._readableState, N = {
       hasUnpiped: !1
     };
-    if (s.pipes.length === 0)
-      return this;
+    if (s.pipes.length === 0) return this;
     if (!a) {
       const M = s.pipes;
       s.pipes = [], this.pause();
@@ -2997,8 +2925,7 @@ function jt() {
   };
   function q(a) {
     const s = a._readableState;
-    for (I("flow", s.flowing); s.flowing && a.read() !== null; )
-      ;
+    for (I("flow", s.flowing); s.flowing && a.read() !== null; ) ;
   }
   C.prototype.wrap = function(a) {
     let s = !1;
@@ -3188,8 +3115,7 @@ function jt() {
     }
   }), C._fromList = Vr;
   function Vr(a, s) {
-    if (s.length === 0)
-      return null;
+    if (s.length === 0) return null;
     let N;
     return s.objectMode ? N = s.buffer.shift() : !a || a >= s.length ? (s.decoder ? N = s.buffer.join("") : s.buffer.length === 1 ? N = s.buffer.first() : N = s.buffer.concat(s.length), s.buffer.clear()) : N = s.buffer.consume(a, s.decoder), N;
   }
@@ -3236,8 +3162,7 @@ function jt() {
 }
 var nr, Sn;
 function Or() {
-  if (Sn)
-    return nr;
+  if (Sn) return nr;
   Sn = 1;
   const e = tt, {
     ArrayPrototypeSlice: t,
@@ -3284,8 +3209,7 @@ function Or() {
   });
   function G(b) {
     const y = this instanceof We();
-    if (!y && !l(G, this))
-      return new G(b);
+    if (!y && !l(G, this)) return new G(b);
     this._writableState = new T(b, this, y), b && (typeof b.write == "function" && (this._write = b.write), typeof b.writev == "function" && (this._writev = b.writev), typeof b.destroy == "function" && (this._destroy = b.destroy), typeof b.final == "function" && (this._final = b.final), typeof b.construct == "function" && (this._construct = b.construct), b.signal && F(b.signal, this)), B.call(this, b), g.construct(this, () => {
       const x = this._writableState;
       x.writing || se(this, x), me(this, x);
@@ -3304,10 +3228,8 @@ function Or() {
     if (typeof x == "function")
       k = x, x = L.defaultEncoding;
     else {
-      if (!x)
-        x = L.defaultEncoding;
-      else if (x !== "buffer" && !E.isEncoding(x))
-        throw new oe(x);
+      if (!x) x = L.defaultEncoding;
+      else if (x !== "buffer" && !E.isEncoding(x)) throw new oe(x);
       typeof k != "function" && (k = pe);
     }
     if (y === null)
@@ -3332,8 +3254,7 @@ function Or() {
     const b = this._writableState;
     b.corked && (b.corked--, b.writing || se(this, b));
   }, G.prototype.setDefaultEncoding = function(y) {
-    if (typeof y == "string" && (y = u(y)), !E.isEncoding(y))
-      throw new oe(y);
+    if (typeof y == "string" && (y = u(y)), !E.isEncoding(y)) throw new oe(y);
     return this._writableState.defaultEncoding = y, this;
   };
   function le(b, y, x, k, L) {
@@ -3455,8 +3376,7 @@ function Or() {
         for (let Z = 0; Z < X.length; Z++)
           X[Z](L);
         he(b, L, y.sync);
-      } else
-        Se(y) && (y.prefinished = !0, b.emit("prefinish"), y.pendingcb++, e.nextTick(Ce, b, y));
+      } else Se(y) && (y.prefinished = !0, b.emit("prefinish"), y.pendingcb++, e.nextTick(Ce, b, y));
     }
     y.sync = !0, y.pendingcb++;
     try {
@@ -3601,8 +3521,7 @@ function Or() {
 }
 var ir, mn;
 function ba() {
-  if (mn)
-    return ir;
+  if (mn) return ir;
   mn = 1;
   const e = tt, t = je, {
     isReadable: i,
@@ -3756,8 +3675,7 @@ function ba() {
             const ae = T;
             T = null;
             const { chunk: ee, done: fe, cb: W } = await ae;
-            if (e.nextTick(W), fe)
-              return;
+            if (e.nextTick(W), fe) return;
             if (V.aborted)
               throw new E(void 0, {
                 cause: V.reason
@@ -3845,8 +3763,7 @@ function ba() {
 }
 var or, Rn;
 function We() {
-  if (Rn)
-    return or;
+  if (Rn) return or;
   Rn = 1;
   const {
     ObjectDefineProperties: e,
@@ -3865,8 +3782,7 @@ function We() {
     }
   }
   function p(m) {
-    if (!(this instanceof p))
-      return new p(m);
+    if (!(this instanceof p)) return new p(m);
     c.call(this, m), d.call(this, m), m ? (this.allowHalfOpen = m.allowHalfOpen !== !1, m.readable === !1 && (this._readableState.readable = !1, this._readableState.ended = !0, this._readableState.endEmitted = !0), m.writable === !1 && (this._writableState.writable = !1, this._writableState.ending = !0, this._writableState.ended = !0, this._writableState.finished = !0)) : this.allowHalfOpen = !0;
   }
   e(p.prototype, {
@@ -3937,8 +3853,7 @@ Ii(ve.prototype, Ur.prototype);
 Ii(ve, Ur);
 const wt = ya("kCallback");
 function ve(e) {
-  if (!(this instanceof ve))
-    return new ve(e);
+  if (!(this instanceof ve)) return new ve(e);
   const t = e ? ga(this, e, "readableHighWaterMark", !0) : null;
   t === 0 && (e = {
     ...e,
@@ -3991,8 +3906,7 @@ const Wr = Ti;
 Bi(ut.prototype, Wr.prototype);
 Bi(ut, Wr);
 function ut(e) {
-  if (!(this instanceof ut))
-    return new ut(e);
+  if (!(this instanceof ut)) return new ut(e);
   Wr.call(this, e);
 }
 ut.prototype._transform = function(e, t, i) {
@@ -4150,8 +4064,7 @@ function $i(e, t, i) {
           signal: c
         }), !Je(A))
           throw new lr("Iterable, AsyncIterable or Stream", "source", A);
-      } else
-        Je(I) || Tt(I) || at(I) ? A = I : A = An.from(I);
+      } else Je(I) || Tt(I) || at(I) ? A = I : A = An.from(I);
     else if (typeof I == "function") {
       if (at(A)) {
         var D;
@@ -4526,8 +4439,7 @@ async function hf(e, t) {
   async function i(l, c) {
     return await e(l, c), $t;
   }
-  for await (const l of Gt.call(this, i, t))
-    ;
+  for await (const l of Gt.call(this, i, t)) ;
 }
 function jr(e, t) {
   if (typeof e != "function")
@@ -4654,8 +4566,7 @@ Fr.promiseReturningOperators = {
 };
 var br, On;
 function ki() {
-  if (On)
-    return br;
+  if (On) return br;
   On = 1;
   const { ArrayPrototypePop: e, Promise: t } = ue, { isIterable: i, isNodeStream: l, isWebStream: c } = Ve, { pipelineImpl: d } = vr, { finished: p } = qe;
   Ci();
@@ -4686,8 +4597,7 @@ function ki() {
 }
 var Un;
 function Ci() {
-  if (Un)
-    return Xt.exports;
+  if (Un) return Xt.exports;
   Un = 1;
   const { Buffer: e } = je, { ObjectDefineProperty: t, ObjectKeys: i, ReflectApply: l } = ue, {
     promisify: { custom: c }

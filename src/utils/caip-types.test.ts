@@ -152,34 +152,34 @@ describe('isCaipAccountAddress', () => {
 describe('parseCaipChainId', () => {
   it('parses valid chain ids', () => {
     expect(parseCaipChainId('eip155:1')).toMatchInlineSnapshot(`
-      {
-        "namespace": "eip155",
-        "reference": "1",
-      }
-    `);
+Object {
+  "namespace": "eip155",
+  "reference": "1",
+}
+`);
 
-    expect(parseCaipChainId('bip122:000000000019d6689c085ae165831e93'))
-      .toMatchInlineSnapshot(`
-      {
-        "namespace": "bip122",
-        "reference": "000000000019d6689c085ae165831e93",
-      }
-    `);
+    expect(parseCaipChainId('bip122:000000000019d6689c085ae165831e93')).
+toMatchInlineSnapshot(`
+Object {
+  "namespace": "bip122",
+  "reference": "000000000019d6689c085ae165831e93",
+}
+`);
 
     expect(parseCaipChainId('cosmos:cosmoshub-3')).toMatchInlineSnapshot(`
-      {
-        "namespace": "cosmos",
-        "reference": "cosmoshub-3",
-      }
-    `);
+Object {
+  "namespace": "cosmos",
+  "reference": "cosmoshub-3",
+}
+`);
 
-    expect(parseCaipChainId('polkadot:b0a8d493285c2df73290dfb7e61f870f'))
-      .toMatchInlineSnapshot(`
-      {
-        "namespace": "polkadot",
-        "reference": "b0a8d493285c2df73290dfb7e61f870f",
-      }
-    `);
+    expect(parseCaipChainId('polkadot:b0a8d493285c2df73290dfb7e61f870f')).
+toMatchInlineSnapshot(`
+Object {
+  "namespace": "polkadot",
+  "reference": "b0a8d493285c2df73290dfb7e61f870f",
+}
+`);
   });
 
   it.each([
@@ -202,62 +202,62 @@ describe('parseCaipChainId', () => {
 describe('parseCaipAccountId', () => {
   it('parses valid account ids', () => {
     expect(
-      parseCaipAccountId('eip155:1:0xab16a96d359ec26a11e2c2b3d8f8b8942d5bfcdb'),
-    ).toMatchInlineSnapshot(`
-      {
-        "address": "0xab16a96d359ec26a11e2c2b3d8f8b8942d5bfcdb",
-        "chain": {
-          "namespace": "eip155",
-          "reference": "1",
-        },
-        "chainId": "eip155:1",
-      }
-    `);
+  parseCaipAccountId('eip155:1:0xab16a96d359ec26a11e2c2b3d8f8b8942d5bfcdb')
+).toMatchInlineSnapshot(`
+Object {
+  "address": "0xab16a96d359ec26a11e2c2b3d8f8b8942d5bfcdb",
+  "chain": Object {
+    "namespace": "eip155",
+    "reference": "1",
+  },
+  "chainId": "eip155:1",
+}
+`);
 
     expect(
-      parseCaipAccountId(
-        'bip122:000000000019d6689c085ae165831e93:128Lkh3S7CkDTBZ8W7BbpsN3YYizJMp8p6',
-      ),
-    ).toMatchInlineSnapshot(`
-      {
-        "address": "128Lkh3S7CkDTBZ8W7BbpsN3YYizJMp8p6",
-        "chain": {
-          "namespace": "bip122",
-          "reference": "000000000019d6689c085ae165831e93",
-        },
-        "chainId": "bip122:000000000019d6689c085ae165831e93",
-      }
-    `);
+  parseCaipAccountId(
+    'bip122:000000000019d6689c085ae165831e93:128Lkh3S7CkDTBZ8W7BbpsN3YYizJMp8p6'
+  )
+).toMatchInlineSnapshot(`
+Object {
+  "address": "128Lkh3S7CkDTBZ8W7BbpsN3YYizJMp8p6",
+  "chain": Object {
+    "namespace": "bip122",
+    "reference": "000000000019d6689c085ae165831e93",
+  },
+  "chainId": "bip122:000000000019d6689c085ae165831e93",
+}
+`);
 
     expect(
-      parseCaipAccountId(
-        'cosmos:cosmoshub-3:cosmos1t2uflqwqe0fsj0shcfkrvpukewcw40yjj6hdc0',
-      ),
-    ).toMatchInlineSnapshot(`
-      {
-        "address": "cosmos1t2uflqwqe0fsj0shcfkrvpukewcw40yjj6hdc0",
-        "chain": {
-          "namespace": "cosmos",
-          "reference": "cosmoshub-3",
-        },
-        "chainId": "cosmos:cosmoshub-3",
-      }
-    `);
+  parseCaipAccountId(
+    'cosmos:cosmoshub-3:cosmos1t2uflqwqe0fsj0shcfkrvpukewcw40yjj6hdc0'
+  )
+).toMatchInlineSnapshot(`
+Object {
+  "address": "cosmos1t2uflqwqe0fsj0shcfkrvpukewcw40yjj6hdc0",
+  "chain": Object {
+    "namespace": "cosmos",
+    "reference": "cosmoshub-3",
+  },
+  "chainId": "cosmos:cosmoshub-3",
+}
+`);
 
     expect(
-      parseCaipAccountId(
-        'polkadot:b0a8d493285c2df73290dfb7e61f870f:5hmuyxw9xdgbpptgypokw4thfyoe3ryenebr381z9iaegmfy',
-      ),
-    ).toMatchInlineSnapshot(`
-      {
-        "address": "5hmuyxw9xdgbpptgypokw4thfyoe3ryenebr381z9iaegmfy",
-        "chain": {
-          "namespace": "polkadot",
-          "reference": "b0a8d493285c2df73290dfb7e61f870f",
-        },
-        "chainId": "polkadot:b0a8d493285c2df73290dfb7e61f870f",
-      }
-    `);
+  parseCaipAccountId(
+    'polkadot:b0a8d493285c2df73290dfb7e61f870f:5hmuyxw9xdgbpptgypokw4thfyoe3ryenebr381z9iaegmfy'
+  )
+).toMatchInlineSnapshot(`
+Object {
+  "address": "5hmuyxw9xdgbpptgypokw4thfyoe3ryenebr381z9iaegmfy",
+  "chain": Object {
+    "namespace": "polkadot",
+    "reference": "b0a8d493285c2df73290dfb7e61f870f",
+  },
+  "chainId": "polkadot:b0a8d493285c2df73290dfb7e61f870f",
+}
+`);
   });
 
   it.each([

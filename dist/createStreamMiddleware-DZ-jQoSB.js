@@ -1,4 +1,4 @@
-import { b as w } from "./browser-BLlG2JZa.js";
+import { b as w } from "./browser-BfYtJpNX.js";
 import p from "./safeEventEmitter.js";
 function g(n = {}) {
   const i = {}, s = new w.Duplex({
