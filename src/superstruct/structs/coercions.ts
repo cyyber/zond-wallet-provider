@@ -1,7 +1,7 @@
-import type { Coercer } from '../struct.js';
-import { Struct, is } from '../struct.js';
-import { isPlainObject } from '../utils.js';
-import { string, unknown } from './types.js';
+import type { Coercer } from "../struct";
+import { Struct, is } from "../struct";
+import { isPlainObject } from "../utils";
+import { string, unknown } from "./types";
 
 /**
  * Augment a `Struct` to add an additional coercion step to its input.
@@ -22,7 +22,7 @@ import { string, unknown } from './types.js';
 export function coerce<Type, Schema, CoercionType>(
   struct: Struct<Type, Schema>,
   condition: Struct<CoercionType, any>,
-  coercer: Coercer<CoercionType>,
+  coercer: Coercer<CoercionType>
 ): Struct<Type, Schema> {
   return new Struct({
     ...struct,
@@ -54,10 +54,10 @@ export function defaulted<Type, Schema>(
   fallback: any,
   options: {
     strict?: boolean | undefined;
-  } = {},
+  } = {}
 ): Struct<Type, Schema> {
   return coerce(struct, unknown(), (value) => {
-    const result = typeof fallback === 'function' ? fallback() : fallback;
+    const result = typeof fallback === "function" ? fallback() : fallback;
 
     if (value === undefined) {
       return result;
@@ -93,7 +93,7 @@ export function defaulted<Type, Schema>(
  * @returns A new struct that will trim string inputs before validating them.
  */
 export function trimmed<Type, Schema>(
-  struct: Struct<Type, Schema>,
+  struct: Struct<Type, Schema>
 ): Struct<Type, Schema> {
   return coerce(struct, string(), (value) => value.trim());
 }

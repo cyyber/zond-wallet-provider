@@ -52,8 +52,7 @@ o.prototype.getMaxListeners = function() {
   return y(this);
 };
 o.prototype.emit = function(e) {
-  for (var n = [], r = 1; r < arguments.length; r++)
-    n.push(arguments[r]);
+  for (var n = [], r = 1; r < arguments.length; r++) n.push(arguments[r]);
   var i = e === "error", f = this._events;
   if (f !== void 0)
     i = i && f.error === void 0;

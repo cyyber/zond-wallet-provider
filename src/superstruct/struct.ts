@@ -1,7 +1,7 @@
-import type { Failure } from './error.js';
-import { StructError } from './error.js';
-import type { StructSchema } from './utils.js';
-import { toFailures, shiftIterator, run } from './utils.js';
+import type { Failure } from "./error";
+import { StructError } from "./error";
+import type { StructSchema } from "./utils";
+import { toFailures, shiftIterator, run } from "./utils";
 
 /**
  * `Struct` objects encapsulate the validation logic for a specific type of
@@ -25,7 +25,7 @@ export class Struct<Type = unknown, Schema = unknown> {
 
   entries: (
     value: unknown,
-    context: Context,
+    context: Context
   ) => Iterable<[string | number, unknown, Struct<any> | Struct<never>]>;
 
   constructor(props: {
@@ -34,7 +34,7 @@ export class Struct<Type = unknown, Schema = unknown> {
     coercer?: Coercer | undefined;
     validator?: Validator | undefined;
     refiner?: Refiner<Type> | undefined;
-    entries?: Struct<Type, Schema>['entries'] | undefined;
+    entries?: Struct<Type, Schema>["entries"] | undefined;
   }) {
     const {
       type,
@@ -118,7 +118,7 @@ export class Struct<Type = unknown, Schema = unknown> {
     options: {
       coerce?: boolean;
       message?: string;
-    } = {},
+    } = {}
   ): [StructError, undefined] | [undefined, Type] {
     return validate(value, this, options);
   }
@@ -134,7 +134,7 @@ export class Struct<Type = unknown, Schema = unknown> {
 export function assert<Type, Schema>(
   value: unknown,
   struct: Struct<Type, Schema>,
-  message?: string,
+  message?: string
 ): asserts value is Type {
   const result = validate(value, struct, { message });
 
@@ -154,7 +154,7 @@ export function assert<Type, Schema>(
 export function create<Type, Schema>(
   value: unknown,
   struct: Struct<Type, Schema>,
-  message?: string,
+  message?: string
 ): Type {
   const result = validate(value, struct, { coerce: true, message });
 
@@ -176,7 +176,7 @@ export function create<Type, Schema>(
 export function mask<Type, Schema>(
   value: unknown,
   struct: Struct<Type, Schema>,
-  message?: string,
+  message?: string
 ): Type {
   const result = validate(value, struct, { coerce: true, mask: true, message });
 
@@ -196,7 +196,7 @@ export function mask<Type, Schema>(
  */
 export function is<Type, Schema>(
   value: unknown,
-  struct: Struct<Type, Schema>,
+  struct: Struct<Type, Schema>
 ): value is Type {
   const result = validate(value, struct);
   return !result[0];
@@ -221,12 +221,12 @@ export function validate<Type, Schema>(
     coerce?: boolean | undefined;
     mask?: boolean | undefined;
     message?: string | undefined;
-  } = {},
+  } = {}
 ): [StructError, undefined] | [undefined, Type] {
   const tuples = run(value, struct, options);
   const tuple = shiftIterator(tuples) as [
     Failure | undefined,
-    Type | undefined,
+    Type | undefined
   ];
 
   if (tuple[0]) {
@@ -259,7 +259,7 @@ export type Context = {
  * A type utility to extract the type from a `Struct` class.
  */
 
-export type Infer<StructType extends Struct<any, any>> = StructType['TYPE'];
+export type Infer<StructType extends Struct<any, any>> = StructType["TYPE"];
 
 /**
  * A type utility to describe that a struct represents a TypeScript type.
@@ -283,7 +283,7 @@ export type Result =
 
 export type Coercer<Type = unknown> = (
   value: Type,
-  context: Context,
+  context: Context
 ) => unknown;
 
 /**

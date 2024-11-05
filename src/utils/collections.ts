@@ -26,12 +26,12 @@ class FrozenMap<Key, Value> implements ReadonlyMap<Key, Value> {
 
   public forEach(
     callbackfn: (value: Value, key: Key, map: this) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void {
     // We have to wrap the specified callback in order to prevent it from
     // receiving a reference to the inner map.
     return this.#map.forEach((value: Value, key: Key, _map: unknown) =>
-      callbackfn.call(thisArg, value, key, this),
+      callbackfn.call(thisArg, value, key, this)
     );
   }
 
@@ -56,8 +56,8 @@ class FrozenMap<Key, Value> implements ReadonlyMap<Key, Value> {
       this.size > 0
         ? ` ${[...this.entries()]
             .map(([key, value]) => `${String(key)} => ${String(value)}`)
-            .join(', ')} `
-        : ''
+            .join(", ")} `
+        : ""
     }}`;
   }
 }
@@ -87,15 +87,15 @@ class FrozenSet<Value> implements ReadonlySet<Value> {
   public entries() {
     return this.#set.entries();
   }
-
+  // @ts-ignore
   public forEach(
     callbackfn: (value: Value, value2: Value, set: this) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void {
     // We have to wrap the specified callback in order to prevent it from
     // receiving a reference to the inner set.
     return this.#set.forEach((value: Value, value2: Value, _set: unknown) =>
-      callbackfn.call(thisArg, value, value2, this),
+      callbackfn.call(thisArg, value, value2, this)
     );
   }
 
@@ -114,8 +114,8 @@ class FrozenSet<Value> implements ReadonlySet<Value> {
   public toString(): string {
     return `FrozenSet(${this.size}) {${
       this.size > 0
-        ? ` ${[...this.values()].map((member) => String(member)).join(', ')} `
-        : ''
+        ? ` ${[...this.values()].map((member) => String(member)).join(", ")} `
+        : ""
     }}`;
   }
 }

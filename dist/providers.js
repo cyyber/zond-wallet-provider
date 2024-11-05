@@ -1,60 +1,46 @@
-var z = Object.defineProperty;
-var $ = (t, n, e) => n in t ? z(t, n, { enumerable: !0, configurable: !0, writable: !0, value: e }) : t[n] = e;
-var m = (t, n, e) => ($(t, typeof n != "symbol" ? n + "" : n, e), e), R = (t, n, e) => {
-  if (!n.has(t))
-    throw TypeError("Cannot " + e);
+var $ = Object.defineProperty;
+var R = (t) => {
+  throw TypeError(t);
 };
-var c = (t, n, e) => (R(t, n, "read from private field"), e ? e.call(t) : n.get(t)), v = (t, n, e) => {
-  if (n.has(t))
-    throw TypeError("Cannot add the same private member more than once");
-  n instanceof WeakSet ? n.add(t) : n.set(t, e);
-}, l = (t, n, e, i) => (R(t, n, "write to private field"), i ? i.call(t, e) : n.set(t, e), e);
-import { g as F } from "./_commonjsHelpers-C6fGbg64.js";
-import { c as U, J as L } from "./JsonRpcEngine-DYUs88HE.js";
-import { J as x } from "./classes-DcssvZ8Z.js";
+var F = (t, n, e) => n in t ? $(t, n, { enumerable: !0, configurable: !0, writable: !0, value: e }) : t[n] = e;
+var m = (t, n, e) => F(t, typeof n != "symbol" ? n + "" : n, e), x = (t, n, e) => n.has(t) || R("Cannot " + e);
+var c = (t, n, e) => (x(t, n, "read from private field"), e ? e.call(t) : n.get(t)), v = (t, n, e) => n.has(t) ? R("Cannot add the same private member more than once") : n instanceof WeakSet ? n.add(t) : n.set(t, e), l = (t, n, e, i) => (x(t, n, "write to private field"), i ? i.call(t, e) : n.set(t, e), e);
+import { g as U } from "./_commonjsHelpers-C6fGbg64.js";
+import { c as L, J as V } from "./JsonRpcEngine-CXkhre9K.js";
+import { J as k } from "./classes-Cj8AOate.js";
 import { rpcErrors as w } from "./rpcErrors.js";
-import V from "./safeEventEmitter.js";
-import { aO as S } from "./versions-BzFJWa4R.js";
-import "./events-BBOErkdo.js";
-import { b as C } from "./browser-BLlG2JZa.js";
-import { c as K } from "./createStreamMiddleware-DTqoEUh-.js";
-import { ObjectMultiplex as G } from "./objectMultiplex.js";
-var X = function t(n, e) {
-  if (n === e)
-    return !0;
+import K from "./safeEventEmitter.js";
+import { aO as S } from "./versions-DCTBsmoI.js";
+import "./events-D2cUsYK1.js";
+import { b as C } from "./browser-BfYtJpNX.js";
+import { c as G } from "./createStreamMiddleware-DZ-jQoSB.js";
+import { ObjectMultiplex as X } from "./objectMultiplex.js";
+var J = function t(n, e) {
+  if (n === e) return !0;
   if (n && e && typeof n == "object" && typeof e == "object") {
-    if (n.constructor !== e.constructor)
-      return !1;
+    if (n.constructor !== e.constructor) return !1;
     var i, r, o;
     if (Array.isArray(n)) {
-      if (i = n.length, i != e.length)
-        return !1;
+      if (i = n.length, i != e.length) return !1;
       for (r = i; r-- !== 0; )
-        if (!t(n[r], e[r]))
-          return !1;
+        if (!t(n[r], e[r])) return !1;
       return !0;
     }
-    if (n.constructor === RegExp)
-      return n.source === e.source && n.flags === e.flags;
-    if (n.valueOf !== Object.prototype.valueOf)
-      return n.valueOf() === e.valueOf();
-    if (n.toString !== Object.prototype.toString)
-      return n.toString() === e.toString();
-    if (o = Object.keys(n), i = o.length, i !== Object.keys(e).length)
-      return !1;
+    if (n.constructor === RegExp) return n.source === e.source && n.flags === e.flags;
+    if (n.valueOf !== Object.prototype.valueOf) return n.valueOf() === e.valueOf();
+    if (n.toString !== Object.prototype.toString) return n.toString() === e.toString();
+    if (o = Object.keys(n), i = o.length, i !== Object.keys(e).length) return !1;
     for (r = i; r-- !== 0; )
-      if (!Object.prototype.hasOwnProperty.call(e, o[r]))
-        return !1;
+      if (!Object.prototype.hasOwnProperty.call(e, o[r])) return !1;
     for (r = i; r-- !== 0; ) {
       var s = o[r];
-      if (!t(n[s], e[s]))
-        return !1;
+      if (!t(n[s], e[s])) return !1;
     }
     return !0;
   }
   return n !== n && e !== e;
 };
-const J = /* @__PURE__ */ F(X), a = {
+const Q = /* @__PURE__ */ U(J), a = {
   errors: {
     disconnected: () => "ZondWallet: Disconnected from chain. Attempting to connect.",
     permanentlyDisconnected: () => "ZondWallet: Disconnected from ZondWallet background. Page reload required.",
@@ -98,8 +84,8 @@ For more information, see: https://medium.com/metamask/metamask-api-method-depre
     // misc
     experimentalMethods: "ZondWallet: 'ethereum._metamask' exposes non-standard, experimental methods. They may be removed or changed without warning."
   }
-}, Q = "ERC721", Y = "ERC1155";
-function H(t) {
+}, Y = "ERC721", H = "ERC1155";
+function ee(t) {
   const n = {
     ethDecryptDeprecation: !1,
     ethGetEncryptionPublicKeyDeprecation: !1,
@@ -107,20 +93,20 @@ function H(t) {
   };
   return (e, i, r) => {
     var o;
-    !n.ethDecryptDeprecation && e.method === "eth_decrypt" ? (t.warn(a.warnings.rpc.ethDecryptDeprecation), n.ethDecryptDeprecation = !0) : !n.ethGetEncryptionPublicKeyDeprecation && e.method === "eth_getEncryptionPublicKey" ? (t.warn(a.warnings.rpc.ethGetEncryptionPublicKeyDeprecation), n.ethGetEncryptionPublicKeyDeprecation = !0) : !n.walletWatchAssetNFTExperimental && e.method === "wallet_watchAsset" && [Q, Y].includes(
+    !n.ethDecryptDeprecation && e.method === "eth_decrypt" ? (t.warn(a.warnings.rpc.ethDecryptDeprecation), n.ethDecryptDeprecation = !0) : !n.ethGetEncryptionPublicKeyDeprecation && e.method === "eth_getEncryptionPublicKey" ? (t.warn(a.warnings.rpc.ethGetEncryptionPublicKeyDeprecation), n.ethGetEncryptionPublicKeyDeprecation = !0) : !n.walletWatchAssetNFTExperimental && e.method === "wallet_watchAsset" && [Y, H].includes(
       ((o = e.params) == null ? void 0 : o.type) || ""
     ) && (t.warn(a.warnings.rpc.walletWatchAssetNFTExperimental), n.walletWatchAssetNFTExperimental = !0), r();
   };
 }
-const ee = Object.freeze([
+const te = Object.freeze([
   "eth_subscription"
   // per eth-json-rpc-filters/subscriptionManager
-]), M = (t = console) => [
-  U(),
-  te(t),
-  H(t)
+]), j = (t = console) => [
+  L(),
+  ne(t),
+  ee(t)
 ];
-function te(t) {
+function ne(t) {
   return (n, e, i) => {
     (typeof n.method != "string" || !n.method) && (e.error = w.invalidRequest({
       message: "The request 'method' must be a non-empty string.",
@@ -131,11 +117,11 @@ function te(t) {
     });
   };
 }
-const ne = (t, n, e = !0) => (i, r) => {
+const ie = (t, n, e = !0) => (i, r) => {
   i || r.error ? n(i || r.error) : !e || Array.isArray(r) ? t(r) : t(r.result);
-}, j = (t) => !!t && typeof t == "string" && t.startsWith("0x"), ie = (t) => !!t && typeof t == "string";
+}, N = (t) => !!t && typeof t == "string" && t.startsWith("0x"), re = (t) => !!t && typeof t == "string";
 var f, p;
-const b = class b extends V {
+const b = class b extends K {
   /**
    * Create a new instance of the provider.
    *
@@ -158,17 +144,17 @@ const b = class b extends V {
      * The chain ID of the currently connected Ethereum chain.
      * See [chainId.network]{@link https://chainid.network} for more information.
      */
-    v(this, f, void 0);
+    v(this, f);
     /**
      * The user's currently selected Ethereum address.
      * If null, ZondWallet is either locked or the user has not permitted any
      * addresses to be viewed.
      */
-    v(this, p, void 0);
+    v(this, p);
     this._log = e, this.setMaxListeners(i), this._state = {
       ...b._defaultState
     }, l(this, p, null), l(this, f, null), this._handleAccountsChanged = this._handleAccountsChanged.bind(this), this._handleConnect = this._handleConnect.bind(this), this._handleChainChanged = this._handleChainChanged.bind(this), this._handleDisconnect = this._handleDisconnect.bind(this), this._handleUnlockStateChanged = this._handleUnlockStateChanged.bind(this), this._rpcRequest = this._rpcRequest.bind(this), this.request = this.request.bind(this);
-    const o = new L();
+    const o = new V();
     r.forEach((s) => o.push(s)), this._rpcEngine = o;
   }
   //====================
@@ -225,7 +211,7 @@ const b = class b extends V {
       params: r
     };
     return new Promise((s, d) => {
-      this._rpcRequest(o, ne(s, d));
+      this._rpcRequest(o, ie(s, d));
     });
   }
   //====================
@@ -299,11 +285,11 @@ const b = class b extends V {
     if (this._state.isConnected || !this._state.isPermanentlyDisconnected && !e) {
       this._state.isConnected = !1;
       let r;
-      e ? (r = new x(
+      e ? (r = new k(
         1013,
         // Try again later
         i ?? a.errors.disconnected()
-      ), this._log.debug(r)) : (r = new x(
+      ), this._log.debug(r)) : (r = new k(
         1011,
         // Internal error
         i ?? a.errors.permanentlyDisconnected()
@@ -325,7 +311,7 @@ const b = class b extends V {
   _handleChainChanged({
     chainId: e
   } = {}) {
-    if (!j(e)) {
+    if (!N(e)) {
       this._log.error(a.errors.invalidNetworkParams(), { chainId: e });
       return;
     }
@@ -354,7 +340,7 @@ const b = class b extends V {
         ), r = [];
         break;
       }
-    if (!J(this._state.accounts, r) && (i && this._state.accounts !== null && this._log.error(
+    if (!Q(this._state.accounts, r) && (i && this._state.accounts !== null && this._log.error(
       "ZondWallet: 'eth_accounts' unexpectedly updated accounts. Please report this bug.",
       r
     ), this._state.accounts = r, c(this, p) !== r[0] && l(this, p, r[0] || null), this._state.initialized)) {
@@ -395,12 +381,12 @@ f = new WeakMap(), p = new WeakMap(), m(b, "_defaultState", {
   isPermanentlyDisconnected: !1
 });
 let A = b;
-const re = /(?:^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[a-f0-9]{4}-[a-f0-9]{12}$)|(?:^0{8}-0{4}-0{4}-0{4}-0{12}$)/u, oe = /(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\.)+[a-zA-Z]{2,63}$)/u;
-function $e(t) {
+const oe = /(?:^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[a-f0-9]{4}-[a-f0-9]{12}$)|(?:^0{8}-0{4}-0{4}-0{4}-0{12}$)/u, se = /(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\.)+[a-zA-Z]{2,63}$)/u;
+function Fe(t) {
   window.addEventListener(
     "eip6963:announceProvider",
     (n) => {
-      de(n) || W(
+      ce(n) || W(
         "Invalid EIP-6963 AnnounceProviderEvent object received from eip6963:announceProvider event."
       ), t(n.detail);
     }
@@ -409,8 +395,8 @@ function $e(t) {
     /* Request */
   ));
 }
-function se(t) {
-  N(t) || W("Invalid EIP-6963 ProviderDetail object.");
+function ae(t) {
+  T(t) || W("Invalid EIP-6963 ProviderDetail object.");
   const { info: n, provider: e } = t, i = () => window.dispatchEvent(
     new CustomEvent("eip6963:announceProvider", {
       detail: Object.freeze({ info: { ...n }, provider: e })
@@ -419,35 +405,34 @@ function se(t) {
   i(), window.addEventListener(
     "eip6963:requestProvider",
     (r) => {
-      ae(r) || W(
+      de(r) || W(
         "Invalid EIP-6963 RequestProviderEvent object received from eip6963:requestProvider event."
       ), i();
     }
   );
 }
-function ae(t) {
+function de(t) {
   return t instanceof Event && t.type === "eip6963:requestProvider";
 }
-function de(t) {
-  return t instanceof CustomEvent && t.type === "eip6963:announceProvider" && Object.isFrozen(t.detail) && N(t.detail);
+function ce(t) {
+  return t instanceof CustomEvent && t.type === "eip6963:announceProvider" && Object.isFrozen(t.detail) && T(t.detail);
 }
-function N(t) {
+function T(t) {
   if (!S(t) || !S(t.info) || !S(t.provider))
     return !1;
   const { info: n } = t;
-  return typeof n.uuid == "string" && re.test(n.uuid) && typeof n.name == "string" && !!n.name && typeof n.icon == "string" && n.icon.startsWith("data:image") && typeof n.rdns == "string" && oe.test(n.rdns);
+  return typeof n.uuid == "string" && oe.test(n.uuid) && typeof n.name == "string" && !!n.name && typeof n.icon == "string" && n.icon.startsWith("data:image") && typeof n.rdns == "string" && se.test(n.rdns);
 }
 function W(t) {
   throw new Error(
     `${t} See https://eips.ethereum.org/EIPS/eip-6963 for requirements.`
   );
 }
-var k = function(t, n, e) {
-  if (e || arguments.length === 2)
-    for (var i = 0, r = n.length, o; i < r; i++)
-      (o || !(i in n)) && (o || (o = Array.prototype.slice.call(n, 0, i)), o[i] = n[i]);
+var D = function(t, n, e) {
+  if (e || arguments.length === 2) for (var i = 0, r = n.length, o; i < r; i++)
+    (o || !(i in n)) && (o || (o = Array.prototype.slice.call(n, 0, i)), o[i] = n[i]);
   return t.concat(o || Array.prototype.slice.call(n));
-}, ce = (
+}, le = (
   /** @class */
   /* @__PURE__ */ function() {
     function t(n, e, i) {
@@ -455,7 +440,7 @@ var k = function(t, n, e) {
     }
     return t;
   }()
-), le = (
+), he = (
   /** @class */
   /* @__PURE__ */ function() {
     function t(n) {
@@ -463,7 +448,7 @@ var k = function(t, n, e) {
     }
     return t;
   }()
-), he = (
+), ue = (
   /** @class */
   /* @__PURE__ */ function() {
     function t(n, e, i, r) {
@@ -471,7 +456,7 @@ var k = function(t, n, e) {
     }
     return t;
   }()
-), ue = (
+), fe = (
   /** @class */
   /* @__PURE__ */ function() {
     function t() {
@@ -479,7 +464,7 @@ var k = function(t, n, e) {
     }
     return t;
   }()
-), fe = (
+), pe = (
   /** @class */
   /* @__PURE__ */ function() {
     function t() {
@@ -487,7 +472,7 @@ var k = function(t, n, e) {
     }
     return t;
   }()
-), pe = /alexa|bot|crawl(er|ing)|facebookexternalhit|feedburner|google web preview|nagios|postrank|pingdom|slurp|spider|yahoo!|yandex/, me = /(nuhk|curl|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask\ Jeeves\/Teoma|ia_archiver)/, D = 3, ge = [
+), me = /alexa|bot|crawl(er|ing)|facebookexternalhit|feedburner|google web preview|nagios|postrank|pingdom|slurp|spider|yahoo!|yandex/, ge = /(nuhk|curl|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask\ Jeeves\/Teoma|ia_archiver)/, O = 3, _e = [
   ["aol", /AOLShield\/([0-9\._]+)/],
   ["edge", /Edge\/([0-9\._]+)/],
   ["edge-ios", /EdgiOS\/([0-9\._]+)/],
@@ -525,8 +510,8 @@ var k = function(t, n, e) {
   ["ios-webview", /AppleWebKit\/([0-9\.]+).*Mobile/],
   ["ios-webview", /AppleWebKit\/([0-9\.]+).*Gecko\)$/],
   ["curl", /^curl\/([0-9\.]+)$/],
-  ["searchbot", pe]
-], O = [
+  ["searchbot", me]
+], I = [
   ["iOS", /iP(hone|od|ad)/],
   ["Android OS", /Android/],
   ["BlackBerry OS", /BlackBerry|BB10/],
@@ -554,11 +539,11 @@ var k = function(t, n, e) {
   ["BeOS", /BeOS/],
   ["OS/2", /OS\/2/]
 ];
-function _e(t) {
-  return typeof document > "u" && typeof navigator < "u" && navigator.product === "ReactNative" ? new fe() : typeof navigator < "u" ? we(navigator.userAgent) : ye();
-}
 function ve(t) {
-  return t !== "" && ge.reduce(function(n, e) {
+  return typeof document > "u" && typeof navigator < "u" && navigator.product === "ReactNative" ? new pe() : typeof navigator < "u" ? be(navigator.userAgent) : Ee();
+}
+function we(t) {
+  return t !== "" && _e.reduce(function(n, e) {
     var i = e[0], r = e[1];
     if (n)
       return n;
@@ -566,40 +551,40 @@ function ve(t) {
     return !!o && [i, o];
   }, !1);
 }
-function we(t) {
-  var n = ve(t);
+function be(t) {
+  var n = we(t);
   if (!n)
     return null;
   var e = n[0], i = n[1];
   if (e === "searchbot")
-    return new ue();
+    return new fe();
   var r = i[1] && i[1].split(".").join("_").split("_").slice(0, 3);
-  r ? r.length < D && (r = k(k([], r, !0), Ee(D - r.length), !0)) : r = [];
-  var o = r.join("."), s = be(t), d = me.exec(t);
-  return d && d[1] ? new he(e, o, s, d[1]) : new ce(e, o, s);
+  r ? r.length < O && (r = D(D([], r, !0), Se(O - r.length), !0)) : r = [];
+  var o = r.join("."), s = ye(t), d = ge.exec(t);
+  return d && d[1] ? new ue(e, o, s, d[1]) : new le(e, o, s);
 }
-function be(t) {
-  for (var n = 0, e = O.length; n < e; n++) {
-    var i = O[n], r = i[0], o = i[1], s = o.exec(t);
+function ye(t) {
+  for (var n = 0, e = I.length; n < e; n++) {
+    var i = I[n], r = i[0], o = i[1], s = o.exec(t);
     if (s)
       return r;
   }
   return null;
 }
-function ye() {
+function Ee() {
   var t = typeof process < "u" && process.version;
-  return t ? new le(process.version.slice(1)) : null;
+  return t ? new he(process.version.slice(1)) : null;
 }
-function Ee(t) {
+function Se(t) {
   for (var n = [], e = 0; e < t; e++)
     n.push("0");
   return n;
 }
 var y = {};
 Object.defineProperty(y, "__esModule", { value: !0 });
-var T = y.PortDuplexStream = void 0;
-const Se = C;
-class Z extends Se.Duplex {
+var Z = y.PortDuplexStream = void 0;
+const Pe = C;
+class B extends Pe.Duplex {
   /**
    * @param port - An instance of WebExtensions Runtime.Port. See:
    * {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/Port}
@@ -661,15 +646,15 @@ class Z extends Se.Duplex {
     this._log = n;
   }
 }
-y.default = Z;
-T = y.PortDuplexStream = Z;
+y.default = B;
+Z = y.PortDuplexStream = B;
 const u = (t) => t !== null && typeof t == "object" && typeof t.pipe == "function";
 u.writable = (t) => u(t) && t.writable !== !1 && typeof t._write == "function" && typeof t._writableState == "object";
 u.readable = (t) => u(t) && t.readable !== !1 && typeof t._read == "function" && typeof t._readableState == "object";
 u.duplex = (t) => u.writable(t) && u.readable(t);
 u.transform = (t) => u.duplex(t) && typeof t._transform == "function";
-var Pe = u;
-class B extends A {
+var Ce = u;
+class q extends A {
   /**
    * Creates a new AbstractStreamProvider instance.
    *
@@ -689,16 +674,16 @@ class B extends A {
   }) {
     super({ logger: r, maxEventListeners: o, rpcMiddleware: s });
     m(this, "_jsonRpcConnection");
-    if (!Pe.duplex(e))
+    if (!Ce.duplex(e))
       throw new Error(a.errors.invalidDuplexStream());
     this._handleStreamDisconnect = this._handleStreamDisconnect.bind(this);
-    const d = new G();
+    const d = new X();
     C.pipeline(
       e,
       d,
       e,
       this._handleStreamDisconnect.bind(this, "ZondWallet")
-    ), this._jsonRpcConnection = K({
+    ), this._jsonRpcConnection = G({
       retryOnMessage: "ZOND_WALLET_EXTENSION_CONNECT_CAN_RETRY"
     }), C.pipeline(
       this._jsonRpcConnection.stream,
@@ -707,7 +692,7 @@ class B extends A {
       this._handleStreamDisconnect.bind(this, "ZondWallet RpcProvider")
     ), this._rpcEngine.push(this._jsonRpcConnection.middleware), this._jsonRpcConnection.events.on("notification", (E) => {
       const { method: g, params: _ } = E;
-      g === "metamask_accountsChanged" ? this._handleAccountsChanged(_) : g === "metamask_unlockStateChanged" ? this._handleUnlockStateChanged(_) : g === "metamask_chainChanged" ? this._handleChainChanged(_) : ee.includes(g) ? this.emit("message", {
+      g === "metamask_accountsChanged" ? this._handleAccountsChanged(_) : g === "metamask_unlockStateChanged" ? this._handleUnlockStateChanged(_) : g === "metamask_chainChanged" ? this._handleChainChanged(_) : te.includes(g) ? this.emit("message", {
         type: g,
         data: _
       }) : g === "METAMASK_STREAM_FAILURE" && e.destroy(
@@ -772,7 +757,7 @@ ${i.stack}`), this._log.warn(r), this.listenerCount("error") > 0 && this.emit("e
     chainId: e,
     networkVersion: i
   } = {}) {
-    if (!j(e) || !ie(i)) {
+    if (!N(e) || !re(i)) {
       this._log.error(a.errors.invalidNetworkParams(), {
         chainId: e,
         networkVersion: i
@@ -782,7 +767,7 @@ ${i.stack}`), this._log.warn(r), this.listenerCount("error") > 0 && this.emit("e
     i === "loading" ? this._handleDisconnect(!0) : super._handleChainChanged({ chainId: e });
   }
 }
-class Ce extends B {
+class Ae extends q {
   /**
    * MUST be called after instantiation to complete initialization.
    *
@@ -794,37 +779,37 @@ class Ce extends B {
     return this._initializeStateAsync();
   }
 }
-const Ae = {
+const We = {
   stable: "nkbihfbeogaeaoehlefnkodbefgpgknn",
   beta: "pbbkamfgmaedccnfkmjcofcecjhfgldn",
   flask: "ljfoeinjpaedjfecbmggjgodbgkmjkjk"
-}, We = {
+}, Re = {
   stable: "webextension@metamask.io",
   beta: "webextension-beta@metamask.io",
   flask: "webextension-flask@metamask.io"
-}, I = {
-  chromeIds: Ae,
-  firefoxIds: We
-}, q = "zond-wallet-provider", P = _e(), Re = q;
-function Fe(t = "stable") {
+}, M = {
+  chromeIds: We,
+  firefoxIds: Re
+}, z = "zond-wallet-provider", P = ve(), xe = z;
+function Ue(t = "stable") {
   let n;
   try {
-    const e = xe(t), i = chrome.runtime.connect(e), r = new T(i);
-    n = new Ce(r, {
-      jsonRpcStreamName: Re,
+    const e = ke(t), i = chrome.runtime.connect(e), r = new Z(i);
+    n = new Ae(r, {
+      jsonRpcStreamName: xe,
       logger: console,
-      rpcMiddleware: M(console)
+      rpcMiddleware: j(console)
     }), n.initialize();
   } catch (e) {
     throw console.dir("ZondWallet connect error.", e), e;
   }
   return n;
 }
-function xe(t) {
-  return ((P == null ? void 0 : P.name) === "firefox" ? I.firefoxIds : I.chromeIds)[t] ?? t;
+function ke(t) {
+  return ((P == null ? void 0 : P.name) === "firefox" ? M.firefoxIds : M.chromeIds)[t] ?? t;
 }
 var h;
-class ke extends B {
+class De extends q {
   /**
    * Creates a new `ZondWalletInpageProvider`.
    *
@@ -839,7 +824,7 @@ class ke extends B {
    * send page metadata. Default: `true`.
    */
   constructor(e, {
-    jsonRpcStreamName: i = q,
+    jsonRpcStreamName: i = z,
     logger: r = console,
     maxEventListeners: o = 100
   } = {}) {
@@ -847,9 +832,9 @@ class ke extends B {
       jsonRpcStreamName: i,
       logger: r,
       maxEventListeners: o,
-      rpcMiddleware: M(r)
+      rpcMiddleware: j(r)
     });
-    v(this, h, void 0);
+    v(this, h);
     /**
      * Indicating that this provider is a ZondWallet provider.
      */
@@ -903,14 +888,14 @@ class ke extends B {
   }
 }
 h = new WeakMap();
-function Ue({
+function Le({
   connectionStream: t,
   jsonRpcStreamName: n,
   logger: e = console,
   maxEventListeners: i = 100,
   providerInfo: r
 }) {
-  const o = new ke(t, {
+  const o = new De(t, {
     jsonRpcStreamName: n,
     logger: e,
     maxEventListeners: i
@@ -923,17 +908,17 @@ function Ue({
       return d[E];
     }
   });
-  return se({
+  return ae({
     info: r,
     provider: s
   }), s;
 }
 export {
   A as BaseProvider,
-  Ce as StreamProvider,
-  ke as ZondWalletInpageProvider,
-  Fe as createExternalExtensionProvider,
-  se as eip6963AnnounceProvider,
-  $e as eip6963RequestProvider,
-  Ue as initializeProvider
+  Ae as StreamProvider,
+  De as ZondWalletInpageProvider,
+  Ue as createExternalExtensionProvider,
+  ae as eip6963AnnounceProvider,
+  Fe as eip6963RequestProvider,
+  Le as initializeProvider
 };

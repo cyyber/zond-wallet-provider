@@ -1,5 +1,5 @@
-import { Failure, StructError } from './error.js';
-import { StructSchema } from './utils.js';
+import { Failure, StructError } from './error';
+import { StructSchema } from './utils';
 /**
  * `Struct` objects encapsulate the validation logic for a specific type of
  * values. Once constructed, you use the `assert`, `is` or `validate` helpers to
@@ -19,7 +19,7 @@ export declare class Struct<Type = unknown, Schema = unknown> {
         coercer?: Coercer | undefined;
         validator?: Validator | undefined;
         refiner?: Refiner<Type> | undefined;
-        entries?: Struct<Type, Schema>['entries'] | undefined;
+        entries?: Struct<Type, Schema>["entries"] | undefined;
     });
     /**
      * Assert that a value passes the struct's validation, throwing if it doesn't.
@@ -113,7 +113,7 @@ export type Context = {
 /**
  * A type utility to extract the type from a `Struct` class.
  */
-export type Infer<StructType extends Struct<any, any>> = StructType['TYPE'];
+export type Infer<StructType extends Struct<any, any>> = StructType["TYPE"];
 /**
  * A type utility to describe that a struct represents a TypeScript type.
  */

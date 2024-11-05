@@ -1,6 +1,6 @@
 var M = Object.defineProperty;
 var T = (e, t, n) => t in e ? M(e, t, { enumerable: !0, configurable: !0, writable: !0, value: n }) : e[t] = n;
-var p = (e, t, n) => (T(e, typeof t != "symbol" ? t + "" : t, n), n);
+var p = (e, t, n) => T(e, typeof t != "symbol" ? t + "" : t, n);
 class V extends TypeError {
   constructor(n, r) {
     let i;
