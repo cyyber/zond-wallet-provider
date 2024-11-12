@@ -1,6 +1,6 @@
-import type { Refiner } from "../struct.js";
-import { Struct } from "../struct.js";
-import { toFailures } from "../utils.js";
+import type { Refiner } from "../struct";
+import { Struct } from "../struct";
+import { toFailures } from "../utils";
 
 /**
  * Ensure that a string, array, map, or set is empty.
@@ -10,7 +10,7 @@ import { toFailures } from "../utils.js";
  */
 export function empty<
   Type extends string | any[] | Map<any, any> | Set<any>,
-  Schema,
+  Schema
 >(struct: Struct<Type, Schema>): Struct<Type, Schema> {
   return refine(struct, "empty", (value) => {
     // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -52,7 +52,7 @@ export function max<Type extends number | Date, Schema>(
   threshold: Type,
   options: {
     exclusive?: boolean | undefined;
-  } = {},
+  } = {}
 ): Struct<Type, Schema> {
   const { exclusive } = options;
   return refine(struct, "max", (value) => {
@@ -82,7 +82,7 @@ export function min<Type extends number | Date, Schema>(
   threshold: Type,
   options: {
     exclusive?: boolean | undefined;
-  } = {},
+  } = {}
 ): Struct<Type, Schema> {
   const { exclusive } = options;
   return refine(struct, "min", (value) => {
@@ -104,7 +104,7 @@ export function min<Type extends number | Date, Schema>(
  */
 export function nonempty<
   Type extends string | any[] | Map<any, any> | Set<any>,
-  Schema,
+  Schema
 >(struct: Struct<Type, Schema>): Struct<Type, Schema> {
   return refine(struct, "nonempty", (value) => {
     // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -125,7 +125,7 @@ export function nonempty<
  */
 export function pattern<Type extends string, Schema>(
   struct: Struct<Type, Schema>,
-  regexp: RegExp,
+  regexp: RegExp
 ): Struct<Type, Schema> {
   return refine(struct, "pattern", (value) => {
     return (
@@ -147,11 +147,11 @@ export function pattern<Type extends string, Schema>(
  */
 export function size<
   Type extends string | number | Date | any[] | Map<any, any> | Set<any>,
-  Schema,
+  Schema
 >(
   struct: Struct<Type, Schema>,
   minimum: number,
-  maximum: number = minimum,
+  maximum: number = minimum
 ): Struct<Type, Schema> {
   const expected = `Expected a ${struct.type}`;
   const of =
@@ -200,7 +200,7 @@ export function size<
 export function refine<Type, Schema>(
   struct: Struct<Type, Schema>,
   name: string,
-  refiner: Refiner<Type>,
+  refiner: Refiner<Type>
 ): Struct<Type, Schema> {
   return new Struct({
     ...struct,

@@ -43,14 +43,14 @@ describe("assert", () => {
 describe("assertExhaustive", () => {
   it("throws", () => {
     expect(() => assertExhaustive("foo" as never)).toThrow(
-      "Invalid branch reached. Should be detected during compilation.",
+      "Invalid branch reached. Should be detected during compilation."
     );
   });
 });
 
 describe("assertStruct", () => {
   beforeEach(() => {
-    const actual = jest.requireActual("@metamask/superstruct");
+    const actual = jest.requireActual("../superstruct");
     (
       superstructAssert as jest.MockedFunction<typeof superstructAssert>
     ).mockImplementation(actual.assert);
@@ -62,17 +62,17 @@ describe("assertStruct", () => {
 
   it("throws meaningful error messages for an invalid value", () => {
     expect(() => assertStruct(undefined, string())).toThrow(
-      "Assertion failed: Expected a string, but received: undefined.",
+      "Assertion failed: Expected a string, but received: undefined."
     );
 
     expect(() => assertStruct(1, string())).toThrow(
-      "Assertion failed: Expected a string, but received: 1.",
+      "Assertion failed: Expected a string, but received: 1."
     );
   });
 
   it("throws with a custom error prefix", () => {
     expect(() => assertStruct(null, string(), "Invalid string")).toThrow(
-      "Invalid string: Expected a string, but received: null.",
+      "Invalid string: Expected a string, but received: null."
     );
   });
 
@@ -85,12 +85,12 @@ describe("assertStruct", () => {
     }
 
     expect(() =>
-      assertStruct({ data: "foo" }, string(), "Invalid string", CustomError),
+      assertStruct({ data: "foo" }, string(), "Invalid string", CustomError)
     ).toThrow(
       new CustomError({
         message:
           "Invalid string: Expected a string, but received: [object Object].",
-      }),
+      })
     );
   });
 
@@ -99,12 +99,12 @@ describe("assertStruct", () => {
       new Error(message);
 
     expect(() =>
-      assertStruct({ data: "foo" }, string(), "Invalid string", CustomError),
+      assertStruct({ data: "foo" }, string(), "Invalid string", CustomError)
     ).toThrow(
       CustomError({
         message:
           "Invalid string: Expected a string, but received: [object Object].",
-      }),
+      })
     );
   });
 
@@ -117,7 +117,7 @@ describe("assertStruct", () => {
     });
 
     expect(() => assertStruct(true, string())).toThrow(
-      "Assertion failed: foo.",
+      "Assertion failed: foo."
     );
   });
 });

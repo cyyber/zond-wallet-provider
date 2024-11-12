@@ -1,4 +1,4 @@
-import { Coercer, Struct } from '../struct.js';
+import { Coercer, Struct } from '../struct';
 /**
  * Augment a `Struct` to add an additional coercion step to its input.
  *

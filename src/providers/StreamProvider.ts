@@ -56,7 +56,7 @@ export abstract class AbstractStreamProvider extends BaseProvider {
       logger = console,
       maxEventListeners = 100,
       rpcMiddleware = [],
-    }: StreamProviderOptions,
+    }: StreamProviderOptions
   ) {
     super({ logger, maxEventListeners, rpcMiddleware });
 
@@ -73,7 +73,7 @@ export abstract class AbstractStreamProvider extends BaseProvider {
       connectionStream,
       mux as unknown as Duplex,
       connectionStream,
-      this._handleStreamDisconnect.bind(this, "ZondWallet"),
+      this._handleStreamDisconnect.bind(this, "ZondWallet")
     );
 
     // Set up RPC connection
@@ -81,11 +81,12 @@ export abstract class AbstractStreamProvider extends BaseProvider {
       retryOnMessage: "ZOND_WALLET_EXTENSION_CONNECT_CAN_RETRY",
     }) as unknown as JsonRpcConnection;
 
+    // @ts-ignore
     pipeline(
       this._jsonRpcConnection.stream,
       mux.createStream(jsonRpcStreamName) as unknown as Duplex,
       this._jsonRpcConnection.stream,
-      this._handleStreamDisconnect.bind(this, "ZondWallet RpcProvider"),
+      this._handleStreamDisconnect.bind(this, "ZondWallet RpcProvider")
     );
 
     // Wire up the JsonRpcEngine to the JSON-RPC connection stream
@@ -107,7 +108,7 @@ export abstract class AbstractStreamProvider extends BaseProvider {
         });
       } else if (method === "METAMASK_STREAM_FAILURE") {
         connectionStream.destroy(
-          new Error(messages.errors.permanentlyDisconnected()),
+          new Error(messages.errors.permanentlyDisconnected())
         );
       }
     });
@@ -134,7 +135,7 @@ export abstract class AbstractStreamProvider extends BaseProvider {
     } catch (error) {
       this._log.error(
         "ZondWallet: Failed to get initial state. Please report this bug.",
-        error,
+        error
       );
     }
     this._initializeState(initialState);

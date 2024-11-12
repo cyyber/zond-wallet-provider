@@ -1,4 +1,4 @@
-import { Refiner, Struct } from '../struct.js';
+import { Refiner, Struct } from '../struct';
 /**
  * Ensure that a string, array, map, or set is empty.
  *

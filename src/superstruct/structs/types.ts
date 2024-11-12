@@ -1,14 +1,14 @@
-import type { Infer } from '../struct.js';
-import { Struct } from '../struct.js';
+import type { Infer } from "../struct";
+import { Struct } from "../struct";
 import type {
   ObjectSchema,
   ObjectType,
   AnyStruct,
   InferStructTuple,
   UnionToIntersection,
-} from '../utils.js';
-import { print, run, isObject } from '../utils.js';
-import { define } from './utilities.js';
+} from "../utils";
+import { print, run, isObject } from "../utils";
+import { define } from "./utilities";
 
 /**
  * Ensure that any value passes validation.
@@ -16,7 +16,7 @@ import { define } from './utilities.js';
  * @returns A struct that will always pass validation.
  */
 export function any(): Struct<any, null> {
-  return define('any', () => true);
+  return define("any", () => true);
 }
 
 /**
@@ -30,7 +30,7 @@ export function any(): Struct<any, null> {
  * @returns A new struct that will only accept arrays of the given type.
  */
 export function array<Type extends Struct<any>>(
-  Element: Type,
+  Element: Type
 ): Struct<Infer<Type>[], Type>;
 
 /**
@@ -56,7 +56,7 @@ export function array(): Struct<unknown[], undefined>;
  */
 export function array<Type extends Struct<any>>(Element?: Type): any {
   return new Struct({
-    type: 'array',
+    type: "array",
     schema: Element,
     *entries(value) {
       if (Element && Array.isArray(value)) {
@@ -83,8 +83,8 @@ export function array<Type extends Struct<any>>(Element?: Type): any {
  * @returns A new struct that will only accept bigints.
  */
 export function bigint(): Struct<bigint, null> {
-  return define('bigint', (value) => {
-    return typeof value === 'bigint';
+  return define("bigint", (value) => {
+    return typeof value === "bigint";
   });
 }
 
@@ -94,8 +94,8 @@ export function bigint(): Struct<bigint, null> {
  * @returns A new struct that will only accept booleans.
  */
 export function boolean(): Struct<boolean, null> {
-  return define('boolean', (value) => {
-    return typeof value === 'boolean';
+  return define("boolean", (value) => {
+    return typeof value === "boolean";
   });
 }
 
@@ -108,7 +108,7 @@ export function boolean(): Struct<boolean, null> {
  * @returns A new struct that will only accept valid `Date` objects.
  */
 export function date(): Struct<Date, null> {
-  return define('date', (value) => {
+  return define("date", (value) => {
     return (
       (value instanceof Date && !isNaN(value.getTime())) ||
       `Expected a valid \`Date\` object, but received: ${print(value)}`
@@ -126,7 +126,7 @@ export function date(): Struct<Date, null> {
  * @returns A new struct that will only accept the given values.
  */
 export function enums<Type extends number, Values extends readonly Type[]>(
-  values: Values,
+  values: Values
 ): Struct<Values[number], { [Key in Values[number]]: Key }>;
 
 /**
@@ -139,7 +139,7 @@ export function enums<Type extends number, Values extends readonly Type[]>(
  * @returns A new struct that will only accept the given values.
  */
 export function enums<Type extends string, Values extends readonly Type[]>(
-  values: Values,
+  values: Values
 ): Struct<Values[number], { [Key in Values[number]]: Key }>;
 
 /**
@@ -153,7 +153,7 @@ export function enums<Type extends string, Values extends readonly Type[]>(
  */
 export function enums<
   Type extends string | number,
-  Values extends readonly Type[],
+  Values extends readonly Type[]
 >(values: Values): any {
   const schema: any = {};
   const description = values.map((value) => print(value)).join();
@@ -163,7 +163,7 @@ export function enums<
   }
 
   return new Struct({
-    type: 'enums',
+    type: "enums",
     schema,
     validator(value) {
       return (
@@ -181,9 +181,9 @@ export function enums<
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function func(): Struct<Function, null> {
-  return define('func', (value) => {
+  return define("func", (value) => {
     return (
-      typeof value === 'function' ||
+      typeof value === "function" ||
       `Expected a function, but received: ${print(value)}`
     );
   });
@@ -196,9 +196,9 @@ export function func(): Struct<Function, null> {
  * @returns A new struct that will only accept instances of the given class.
  */
 export function instance<Type extends new (...args: any) => any>(
-  Class: Type,
+  Class: Type
 ): Struct<InstanceType<Type>, null> {
-  return define('instance', (value) => {
+  return define("instance", (value) => {
     return (
       value instanceof Class ||
       `Expected a \`${Class.name}\` instance, but received: ${print(value)}`
@@ -212,9 +212,9 @@ export function instance<Type extends new (...args: any) => any>(
  * @returns A new struct that will only accept integers.
  */
 export function integer(): Struct<number, null> {
-  return define('integer', (value) => {
+  return define("integer", (value) => {
     return (
-      (typeof value === 'number' && !isNaN(value) && Number.isInteger(value)) ||
+      (typeof value === "number" && !isNaN(value) && Number.isInteger(value)) ||
       `Expected an integer, but received: ${print(value)}`
     );
   });
@@ -228,13 +228,13 @@ export function integer(): Struct<number, null> {
  * given structs.
  */
 export function intersection<First extends AnyStruct, Rest extends AnyStruct[]>(
-  Structs: [First, ...Rest],
+  Structs: [First, ...Rest]
 ): Struct<
   Infer<First> & UnionToIntersection<InferStructTuple<Rest>[number]>,
   null
 > {
   return new Struct({
-    type: 'intersection',
+    type: "intersection",
     schema: null,
     *entries(value, context) {
       for (const { entries } of Structs) {
@@ -261,7 +261,7 @@ export function intersection<First extends AnyStruct, Rest extends AnyStruct[]>(
  * @returns A new struct that will only accept the exact given value.
  */
 export function literal<Type extends boolean>(
-  constant: Type,
+  constant: Type
 ): Struct<Type, Type>;
 
 /**
@@ -271,7 +271,7 @@ export function literal<Type extends boolean>(
  * @returns A new struct that will only accept the exact given value.
  */
 export function literal<Type extends number>(
-  constant: Type,
+  constant: Type
 ): Struct<Type, Type>;
 
 /**
@@ -281,7 +281,7 @@ export function literal<Type extends number>(
  * @returns A new struct that will only accept the exact given value.
  */
 export function literal<Type extends string>(
-  constant: Type,
+  constant: Type
 ): Struct<Type, Type>;
 
 /**
@@ -302,11 +302,11 @@ export function literal<Type>(constant: Type): any {
   const description = print(constant);
   const valueType = typeof constant;
   return new Struct({
-    type: 'literal',
+    type: "literal",
     schema:
-      valueType === 'string' ||
-      valueType === 'number' ||
-      valueType === 'boolean'
+      valueType === "string" ||
+      valueType === "number" ||
+      valueType === "boolean"
         ? constant
         : null,
 
@@ -337,7 +337,7 @@ export function map(): Struct<Map<unknown, unknown>, null>;
  */
 export function map<Key, Value>(
   Key: Struct<Key>,
-  Value: Struct<Value>,
+  Value: Struct<Value>
 ): Struct<Map<Key, Value>, null>;
 
 /**
@@ -350,7 +350,7 @@ export function map<Key, Value>(
  */
 export function map<Key, Value>(Key?: Struct<Key>, Value?: Struct<Value>): any {
   return new Struct({
-    type: 'map',
+    type: "map",
     schema: null,
     *entries(value) {
       if (Key && Value && value instanceof Map) {
@@ -378,7 +378,7 @@ export function map<Key, Value>(Key?: Struct<Key>, Value?: Struct<Value>): any {
  * @returns A new struct that will never pass validation.
  */
 export function never(): Struct<never, null> {
-  return define('never', () => false);
+  return define("never", () => false);
 }
 
 /**
@@ -388,7 +388,7 @@ export function never(): Struct<never, null> {
  * @returns A new struct that will accept `null` values.
  */
 export function nullable<Type, Schema>(
-  struct: Struct<Type, Schema>,
+  struct: Struct<Type, Schema>
 ): Struct<Type | null, Schema> {
   return new Struct({
     ...struct,
@@ -403,9 +403,9 @@ export function nullable<Type, Schema>(
  * @returns A new struct that will only accept numbers.
  */
 export function number(): Struct<number, null> {
-  return define('number', (value) => {
+  return define("number", (value) => {
     return (
-      (typeof value === 'number' && !isNaN(value)) ||
+      (typeof value === "number" && !isNaN(value)) ||
       `Expected a number, but received: ${print(value)}`
     );
   });
@@ -431,7 +431,7 @@ export function object(): Struct<Record<string, unknown>, null>;
  * @returns A new struct that will only accept objects.
  */
 export function object<Schema extends ObjectSchema>(
-  schema: Schema,
+  schema: Schema
 ): Struct<ObjectType<Schema>, Schema>;
 
 /**
@@ -444,12 +444,12 @@ export function object<Schema extends ObjectSchema>(
  * @returns A new struct that will only accept objects.
  */
 export function object<Schema extends ObjectSchema>(
-  schema?: Schema | undefined,
+  schema?: Schema | undefined
 ): any {
   const knowns = schema ? Object.keys(schema) : [];
   const Never = never();
   return new Struct({
-    type: 'object',
+    type: "object",
     schema: schema ?? null,
     *entries(value) {
       if (schema && isObject(value)) {
@@ -483,7 +483,7 @@ export function object<Schema extends ObjectSchema>(
  * @returns A new struct that will accept `undefined` values.
  */
 export function optional<Type, Schema>(
-  struct: Struct<Type, Schema>,
+  struct: Struct<Type, Schema>
 ): Struct<Type | undefined, Schema> {
   return new Struct({
     ...struct,
@@ -510,10 +510,10 @@ export function optional<Type, Schema>(
  */
 export function record<Key extends string, Value>(
   Key: Struct<Key>,
-  Value: Struct<Value>,
+  Value: Struct<Value>
 ): Struct<Record<Key, Value>, null> {
   return new Struct({
-    type: 'record',
+    type: "record",
     schema: null,
     *entries(value) {
       if (isObject(value)) {
@@ -542,7 +542,7 @@ export function record<Key extends string, Value>(
  * @returns A new struct that will only accept `RegExp` objects.
  */
 export function regexp(): Struct<RegExp, null> {
-  return define('regexp', (value) => {
+  return define("regexp", (value) => {
     return value instanceof RegExp;
   });
 }
@@ -573,7 +573,7 @@ export function set<Type>(Element: Struct<Type>): Struct<Set<Type>, null>;
  */
 export function set<Type>(Element?: Struct<Type>): any {
   return new Struct({
-    type: 'set',
+    type: "set",
     schema: null,
     *entries(value) {
       if (Element && value instanceof Set) {
@@ -600,9 +600,9 @@ export function set<Type>(Element?: Struct<Type>): any {
  * @returns A new struct that will only accept strings.
  */
 export function string(): Struct<string, null> {
-  return define('string', (value) => {
+  return define("string", (value) => {
     return (
-      typeof value === 'string' ||
+      typeof value === "string" ||
       `Expected a string, but received: ${print(value)}`
     );
   });
@@ -616,12 +616,12 @@ export function string(): Struct<string, null> {
  * @returns A new struct that will only accept tuples of the given types.
  */
 export function tuple<First extends AnyStruct, Rest extends AnyStruct[]>(
-  Structs: [First, ...Rest],
+  Structs: [First, ...Rest]
 ): Struct<[Infer<First>, ...InferStructTuple<Rest>], null> {
   const Never = never();
 
   return new Struct({
-    type: 'tuple',
+    type: "tuple",
     schema: null,
     *entries(value) {
       if (Array.isArray(value)) {
@@ -651,11 +651,11 @@ export function tuple<First extends AnyStruct, Rest extends AnyStruct[]>(
  * @returns A new struct that will only accept objects.
  */
 export function type<Schema extends ObjectSchema>(
-  schema: Schema,
+  schema: Schema
 ): Struct<ObjectType<Schema>, Schema> {
   const keys = Object.keys(schema);
   return new Struct({
-    type: 'type',
+    type: "type",
     schema,
     *entries(value) {
       if (isObject(value)) {
@@ -683,11 +683,11 @@ export function type<Schema extends ObjectSchema>(
  * given structs.
  */
 export function union<First extends AnyStruct, Rest extends AnyStruct[]>(
-  Structs: [First, ...Rest],
+  Structs: [First, ...Rest]
 ): Struct<Infer<First> | InferStructTuple<Rest>[number], null> {
-  const description = Structs.map((struct) => struct.type).join(' | ');
+  const description = Structs.map((struct) => struct.type).join(" | ");
   return new Struct({
-    type: 'union',
+    type: "union",
     schema: null,
     coercer(value) {
       for (const InnerStruct of Structs) {
@@ -719,7 +719,7 @@ export function union<First extends AnyStruct, Rest extends AnyStruct[]>(
 
       return [
         `Expected the value to satisfy a union of \`${description}\`, but received: ${print(
-          value,
+          value
         )}`,
         ...failures,
       ];
@@ -733,5 +733,5 @@ export function union<First extends AnyStruct, Rest extends AnyStruct[]>(
  * @returns A struct that will always pass validation.
  */
 export function unknown(): Struct<unknown, null> {
-  return define('unknown', () => true);
+  return define("unknown", () => true);
 }
