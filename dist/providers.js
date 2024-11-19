@@ -59,7 +59,7 @@ const Q = /* @__PURE__ */ U(J), a = {
   },
   warnings: {
     // deprecated methods
-    enableDeprecation: `ZondWallet: 'ethereum.enable()' is deprecated and may be removed in the future. Please use the 'eth_requestAccounts' RPC method instead.
+    enableDeprecation: `ZondWallet: 'ethereum.enable()' is deprecated and may be removed in the future. Please use the 'zond_requestAccounts' RPC method instead.
 For more information, see: https://eips.ethereum.org/EIPS/eip-1102`,
     sendDeprecation: `ZondWallet: 'ethereum.send(...)' is deprecated and may be removed in the future. Please use 'ethereum.sendAsync(...)' or 'ethereum.request(...)' instead.
 For more information, see: https://eips.ethereum.org/EIPS/eip-1193`,
@@ -75,9 +75,9 @@ For more information, see: https://eips.ethereum.org/EIPS/eip-1193#chainchanged`
 For more information, see: https://eips.ethereum.org/EIPS/eip-1193#message`
     },
     rpc: {
-      ethDecryptDeprecation: `ZondWallet: The RPC method 'eth_decrypt' is deprecated and may be removed in the future.
+      ethDecryptDeprecation: `ZondWallet: The RPC method 'zond_decrypt' is deprecated and may be removed in the future.
 For more information, see: https://medium.com/metamask/metamask-api-method-deprecation-2b0564a84686`,
-      ethGetEncryptionPublicKeyDeprecation: `ZondWallet: The RPC method 'eth_getEncryptionPublicKey' is deprecated and may be removed in the future.
+      ethGetEncryptionPublicKeyDeprecation: `ZondWallet: The RPC method 'zond_getEncryptionPublicKey' is deprecated and may be removed in the future.
 For more information, see: https://medium.com/metamask/metamask-api-method-deprecation-2b0564a84686`,
       walletWatchAssetNFTExperimental: "ZondWallet: The RPC method 'wallet_watchAsset' is experimental for ERC721/ERC1155 assets and may change in the future."
     },
@@ -93,13 +93,13 @@ function ee(t) {
   };
   return (e, i, r) => {
     var o;
-    !n.ethDecryptDeprecation && e.method === "eth_decrypt" ? (t.warn(a.warnings.rpc.ethDecryptDeprecation), n.ethDecryptDeprecation = !0) : !n.ethGetEncryptionPublicKeyDeprecation && e.method === "eth_getEncryptionPublicKey" ? (t.warn(a.warnings.rpc.ethGetEncryptionPublicKeyDeprecation), n.ethGetEncryptionPublicKeyDeprecation = !0) : !n.walletWatchAssetNFTExperimental && e.method === "wallet_watchAsset" && [Y, H].includes(
+    !n.ethDecryptDeprecation && e.method === "zond_decrypt" ? (t.warn(a.warnings.rpc.ethDecryptDeprecation), n.ethDecryptDeprecation = !0) : !n.ethGetEncryptionPublicKeyDeprecation && e.method === "zond_getEncryptionPublicKey" ? (t.warn(a.warnings.rpc.ethGetEncryptionPublicKeyDeprecation), n.ethGetEncryptionPublicKeyDeprecation = !0) : !n.walletWatchAssetNFTExperimental && e.method === "wallet_watchAsset" && [Y, H].includes(
       ((o = e.params) == null ? void 0 : o.type) || ""
     ) && (t.warn(a.warnings.rpc.walletWatchAssetNFTExperimental), n.walletWatchAssetNFTExperimental = !0), r();
   };
 }
 const te = Object.freeze([
-  "eth_subscription"
+  "zond_subscription"
   // per eth-json-rpc-filters/subscriptionManager
 ]), j = (t = console) => [
   L(),
@@ -147,7 +147,7 @@ const b = class b extends K {
     v(this, f);
     /**
      * The user's currently selected Ethereum address.
-     * If null, ZondWallet is either locked or the user has not permitted any
+     * If null, ZondWeb3Wallet is either locked or the user has not permitted any
      * addresses to be viewed.
      */
     v(this, p);
@@ -229,7 +229,7 @@ const b = class b extends K {
    * @param initialState - The provider's initial state.
    * @param initialState.accounts - The user's accounts.
    * @param initialState.chainId - The chain ID.
-   * @param initialState.isUnlocked - Whether the user has unlocked ZondWallet.
+   * @param initialState.isUnlocked - Whether the user has unlocked ZondWeb3Wallet.
    * @param initialState.networkVersion - The network version.
    * @fires BaseProvider#_initialized - If `initialState` is defined.
    * @fires BaseProvider#connect - If `initialState` is defined.
@@ -253,10 +253,10 @@ const b = class b extends K {
    */
   _rpcRequest(e, i) {
     let r = i;
-    return Array.isArray(e) ? this._rpcEngine.handle(e, r) : (e.jsonrpc || (e.jsonrpc = "2.0"), (e.method === "eth_accounts" || e.method === "eth_requestAccounts") && (r = (o, s) => {
+    return Array.isArray(e) ? this._rpcEngine.handle(e, r) : (e.jsonrpc || (e.jsonrpc = "2.0"), (e.method === "zond_accounts" || e.method === "zond_requestAccounts") && (r = (o, s) => {
       this._handleAccountsChanged(
         s.result ?? [],
-        e.method === "eth_accounts"
+        e.method === "zond_accounts"
       ), i(o, s);
     }), this._rpcEngine.handle(e, r));
   }
@@ -265,7 +265,7 @@ const b = class b extends K {
    * required events. Idempotent.
    *
    * @param chainId - The ID of the newly connected chain.
-   * @fires ZondWalletInpageProvider#connect
+   * @fires ZondWeb3WalletInpageProvider#connect
    */
   _handleConnect(e) {
     this._state.isConnected || (this._state.isConnected = !0, this.emit("connect", { chainId: e }), this._log.debug(a.info.connected(e)));
@@ -324,24 +324,24 @@ const b = class b extends K {
    *
    * @param accounts - The new accounts value.
    * @param isEthAccounts - Whether the accounts value was returned by
-   * a call to eth_accounts.
+   * a call to zond_accounts.
    */
   _handleAccountsChanged(e, i = !1) {
     let r = e;
     Array.isArray(e) || (this._log.error(
-      "ZondWallet: Received invalid accounts parameter. Please report this bug.",
+      "ZondWeb3Wallet: Received invalid accounts parameter. Please report this bug.",
       e
     ), r = []);
     for (const o of e)
       if (typeof o != "string") {
         this._log.error(
-          "ZondWallet: Received non-string account. Please report this bug.",
+          "ZondWeb3Wallet: Received non-string account. Please report this bug.",
           e
         ), r = [];
         break;
       }
     if (!Q(this._state.accounts, r) && (i && this._state.accounts !== null && this._log.error(
-      "ZondWallet: 'eth_accounts' unexpectedly updated accounts. Please report this bug.",
+      "ZondWeb3Wallet: 'zond_accounts' unexpectedly updated accounts. Please report this bug.",
       r
     ), this._state.accounts = r, c(this, p) !== r[0] && l(this, p, r[0] || null), this._state.initialized)) {
       const o = [...r];
@@ -366,7 +366,7 @@ const b = class b extends K {
   } = {}) {
     if (typeof i != "boolean") {
       this._log.error(
-        "ZondWallet: Received invalid isUnlocked parameter. Please report this bug."
+        "ZondWeb3Wallet: Received invalid isUnlocked parameter. Please report this bug."
       );
       return;
     }
@@ -380,13 +380,13 @@ f = new WeakMap(), p = new WeakMap(), m(b, "_defaultState", {
   initialized: !1,
   isPermanentlyDisconnected: !1
 });
-let A = b;
+let W = b;
 const oe = /(?:^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[a-f0-9]{4}-[a-f0-9]{12}$)|(?:^0{8}-0{4}-0{4}-0{4}-0{12}$)/u, se = /(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\.)+[a-zA-Z]{2,63}$)/u;
 function Fe(t) {
   window.addEventListener(
     "eip6963:announceProvider",
     (n) => {
-      ce(n) || W(
+      ce(n) || A(
         "Invalid EIP-6963 AnnounceProviderEvent object received from eip6963:announceProvider event."
       ), t(n.detail);
     }
@@ -396,7 +396,7 @@ function Fe(t) {
   ));
 }
 function ae(t) {
-  T(t) || W("Invalid EIP-6963 ProviderDetail object.");
+  T(t) || A("Invalid EIP-6963 ProviderDetail object.");
   const { info: n, provider: e } = t, i = () => window.dispatchEvent(
     new CustomEvent("eip6963:announceProvider", {
       detail: Object.freeze({ info: { ...n }, provider: e })
@@ -405,7 +405,7 @@ function ae(t) {
   i(), window.addEventListener(
     "eip6963:requestProvider",
     (r) => {
-      de(r) || W(
+      de(r) || A(
         "Invalid EIP-6963 RequestProviderEvent object received from eip6963:requestProvider event."
       ), i();
     }
@@ -423,7 +423,7 @@ function T(t) {
   const { info: n } = t;
   return typeof n.uuid == "string" && oe.test(n.uuid) && typeof n.name == "string" && !!n.name && typeof n.icon == "string" && n.icon.startsWith("data:image") && typeof n.rdns == "string" && se.test(n.rdns);
 }
-function W(t) {
+function A(t) {
   throw new Error(
     `${t} See https://eips.ethereum.org/EIPS/eip-6963 for requirements.`
   );
@@ -582,9 +582,9 @@ function Se(t) {
 }
 var y = {};
 Object.defineProperty(y, "__esModule", { value: !0 });
-var Z = y.PortDuplexStream = void 0;
+var z = y.PortDuplexStream = void 0;
 const Pe = C;
-class B extends Pe.Duplex {
+class Z extends Pe.Duplex {
   /**
    * @param port - An instance of WebExtensions Runtime.Port. See:
    * {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/Port}
@@ -646,15 +646,15 @@ class B extends Pe.Duplex {
     this._log = n;
   }
 }
-y.default = B;
-Z = y.PortDuplexStream = B;
+y.default = Z;
+z = y.PortDuplexStream = Z;
 const u = (t) => t !== null && typeof t == "object" && typeof t.pipe == "function";
 u.writable = (t) => u(t) && t.writable !== !1 && typeof t._write == "function" && typeof t._writableState == "object";
 u.readable = (t) => u(t) && t.readable !== !1 && typeof t._read == "function" && typeof t._readableState == "object";
 u.duplex = (t) => u.writable(t) && u.readable(t);
 u.transform = (t) => u.duplex(t) && typeof t._transform == "function";
 var Ce = u;
-class q extends A {
+class B extends W {
   /**
    * Creates a new AbstractStreamProvider instance.
    *
@@ -767,7 +767,7 @@ ${i.stack}`), this._log.warn(r), this.listenerCount("error") > 0 && this.emit("e
     i === "loading" ? this._handleDisconnect(!0) : super._handleChainChanged({ chainId: e });
   }
 }
-class Ae extends q {
+class We extends B {
   /**
    * MUST be called after instantiation to complete initialization.
    *
@@ -779,7 +779,7 @@ class Ae extends q {
     return this._initializeStateAsync();
   }
 }
-const We = {
+const Ae = {
   stable: "nkbihfbeogaeaoehlefnkodbefgpgknn",
   beta: "pbbkamfgmaedccnfkmjcofcecjhfgldn",
   flask: "ljfoeinjpaedjfecbmggjgodbgkmjkjk"
@@ -788,14 +788,14 @@ const We = {
   beta: "webextension-beta@metamask.io",
   flask: "webextension-flask@metamask.io"
 }, M = {
-  chromeIds: We,
+  chromeIds: Ae,
   firefoxIds: Re
-}, z = "zond-wallet-provider", P = ve(), xe = z;
+}, q = "zond-wallet-provider", P = ve(), xe = q;
 function Ue(t = "stable") {
   let n;
   try {
-    const e = ke(t), i = chrome.runtime.connect(e), r = new Z(i);
-    n = new Ae(r, {
+    const e = ke(t), i = chrome.runtime.connect(e), r = new z(i);
+    n = new We(r, {
       jsonRpcStreamName: xe,
       logger: console,
       rpcMiddleware: j(console)
@@ -809,7 +809,7 @@ function ke(t) {
   return ((P == null ? void 0 : P.name) === "firefox" ? M.firefoxIds : M.chromeIds)[t] ?? t;
 }
 var h;
-class De extends q {
+class De extends B {
   /**
    * Creates a new `ZondWalletInpageProvider`.
    *
@@ -824,7 +824,7 @@ class De extends q {
    * send page metadata. Default: `true`.
    */
   constructor(e, {
-    jsonRpcStreamName: i = z,
+    jsonRpcStreamName: i = q,
     logger: r = console,
     maxEventListeners: o = 100
   } = {}) {
@@ -914,8 +914,8 @@ function Le({
   }), s;
 }
 export {
-  A as BaseProvider,
-  Ae as StreamProvider,
+  W as BaseProvider,
+  We as StreamProvider,
   De as ZondWalletInpageProvider,
   Ue as createExternalExtensionProvider,
   ae as eip6963AnnounceProvider,

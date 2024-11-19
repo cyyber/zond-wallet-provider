@@ -7,9 +7,9 @@ import { ZOND_WALLET_PROVIDER_NAME } from "@/constants/providerConstants";
 
 export type SendSyncJsonRpcRequest = {
   method:
-    | "eth_accounts"
-    | "eth_coinbase"
-    | "eth_uninstallFilter"
+    | "zond_accounts"
+    | "zond_coinbase"
+    | "zond_uninstallFilter"
     | "net_version";
 } & JsonRpcRequest;
 

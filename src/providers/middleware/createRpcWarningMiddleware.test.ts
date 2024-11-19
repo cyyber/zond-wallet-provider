@@ -19,13 +19,13 @@ type Scenario = {
 
 const affected: Scenario[] = [
   {
-    scenario: "eth_decrypt",
-    method: "eth_decrypt",
+    scenario: "zond_decrypt",
+    method: "zond_decrypt",
     warning: messages.warnings.rpc.ethDecryptDeprecation,
   },
   {
-    scenario: "eth_getEncryptionPublicKey",
-    method: "eth_getEncryptionPublicKey",
+    scenario: "zond_getEncryptionPublicKey",
+    method: "zond_getEncryptionPublicKey",
     warning: messages.warnings.rpc.ethGetEncryptionPublicKeyDeprecation,
   },
   {
@@ -50,8 +50,8 @@ const affected: Scenario[] = [
 
 const unaffected: Scenario[] = [
   {
-    scenario: "eth_chainId",
-    method: "eth_chainId",
+    scenario: "zond_chainId",
+    method: "zond_chainId",
   },
   {
     scenario: 'wallet_watchAsset with `type: "ERC20"`',
@@ -140,7 +140,7 @@ describe("createRpcWarningMiddleware", () => {
 
         expect(result.error.message).toBe("Internal JSON-RPC error.");
       });
-    },
+    }
   );
 
   describe.each(unaffected)("$scenario", ({ method, params = {} }) => {
