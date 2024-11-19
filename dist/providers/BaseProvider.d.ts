@@ -93,7 +93,7 @@ export declare abstract class BaseProvider extends SafeEventEmitter {
      * @param initialState - The provider's initial state.
      * @param initialState.accounts - The user's accounts.
      * @param initialState.chainId - The chain ID.
-     * @param initialState.isUnlocked - Whether the user has unlocked ZondWallet.
+     * @param initialState.isUnlocked - Whether the user has unlocked ZondWeb3Wallet.
      * @param initialState.networkVersion - The network version.
      * @fires BaseProvider#_initialized - If `initialState` is defined.
      * @fires BaseProvider#connect - If `initialState` is defined.
@@ -118,7 +118,7 @@ export declare abstract class BaseProvider extends SafeEventEmitter {
      * required events. Idempotent.
      *
      * @param chainId - The ID of the newly connected chain.
-     * @fires ZondWalletInpageProvider#connect
+     * @fires ZondWeb3WalletInpageProvider#connect
      */
     protected _handleConnect(chainId: string): void;
     /**
@@ -156,7 +156,7 @@ export declare abstract class BaseProvider extends SafeEventEmitter {
      *
      * @param accounts - The new accounts value.
      * @param isEthAccounts - Whether the accounts value was returned by
-     * a call to eth_accounts.
+     * a call to zond_accounts.
      */
     protected _handleAccountsChanged(accounts: unknown[], isEthAccounts?: boolean): void;
     /**

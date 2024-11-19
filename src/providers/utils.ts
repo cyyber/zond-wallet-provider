@@ -15,7 +15,7 @@ export type ConsoleLike = Pick<
 // Constants
 
 export const EMITTED_NOTIFICATIONS = Object.freeze([
-  "eth_subscription", // per eth-json-rpc-filters/subscriptionManager
+  "zond_subscription", // per eth-json-rpc-filters/subscriptionManager
 ]);
 
 // Utility functions
@@ -41,7 +41,7 @@ export const getDefaultExternalMiddleware = (logger: ConsoleLike = console) => [
  * @returns A @metamask/json-rpc-engine middleware function.
  */
 function createErrorMiddleware(
-  log: ConsoleLike,
+  log: ConsoleLike
 ): JsonRpcMiddleware<JsonRpcParams, Json> {
   return (request, response, next) => {
     // json-rpc-engine will terminate the request when it notices this error
@@ -68,7 +68,7 @@ export const getRpcPromiseCallback =
   (
     resolve: (value?: any) => void,
     reject: (error?: Error) => void,
-    unwrapResult = true,
+    unwrapResult = true
   ) =>
   (error: Error, response: PendingJsonRpcResponse<Json>): void => {
     if (error || response.error) {
@@ -98,7 +98,7 @@ export const isValidChainId = (chainId: unknown): chainId is string =>
  * @returns Whether the given network version is valid.
  */
 export const isValidNetworkVersion = (
-  networkVersion: unknown,
+  networkVersion: unknown
 ): networkVersion is string =>
   Boolean(networkVersion) && typeof networkVersion === "string";
 

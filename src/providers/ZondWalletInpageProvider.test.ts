@@ -355,14 +355,14 @@ describe("ZondWalletInpageProvider: RPC", () => {
       });
     });
 
-    it("calls _handleAccountsChanged on request for eth_accounts", async () => {
+    it("calls _handleAccountsChanged on request for zond_accounts", async () => {
       setNextRpcEngineResponse(null, { result: ["0x1"] });
       await new Promise((done) => {
         provider._rpcRequest(
-          { method: "eth_accounts" },
+          { method: "zond_accounts" },
           (error: any, response: any) => {
             expect(provider._rpcEngine.handle).toHaveBeenCalledWith(
-              expect.objectContaining({ method: "eth_accounts" }),
+              expect.objectContaining({ method: "zond_accounts" }),
               expect.any(Function)
             );
 
@@ -379,14 +379,14 @@ describe("ZondWalletInpageProvider: RPC", () => {
       });
     });
 
-    it("calls _handleAccountsChanged with empty array on eth_accounts request returning error", async () => {
+    it("calls _handleAccountsChanged with empty array on zond_accounts request returning error", async () => {
       setNextRpcEngineResponse(new Error("foo"), { error: "foo" });
       await new Promise((done) => {
         provider._rpcRequest(
-          { method: "eth_accounts" },
+          { method: "zond_accounts" },
           (error: any, response: any) => {
             expect(provider._rpcEngine.handle).toHaveBeenCalledWith(
-              expect.objectContaining({ method: "eth_accounts" }),
+              expect.objectContaining({ method: "zond_accounts" }),
               expect.any(Function)
             );
 
@@ -502,11 +502,11 @@ describe("ZondWalletInpageProvider: RPC", () => {
     describe("rpc methods", () => {
       const warnings = [
         {
-          method: "eth_decrypt",
+          method: "zond_decrypt",
           warning: messages.warnings.rpc.ethDecryptDeprecation,
         },
         {
-          method: "eth_getEncryptionPublicKey",
+          method: "zond_getEncryptionPublicKey",
           warning: messages.warnings.rpc.ethGetEncryptionPublicKeyDeprecation,
         },
       ];

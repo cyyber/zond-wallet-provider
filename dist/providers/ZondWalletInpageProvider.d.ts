@@ -2,7 +2,7 @@ import { Duplex } from 'readable-stream';
 import { JsonRpcRequest } from '../utils';
 import { StreamProviderOptions, AbstractStreamProvider } from './StreamProvider';
 export type SendSyncJsonRpcRequest = {
-    method: "eth_accounts" | "eth_coinbase" | "eth_uninstallFilter" | "net_version";
+    method: "zond_accounts" | "zond_coinbase" | "zond_uninstallFilter" | "net_version";
 } & JsonRpcRequest;
 export type ZondWalletInpageProviderOptions = {
     /**
