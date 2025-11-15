@@ -12,7 +12,7 @@ import type { ConsoleLike } from "../utils";
  * @returns The JSON-RPC middleware.
  */
 export function createRpcWarningMiddleware(
-  log: ConsoleLike,
+  log: ConsoleLike
 ): JsonRpcMiddleware<JsonRpcParams, Json> {
   const sentWarnings = {
     ethDecryptDeprecation: false,
@@ -21,12 +21,12 @@ export function createRpcWarningMiddleware(
   };
 
   return (req, _res, next) => {
-    if (!sentWarnings.ethDecryptDeprecation && req.method === "eth_decrypt") {
+    if (!sentWarnings.ethDecryptDeprecation && req.method === "zond_decrypt") {
       log.warn(messages.warnings.rpc.ethDecryptDeprecation);
       sentWarnings.ethDecryptDeprecation = true;
     } else if (
       !sentWarnings.ethGetEncryptionPublicKeyDeprecation &&
-      req.method === "eth_getEncryptionPublicKey"
+      req.method === "zond_getEncryptionPublicKey"
     ) {
       log.warn(messages.warnings.rpc.ethGetEncryptionPublicKeyDeprecation);
       sentWarnings.ethGetEncryptionPublicKeyDeprecation = true;
@@ -34,7 +34,7 @@ export function createRpcWarningMiddleware(
       !sentWarnings.walletWatchAssetNFTExperimental &&
       req.method === "wallet_watchAsset" &&
       [ERC721, ERC1155].includes(
-        (req as JsonRpcRequest<{ type: string }>).params?.type || "",
+        (req as JsonRpcRequest<{ type: string }>).params?.type || ""
       )
     ) {
       log.warn(messages.warnings.rpc.walletWatchAssetNFTExperimental);

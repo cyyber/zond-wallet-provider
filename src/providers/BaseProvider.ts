@@ -90,7 +90,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
 
   /**
    * The user's currently selected Ethereum address.
-   * If null, ZondWallet is either locked or the user has not permitted any
+   * If null, ZondWeb3Wallet is either locked or the user has not permitted any
    * addresses to be viewed.
    */
   #selectedAddress: string | null;
@@ -236,7 +236,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
    * @param initialState - The provider's initial state.
    * @param initialState.accounts - The user's accounts.
    * @param initialState.chainId - The chain ID.
-   * @param initialState.isUnlocked - Whether the user has unlocked ZondWallet.
+   * @param initialState.isUnlocked - Whether the user has unlocked ZondWeb3Wallet.
    * @param initialState.networkVersion - The network version.
    * @fires BaseProvider#_initialized - If `initialState` is defined.
    * @fires BaseProvider#connect - If `initialState` is defined.
@@ -277,7 +277,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
    */
   protected _rpcRequest(
     payload: UnvalidatedJsonRpcRequest | UnvalidatedJsonRpcRequest[],
-    callback: (...args: any[]) => void,
+    callback: (...args: any[]) => void
   ) {
     let callbackWrapper = callback;
 
@@ -287,17 +287,17 @@ export abstract class BaseProvider extends SafeEventEmitter {
       }
 
       if (
-        payload.method === "eth_accounts" ||
-        payload.method === "eth_requestAccounts"
+        payload.method === "zond_accounts" ||
+        payload.method === "zond_requestAccounts"
       ) {
         // handle accounts changing
         callbackWrapper = (
           error: Error,
-          response: JsonRpcSuccess<string[]>,
+          response: JsonRpcSuccess<string[]>
         ) => {
           this._handleAccountsChanged(
             response.result ?? [],
-            payload.method === "eth_accounts",
+            payload.method === "zond_accounts"
           );
           callback(error, response);
         };
@@ -312,7 +312,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
    * required events. Idempotent.
    *
    * @param chainId - The ID of the newly connected chain.
-   * @fires ZondWalletInpageProvider#connect
+   * @fires ZondWeb3WalletInpageProvider#connect
    */
   protected _handleConnect(chainId: string) {
     if (!this._state.isConnected) {
@@ -344,13 +344,13 @@ export abstract class BaseProvider extends SafeEventEmitter {
       if (isRecoverable) {
         error = new JsonRpcError(
           1013, // Try again later
-          errorMessage ?? messages.errors.disconnected(),
+          errorMessage ?? messages.errors.disconnected()
         );
         this._log.debug(error);
       } else {
         error = new JsonRpcError(
           1011, // Internal error
-          errorMessage ?? messages.errors.permanentlyDisconnected(),
+          errorMessage ?? messages.errors.permanentlyDisconnected()
         );
         this._log.error(error);
         this.#chainId = null;
@@ -403,18 +403,18 @@ export abstract class BaseProvider extends SafeEventEmitter {
    *
    * @param accounts - The new accounts value.
    * @param isEthAccounts - Whether the accounts value was returned by
-   * a call to eth_accounts.
+   * a call to zond_accounts.
    */
   protected _handleAccountsChanged(
     accounts: unknown[],
-    isEthAccounts = false,
+    isEthAccounts = false
   ): void {
     let _accounts = accounts;
 
     if (!Array.isArray(accounts)) {
       this._log.error(
-        "ZondWallet: Received invalid accounts parameter. Please report this bug.",
-        accounts,
+        "ZondWeb3Wallet: Received invalid accounts parameter. Please report this bug.",
+        accounts
       );
       _accounts = [];
     }
@@ -422,8 +422,8 @@ export abstract class BaseProvider extends SafeEventEmitter {
     for (const account of accounts) {
       if (typeof account !== "string") {
         this._log.error(
-          "ZondWallet: Received non-string account. Please report this bug.",
-          accounts,
+          "ZondWeb3Wallet: Received non-string account. Please report this bug.",
+          accounts
         );
         _accounts = [];
         break;
@@ -432,12 +432,12 @@ export abstract class BaseProvider extends SafeEventEmitter {
 
     // emit accountsChanged if anything about the accounts array has changed
     if (!dequal(this._state.accounts, _accounts)) {
-      // we should always have the correct accounts even before eth_accounts
+      // we should always have the correct accounts even before zond_accounts
       // returns
       if (isEthAccounts && this._state.accounts !== null) {
         this._log.error(
-          `ZondWallet: 'eth_accounts' unexpectedly updated accounts. Please report this bug.`,
-          _accounts,
+          `ZondWeb3Wallet: 'zond_accounts' unexpectedly updated accounts. Please report this bug.`,
+          _accounts
         );
       }
 
@@ -474,7 +474,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
   }: { accounts?: string[]; isUnlocked?: boolean } = {}) {
     if (typeof isUnlocked !== "boolean") {
       this._log.error(
-        "ZondWallet: Received invalid isUnlocked parameter. Please report this bug.",
+        "ZondWeb3Wallet: Received invalid isUnlocked parameter. Please report this bug."
       );
       return;
     }

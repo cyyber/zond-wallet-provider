@@ -170,11 +170,11 @@ describe("createExternalExtensionProvider", () => {
   describe("RPC warnings", () => {
     const warnings = [
       {
-        method: "eth_decrypt",
+        method: "zond_decrypt",
         warning: messages.warnings.rpc.ethDecryptDeprecation,
       },
       {
-        method: "eth_getEncryptionPublicKey",
+        method: "zond_getEncryptionPublicKey",
         warning: messages.warnings.rpc.ethGetEncryptionPublicKeyDeprecation,
       },
     ];

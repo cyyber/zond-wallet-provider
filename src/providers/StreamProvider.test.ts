@@ -16,7 +16,7 @@ const mockStreamName = "mock-stream";
  * @returns A tuple containing the StreamProvider instance and the mock stream.
  */
 function getStreamProvider(
-  rpcMiddleware: JsonRpcMiddleware<JsonRpcParams, Json>[] = [],
+  rpcMiddleware: JsonRpcMiddleware<JsonRpcParams, Json>[] = []
 ) {
   const mockStream = new MockConnectionStream();
   const streamProvider = new StreamProvider(mockStream, {
@@ -77,7 +77,7 @@ describe("StreamProvider", () => {
 
       const setNextRpcEngineResponse = (
         error: Error | null = null,
-        response = {},
+        response = {}
       ) => {
         mockRpcEngineResponse.mockReturnValueOnce([error, response]);
       };
@@ -91,7 +91,7 @@ describe("StreamProvider", () => {
           .spyOn((streamProvider as any)._rpcEngine, "handle")
           .mockImplementation((_payload, callback: any) =>
             // eslint-disable-next-line n/no-callback-literal
-            callback(...mockRpcEngineResponse()),
+            callback(...mockRpcEngineResponse())
           );
       });
 
@@ -106,7 +106,7 @@ describe("StreamProvider", () => {
             method: "foo",
             params: ["bar"],
           }),
-          expect.any(Function),
+          expect.any(Function)
         );
 
         expect(result).toBe(42);
@@ -116,7 +116,7 @@ describe("StreamProvider", () => {
         setNextRpcEngineResponse(new Error("foo"));
 
         await expect(
-          streamProvider.request({ method: "foo", params: ["bar"] }),
+          streamProvider.request({ method: "foo", params: ["bar"] })
         ).rejects.toThrow("foo");
 
         expect((streamProvider as any)._rpcEngine.handle).toHaveBeenCalledWith(
@@ -124,7 +124,7 @@ describe("StreamProvider", () => {
             method: "foo",
             params: ["bar"],
           }),
-          expect.any(Function),
+          expect.any(Function)
         );
       });
     });
@@ -146,7 +146,7 @@ describe("StreamProvider", () => {
           .mockImplementation(
             (_payload: unknown, callback: any, _isInternal: unknown) =>
               // eslint-disable-next-line n/no-callback-literal
-              callback(...mockRpcRequestResponse()),
+              callback(...mockRpcRequestResponse())
           );
       });
 
@@ -164,7 +164,7 @@ describe("StreamProvider", () => {
             method: "foo",
             params: ["bar"],
           }),
-          expect.any(Function),
+          expect.any(Function)
         );
       });
 
@@ -172,7 +172,7 @@ describe("StreamProvider", () => {
         setNextRpcRequestResponse(new Error("foo"));
 
         await expect(
-          streamProvider.request({ method: "foo", params: ["bar"] }),
+          streamProvider.request({ method: "foo", params: ["bar"] })
         ).rejects.toThrow("foo");
 
         expect((streamProvider as any)._rpcRequest).toHaveBeenCalledWith(
@@ -180,63 +180,63 @@ describe("StreamProvider", () => {
             method: "foo",
             params: ["bar"],
           }),
-          expect.any(Function),
+          expect.any(Function)
         );
       });
 
       it("throws on non-object args", async () => {
         await expect(async () =>
-          streamProvider.request(undefined as any),
+          streamProvider.request(undefined as any)
         ).rejects.toThrow(messages.errors.invalidRequestArgs());
 
         await expect(async () =>
-          streamProvider.request(null as any),
+          streamProvider.request(null as any)
         ).rejects.toThrow(messages.errors.invalidRequestArgs());
 
         await expect(async () =>
-          streamProvider.request([] as any),
+          streamProvider.request([] as any)
         ).rejects.toThrow(messages.errors.invalidRequestArgs());
 
         await expect(async () =>
-          streamProvider.request("foo" as any),
+          streamProvider.request("foo" as any)
         ).rejects.toThrow(messages.errors.invalidRequestArgs());
       });
 
       it("throws on invalid args.method", async () => {
         await expect(async () =>
-          streamProvider.request({} as any),
+          streamProvider.request({} as any)
         ).rejects.toThrow(messages.errors.invalidRequestMethod());
 
         await expect(async () =>
-          streamProvider.request({ method: null } as any),
+          streamProvider.request({ method: null } as any)
         ).rejects.toThrow(messages.errors.invalidRequestMethod());
 
         await expect(async () =>
           streamProvider.request({
             method: 2 as any,
-          }),
+          })
         ).rejects.toThrow(messages.errors.invalidRequestMethod());
 
         await expect(async () =>
-          streamProvider.request({ method: "" }),
+          streamProvider.request({ method: "" })
         ).rejects.toThrow(messages.errors.invalidRequestMethod());
       });
 
       it("throws on invalid args.params", async () => {
         await expect(async () =>
-          streamProvider.request({ method: "foo", params: null } as any),
+          streamProvider.request({ method: "foo", params: null } as any)
         ).rejects.toThrow(messages.errors.invalidRequestParams());
 
         await expect(async () =>
-          streamProvider.request({ method: "foo", params: 2 } as any),
+          streamProvider.request({ method: "foo", params: 2 } as any)
         ).rejects.toThrow(messages.errors.invalidRequestParams());
 
         await expect(async () =>
-          streamProvider.request({ method: "foo", params: true } as any),
+          streamProvider.request({ method: "foo", params: true } as any)
         ).rejects.toThrow(messages.errors.invalidRequestParams());
 
         await expect(async () =>
-          streamProvider.request({ method: "foo", params: "a" } as any),
+          streamProvider.request({ method: "foo", params: "a" } as any)
         ).rejects.toThrow(messages.errors.invalidRequestParams());
       });
     });
@@ -250,7 +250,7 @@ describe("StreamProvider", () => {
 
       const setNextRpcEngineResponse = (
         error: Error | null = null,
-        response = {},
+        response = {}
       ) => {
         mockRpcEngineResponse.mockReturnValueOnce([error, response]);
       };
@@ -264,7 +264,7 @@ describe("StreamProvider", () => {
           .spyOn((streamProvider as any)._rpcEngine, "handle")
           .mockImplementation((_payload, callback: any) =>
             // eslint-disable-next-line n/no-callback-literal
-            callback(...mockRpcEngineResponse()),
+            callback(...mockRpcEngineResponse())
           );
       });
 
@@ -275,19 +275,19 @@ describe("StreamProvider", () => {
             { method: "foo", params: ["bar"] },
             (error: Error | null, response: any) => {
               expect(
-                (streamProvider as any)._rpcEngine.handle,
+                (streamProvider as any)._rpcEngine.handle
               ).toHaveBeenCalledWith(
                 expect.objectContaining({
                   method: "foo",
                   params: ["bar"],
                 }),
-                expect.any(Function),
+                expect.any(Function)
               );
 
               expect(error).toBeNull();
               expect(response).toStrictEqual({ result: 42 });
               done(undefined);
-            },
+            }
           );
         });
       });
@@ -299,69 +299,69 @@ describe("StreamProvider", () => {
             { method: "foo", params: ["bar"] },
             (error: Error | null, response: any) => {
               expect(
-                (streamProvider as any)._rpcEngine.handle,
+                (streamProvider as any)._rpcEngine.handle
               ).toHaveBeenCalledWith(
                 expect.objectContaining({
                   method: "foo",
                   params: ["bar"],
                 }),
-                expect.any(Function),
+                expect.any(Function)
               );
 
               expect(error).toStrictEqual(new Error("foo"));
               expect(response).toStrictEqual({ error: "foo" });
               done(undefined);
-            },
+            }
           );
         });
       });
 
-      it("calls _handleAccountsChanged on request for eth_accounts", async () => {
+      it("calls _handleAccountsChanged on request for zond_accounts", async () => {
         setNextRpcEngineResponse(null, { result: ["0x1"] });
         await new Promise((done) => {
           (streamProvider as any)._rpcRequest(
-            { method: "eth_accounts" },
+            { method: "zond_accounts" },
             (error: Error | null, response: any) => {
               expect(
-                (streamProvider as any)._rpcEngine.handle,
+                (streamProvider as any)._rpcEngine.handle
               ).toHaveBeenCalledWith(
-                expect.objectContaining({ method: "eth_accounts" }),
-                expect.any(Function),
+                expect.objectContaining({ method: "zond_accounts" }),
+                expect.any(Function)
               );
 
               expect(
-                (streamProvider as any)._handleAccountsChanged,
+                (streamProvider as any)._handleAccountsChanged
               ).toHaveBeenCalledWith(["0x1"], true);
 
               expect(error).toBeNull();
               expect(response).toStrictEqual({ result: ["0x1"] });
               done(undefined);
-            },
+            }
           );
         });
       });
 
-      it("calls _handleAccountsChanged with empty array on eth_accounts request returning error", async () => {
+      it("calls _handleAccountsChanged with empty array on zond_accounts request returning error", async () => {
         setNextRpcEngineResponse(new Error("foo"), { error: "foo" });
         await new Promise((done) => {
           (streamProvider as any)._rpcRequest(
-            { method: "eth_accounts" },
+            { method: "zond_accounts" },
             (error: Error | null, res: any) => {
               expect(
-                (streamProvider as any)._rpcEngine.handle,
+                (streamProvider as any)._rpcEngine.handle
               ).toHaveBeenCalledWith(
-                expect.objectContaining({ method: "eth_accounts" }),
-                expect.any(Function),
+                expect.objectContaining({ method: "zond_accounts" }),
+                expect.any(Function)
               );
 
               expect(
-                (streamProvider as any)._handleAccountsChanged,
+                (streamProvider as any)._handleAccountsChanged
               ).toHaveBeenCalledWith([], true);
 
               expect(error).toStrictEqual(new Error("foo"));
               expect(res).toStrictEqual({ error: "foo" });
               done(undefined);
-            },
+            }
           );
         });
       });

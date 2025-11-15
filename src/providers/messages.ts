@@ -25,7 +25,7 @@ const messages = {
   },
   warnings: {
     // deprecated methods
-    enableDeprecation: `ZondWallet: 'ethereum.enable()' is deprecated and may be removed in the future. Please use the 'eth_requestAccounts' RPC method instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1102`,
+    enableDeprecation: `ZondWallet: 'ethereum.enable()' is deprecated and may be removed in the future. Please use the 'zond_requestAccounts' RPC method instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1102`,
     sendDeprecation: `ZondWallet: 'ethereum.send(...)' is deprecated and may be removed in the future. Please use 'ethereum.sendAsync(...)' or 'ethereum.request(...)' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193`,
     // deprecated events
     events: {
@@ -35,8 +35,8 @@ const messages = {
       notification: `ZondWallet: The event 'notification' is deprecated and may be removed in the future. Use 'message' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193#message`,
     },
     rpc: {
-      ethDecryptDeprecation: `ZondWallet: The RPC method 'eth_decrypt' is deprecated and may be removed in the future.\nFor more information, see: https://medium.com/metamask/metamask-api-method-deprecation-2b0564a84686`,
-      ethGetEncryptionPublicKeyDeprecation: `ZondWallet: The RPC method 'eth_getEncryptionPublicKey' is deprecated and may be removed in the future.\nFor more information, see: https://medium.com/metamask/metamask-api-method-deprecation-2b0564a84686`,
+      ethDecryptDeprecation: `ZondWallet: The RPC method 'zond_decrypt' is deprecated and may be removed in the future.\nFor more information, see: https://medium.com/metamask/metamask-api-method-deprecation-2b0564a84686`,
+      ethGetEncryptionPublicKeyDeprecation: `ZondWallet: The RPC method 'zond_getEncryptionPublicKey' is deprecated and may be removed in the future.\nFor more information, see: https://medium.com/metamask/metamask-api-method-deprecation-2b0564a84686`,
       walletWatchAssetNFTExperimental: `ZondWallet: The RPC method 'wallet_watchAsset' is experimental for ERC721/ERC1155 assets and may change in the future.`,
     },
     // misc
